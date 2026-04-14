@@ -34,7 +34,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Protected routes - redirect to login if not authenticated
-  const protectedPaths = ["/dashboard", "/cv", "/ho-so"];
+  const protectedPaths = ["/dashboard", "/cv", "/ho-so", "/nha-tuyen-dung", "/viec-da-luu", "/tin-nhan"];
   const isProtected = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );

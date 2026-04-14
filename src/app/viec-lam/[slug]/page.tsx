@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import type { Metadata } from "next";
 import { MapPin, Building2, Clock, Briefcase, DollarSign } from "lucide-react";
 import { ApplyDialog } from "@/components/jobs/apply-dialog";
+import { SaveJobButton } from "@/components/jobs/save-job-button";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -165,6 +166,7 @@ export default async function JobDetailPage({ params }: Props) {
                 </div>
 
                 <ApplyDialog jobId={job.id} />
+                <SaveJobButton jobId={job.id} />
               </div>
 
               {/* Company info */}

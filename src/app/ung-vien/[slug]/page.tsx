@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import type { Metadata } from "next";
 import { Mail, MapPin, Globe, Link2, ExternalLink } from "lucide-react";
+import { ContactDialog } from "@/components/candidates/contact-dialog";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -91,9 +92,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                   </div>
                 </div>
                 <div className="shrink-0 pt-16 sm:pt-4">
-                  <button className="kinetic-gradient text-white font-bold text-sm px-8 py-3 rounded-xl shadow-lg hover:opacity-90 transition-all" style={{ fontFamily: "var(--font-headline)" }}>
-                    Liên hệ ứng viên
-                  </button>
+                  <ContactDialog candidateId={profile.id} candidateName={profile.full_name} />
                 </div>
               </div>
             </div>
