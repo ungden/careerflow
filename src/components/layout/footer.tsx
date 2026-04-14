@@ -14,10 +14,11 @@ export function Footer() {
         </div>
         <div className="flex flex-wrap gap-8 justify-start md:justify-end">
           {[
-            { href: "#", label: "Về chúng tôi" },
-            { href: "#", label: "Điều khoản" },
-            { href: "#", label: "Bảo mật" },
-            { href: "#", label: "Liên hệ" },
+            { href: "/lien-he", label: "Về chúng tôi" },
+            { href: "/dieu-khoan", label: "Điều khoản" },
+            { href: "/bao-mat", label: "Bảo mật" },
+            { href: "/cau-hoi", label: "FAQ" },
+            { href: "/lien-he", label: "Liên hệ" },
           ].map((link) => (
             <Link
               key={link.label}

@@ -13,6 +13,7 @@ import { ProjectsForm } from "@/components/cv-editor/sections/projects-form";
 import { Input } from "@/components/ui/input";
 import { templates, type TemplateId } from "@/components/cv-preview/templates/template-registry";
 import { PublishDialog } from "@/components/cv-editor/publish-dialog";
+import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 
 const sections = [
@@ -42,6 +43,7 @@ export default function CVEditorPage() {
   const [loading, setLoading] = useState(true);
   const [mobileView, setMobileView] = useState<"edit" | "preview">("edit");
   const [editingTitle, setEditingTitle] = useState(false);
+  const [isPro, setIsPro] = useState(false);
 
   useEffect(() => {
     loadCV(cvId)
@@ -51,6 +53,31 @@ export default function CVEditorPage() {
         setLoading(false);
       });
   }, [cvId, loadCV]);
+
+  useEffect(() => {
+    const supabase = createClient();
+    (async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("subscription_tier")
+        .eq("id", user.id)
+        .single();
+      setIsPro(profile?.subscription_tier === "pro");
+    })();
+  }, []);
+
+  const handleTemplateChange = (newId: string) => {
+    const tmpl = templates[newId as TemplateId];
+    if (tmpl?.premium && !isPro) {
+      toast.error("Nâng cấp Pro để dùng template này");
+      return;
+    }
+    setTemplate(newId);
+  };
 
   if (loading) {
     return (
@@ -107,11 +134,13 @@ export default function CVEditorPage() {
             {/* Template selector */}
             <select
               value={cv.template_id}
-              onChange={(e) => setTemplate(e.target.value)}
+              onChange={(e) => handleTemplateChange(e.target.value)}
               className="h-10 text-sm rounded-xl border-none bg-[#f3f4f6] px-4 focus:ring-1 focus:ring-[#003d9b] font-medium"
             >
               {Object.entries(templates).map(([id, tmpl]) => (
-                <option key={id} value={id}>{tmpl.name}</option>
+                <option key={id} value={id}>
+                  {tmpl.name}{tmpl.premium && !isPro ? " 🔒 Pro" : ""}
+                </option>
               ))}
             </select>
             <button

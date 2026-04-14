@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "sonner";
+import { CookieBanner } from "@/components/cookie-banner";
 import "./globals.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const manrope = Manrope({
   variable: "--font-headline",
@@ -44,7 +48,22 @@ export default function RootLayout({
     <html lang="vi" className={`${manrope.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         {children}
+        <CookieBanner />
         <Toaster position="top-right" richColors />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga" strategy="afterInteractive">{`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}');
+            `}</Script>
+          </>
+        )}
       </body>
     </html>
   );

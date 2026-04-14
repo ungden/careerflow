@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Bảng giá",
@@ -10,20 +11,37 @@ export const metadata: Metadata = {
 };
 
 const freeTier = [
-  "1 template cơ bản",
+  "2 template cơ bản (Classic, Modern)",
   "Export PDF có watermark",
-  "Publish profile",
-  "1 AI review",
+  "1 AI CV Review/tháng",
+  "3 AI Cover Letter/tháng",
+  "5 AI Interview/tháng",
+  "5 AI Salary/tháng",
 ];
 
 const proTier = [
-  "Tất cả templates",
+  "Tất cả 10 templates",
   "Không watermark",
   "AI không giới hạn",
-  "Ưu tiên hiển thị",
+  "Ưu tiên hỗ trợ",
 ];
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let currentTier: "free" | "pro" | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("subscription_tier")
+      .eq("id", user.id)
+      .single();
+    currentTier = (profile?.subscription_tier as "free" | "pro") ?? "free";
+  }
+
   return (
     <>
       <Header />
@@ -40,6 +58,18 @@ export default function PricingPage() {
             <p className="text-[#434654] text-lg max-w-2xl mx-auto">
               Bắt đầu miễn phí, nâng cấp khi bạn cần nhiều hơn.
             </p>
+            {currentTier && (
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-[#434654]">
+                <span>Gói hiện tại của bạn:</span>
+                <span
+                  className={`font-bold ${
+                    currentTier === "pro" ? "text-[#003d9b]" : "text-[#434654]"
+                  }`}
+                >
+                  {currentTier === "pro" ? "Pro" : "Free"}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Pricing Cards */}
@@ -84,13 +114,22 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/dang-ky"
-                className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#003d9b] bg-[#d4e0f8] hover:opacity-90 transition-all"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Bắt đầu miễn phí
-              </Link>
+              {currentTier === "free" ? (
+                <div
+                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#434654] bg-slate-100"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  Đang sử dụng
+                </div>
+              ) : (
+                <Link
+                  href={user ? "/cong-cu" : "/dang-ky"}
+                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#003d9b] bg-[#d4e0f8] hover:opacity-90 transition-all"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  Bắt đầu miễn phí
+                </Link>
+              )}
             </div>
 
             {/* Pro Tier */}
@@ -136,13 +175,25 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/dang-ky?plan=pro"
-                className="block text-center py-4 px-8 rounded-xl font-bold text-sm kinetic-gradient text-white shadow-lg hover:opacity-90 transition-all"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Nâng cấp Pro
-              </Link>
+              {currentTier === "pro" ? (
+                <div
+                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-white bg-white/20"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  Đang sử dụng
+                </div>
+              ) : (
+                <Link
+                  href="/nang-cap"
+                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm kinetic-gradient text-white shadow-lg hover:opacity-90 transition-all"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  Nâng cấp Pro
+                </Link>
+              )}
+              <p className="text-blue-200/80 text-xs text-center mt-3">
+                Thanh toán qua VNPay/Stripe đang được cấu hình
+              </p>
             </div>
           </div>
         </div>
