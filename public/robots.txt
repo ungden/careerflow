@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /cv
+Disallow: /ho-so
+Disallow: /api/
+
+Sitemap: https://careerflow.vn/sitemap.xml
