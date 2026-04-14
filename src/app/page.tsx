@@ -8,7 +8,7 @@ export default function HomePage() {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-24 pb-32">
+        <section className="relative overflow-hidden pt-24 pb-32 section-white">
           <div className="max-w-7xl mx-auto px-8 relative z-10">
             <div className="flex flex-col md:flex-row items-center gap-16">
               <div className="w-full md:w-1/2">
@@ -48,8 +48,8 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 relative">
-                <div className="relative z-10 bg-white rounded-[32px] p-4 shadow-2xl border border-white/50">
-                  <div className="rounded-[24px] w-full aspect-[4/3] bg-gradient-to-br from-[#dae2ff] to-[#f3f4f6] flex items-center justify-center">
+                <div className="relative z-10 bg-white rounded-[32px] p-4 shadow-[0_8px_32px_rgba(11,22,40,0.12),0_2px_8px_rgba(11,22,40,0.06)] border border-[#dde3ed]">
+                  <div className="rounded-[24px] w-full aspect-[4/3] bg-gradient-to-br from-[#d0daff] to-[#e8ecf2] flex items-center justify-center">
                     <div className="text-center">
                       <div className="w-32 h-40 bg-white rounded-lg shadow-lg mx-auto mb-4 flex flex-col p-3 gap-1">
                         <div className="w-8 h-8 rounded-full bg-blue-100 mx-auto" />
@@ -67,17 +67,17 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-[#f3f4f6] -skew-x-12 origin-top-right -z-0" />
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-[#e4e9f2] -skew-x-12 origin-top-right -z-0" />
         </section>
 
         {/* Process Section: 3 Steps */}
-        <section className="py-32 bg-white">
+        <section className="py-32 section-dark">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6" style={{ fontFamily: "var(--font-headline)" }}>
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6 text-white" style={{ fontFamily: "var(--font-headline)" }}>
                 Hành trình 3 bước đến thành công
               </h2>
-              <p className="text-[#434654] max-w-2xl mx-auto text-lg">
+              <p className="text-slate-400 max-w-2xl mx-auto text-lg">
                 Quy trình tối giản giúp bạn tiết kiệm thời gian và tập trung vào những gì quan trọng nhất.
               </p>
             </div>
@@ -103,13 +103,13 @@ export default function HomePage() {
                 },
               ].map((item) => (
                 <div key={item.step} className="group">
-                  <div className={`bg-[#f3f4f6] rounded-[40px] p-10 h-full transition-all duration-500 ${item.hoverBg} hover:-translate-y-4`}>
+                  <div className={`bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 h-full transition-all duration-500 ${item.hoverBg} hover:-translate-y-4`}>
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform">
                       <svg className="w-7 h-7 text-[#003d9b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
-                    <span className="text-6xl font-black text-[#c3c6d6]/20 mb-4 block group-hover:text-white/20">{item.step}.</span>
-                    <h3 className="text-2xl font-bold mb-4 group-hover:text-white" style={{ fontFamily: "var(--font-headline)" }}>{item.title}</h3>
-                    <p className="text-[#434654] group-hover:text-white/80 leading-relaxed">{item.description}</p>
+                    <span className="text-6xl font-black text-[#0041a8]/10 mb-4 block group-hover:text-white/20">{item.step}.</span>
+                    <h3 className="text-2xl font-bold mb-4 text-[#121720] group-hover:text-white" style={{ fontFamily: "var(--font-headline)" }}>{item.title}</h3>
+                    <p className="text-[#475569] group-hover:text-white/80 leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -118,7 +118,7 @@ export default function HomePage() {
         </section>
 
         {/* Marketplace & Tools: Bento Grid */}
-        <section className="py-32 bg-[#f8f9fb] overflow-hidden">
+        <section className="py-32 section-white overflow-hidden">
           <div className="max-w-7xl mx-auto px-8">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
               <div className="max-w-xl">
@@ -132,7 +132,7 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               {/* Job Marketplace */}
-              <div className="md:col-span-8 bg-white rounded-[40px] p-12 relative overflow-hidden shadow-sm">
+              <div className="md:col-span-8 bg-white rounded-[40px] p-12 relative overflow-hidden card-elevated">
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-2 bg-[#82f9be] text-[#005235] px-4 py-2 rounded-full mb-8">
                     <span className="text-xs font-bold uppercase tracking-widest">Job Marketplace</span>
@@ -165,7 +165,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
               </div>
               {/* Widget 1 */}
-              <div className="md:col-span-4 bg-[#f3f4f6] rounded-[40px] p-10 flex flex-col justify-between">
+              <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
                 <div>
                   <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
                     <svg className="w-6 h-6 text-[#003d9b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
@@ -178,7 +178,7 @@ export default function HomePage() {
                 </div>
               </div>
               {/* Widget 2 */}
-              <div className="md:col-span-4 bg-[#f3f4f6] rounded-[40px] p-10 flex flex-col justify-between">
+              <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
                 <div>
                   <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
                     <svg className="w-6 h-6 text-[#004e32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
@@ -188,7 +188,7 @@ export default function HomePage() {
                 </div>
               </div>
               {/* Widget 3 */}
-              <div className="md:col-span-4 bg-[#f3f4f6] rounded-[40px] p-10 flex flex-col justify-between">
+              <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
                 <div>
                   <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
                     <svg className="w-6 h-6 text-[#535f73]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" /></svg>

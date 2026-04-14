@@ -22,7 +22,7 @@ export function Header() {
   const isActive = (href: string) => pathname.startsWith(href.split("/").slice(0, 2).join("/"));
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0px_12px_32px_rgba(25,28,30,0.04)]">
+    <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(11,22,40,0.08),0_8px_24px_rgba(11,22,40,0.04)]">
       <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-8">
         {/* Logo */}
         <Link href="/" className="text-2xl font-black tracking-tighter text-blue-800 font-[var(--font-headline)]" style={{ fontFamily: "var(--font-headline)" }}>

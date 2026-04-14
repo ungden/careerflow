@@ -65,54 +65,54 @@
 }
 
 :root {
-  /* Stitch Editorial Architect — Navy Blue Theme */
-  --background: #f8f9fb;
-  --foreground: #191c1e;
+  /* CareerFlow — Editorial Architect Refined */
+  --background: #eef1f5;
+  --foreground: #121720;
   --card: #ffffff;
-  --card-foreground: #191c1e;
+  --card-foreground: #121720;
   --popover: #ffffff;
-  --popover-foreground: #191c1e;
-  --primary: #003d9b;
+  --popover-foreground: #121720;
+  --primary: #0041a8;
   --primary-foreground: #ffffff;
   --primary-container: #0052cc;
-  --primary-fixed: #dae2ff;
+  --primary-fixed: #d5deff;
   --on-primary-fixed: #001848;
-  --secondary: #535f73;
+  --secondary: #475569;
   --secondary-foreground: #ffffff;
-  --secondary-container: #d4e0f8;
-  --on-secondary-fixed-variant: #3b475b;
+  --secondary-container: #cbd5e8;
+  --on-secondary-fixed-variant: #334155;
   --tertiary: #004e32;
   --tertiary-fixed: #82f9be;
   --on-tertiary-fixed-variant: #005235;
-  --muted: #f3f4f6;
-  --muted-foreground: #434654;
-  --accent: #edeef0;
-  --accent-foreground: #191c1e;
+  --muted: #e2e6ed;
+  --muted-foreground: #3b4252;
+  --accent: #dde3ed;
+  --accent-foreground: #121720;
   --destructive: #ba1a1a;
-  --border: #c3c6d6;
-  --input: #e1e2e4;
-  --ring: #003d9b;
-  --on-surface-variant: #434654;
-  --outline-variant: #c3c6d6;
-  --surface-container-low: #f3f4f6;
+  --border: #c3c8d8;
+  --input: #d5d9e2;
+  --ring: #0041a8;
+  --on-surface-variant: #3b4252;
+  --outline-variant: #b8bdc8;
+  --surface-container-low: #e6e9f0;
   --surface-container-lowest: #ffffff;
-  --surface-container-high: #e7e8ea;
-  --surface-container-highest: #e1e2e4;
+  --surface-container-high: #d5d9e2;
+  --surface-container-highest: #c8ced8;
   --radius: 0.75rem;
 
-  --chart-1: #003d9b;
+  --chart-1: #0041a8;
   --chart-2: #0052cc;
   --chart-3: #004e32;
-  --chart-4: #535f73;
-  --chart-5: #dae2ff;
-  --sidebar: #f3f4f6;
-  --sidebar-foreground: #191c1e;
-  --sidebar-primary: #003d9b;
+  --chart-4: #475569;
+  --chart-5: #d5deff;
+  --sidebar: #0b1628;
+  --sidebar-foreground: #e2e6ed;
+  --sidebar-primary: #6d9fff;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #edeef0;
-  --sidebar-accent-foreground: #191c1e;
-  --sidebar-border: #c3c6d6;
-  --sidebar-ring: #003d9b;
+  --sidebar-accent: #1a2744;
+  --sidebar-accent-foreground: #e2e6ed;
+  --sidebar-border: #1e2d4a;
+  --sidebar-ring: #6d9fff;
 }
 
 .dark {
@@ -169,14 +169,30 @@
   }
 }
 
-/* Stitch Editorial Architect Utilities */
+/* CareerFlow Utilities */
 .kinetic-gradient {
-  background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
+  background: linear-gradient(135deg, #0041a8 0%, #0052cc 100%);
 }
 
 .glass-effect {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+}
+
+/* Section depth — alternating backgrounds */
+.section-light { background: #f7f8fb; }
+.section-white { background: #ffffff; }
+.section-navy { background: #0b1628; color: #e2e6ed; }
+.section-dark { background: #0f1d32; color: #e2e6ed; }
+.section-muted { background: #e8ecf2; }
+
+/* Card elevation */
+.card-elevated {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(11,22,40,0.06), 0 8px 24px rgba(11,22,40,0.04);
+}
+.card-elevated:hover {
+  box-shadow: 0 4px 12px rgba(11,22,40,0.08), 0 16px 40px rgba(11,22,40,0.06);
 }
 
 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
