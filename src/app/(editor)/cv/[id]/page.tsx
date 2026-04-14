@@ -12,6 +12,7 @@ import { LanguagesForm } from "@/components/cv-editor/sections/languages-form";
 import { ProjectsForm } from "@/components/cv-editor/sections/projects-form";
 import { Input } from "@/components/ui/input";
 import { templates, type TemplateId } from "@/components/cv-preview/templates/template-registry";
+import { PublishDialog } from "@/components/cv-editor/publish-dialog";
 import { toast } from "sonner";
 
 const sections = [
@@ -120,12 +121,7 @@ export default function CVEditorPage() {
             >
               Tải PDF
             </button>
-            <button
-              className="px-6 py-2.5 rounded-xl text-sm font-bold kinetic-gradient text-white shadow-lg shadow-[#003d9b]/20"
-              style={{ fontFamily: "var(--font-headline)" }}
-            >
-              Publish lên Marketplace
-            </button>
+            <PublishDialog />
           </div>
         </div>
       </header>

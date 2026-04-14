@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ProfileForm } from "./profile-form";
 
 export const metadata: Metadata = {
   title: "Hồ sơ cá nhân",
@@ -68,100 +69,14 @@ export default async function HoSoPage() {
           </div>
 
           {/* Profile Form */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-8">
-            <h2
-              className="text-xl font-extrabold text-[#191c1e]"
-              style={{ fontFamily: "var(--font-headline)" }}
-            >
-              Thông tin cá nhân
-            </h2>
-
-            <div className="space-y-6">
-              {/* Họ tên */}
-              <div className="space-y-2">
-                <label
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Họ và tên
-                </label>
-                <input
-                  type="text"
-                  defaultValue={displayName}
-                  placeholder="Nhập họ và tên"
-                  className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
-                />
-              </div>
-
-              {/* Email (read-only) */}
-              <div className="space-y-2">
-                <label
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  defaultValue={user.email || ""}
-                  disabled
-                  className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#434654] outline-none cursor-not-allowed"
-                />
-                <p className="text-xs text-[#434654]/60">
-                  Email không thể thay đổi
-                </p>
-              </div>
-
-              {/* Số điện thoại */}
-              <div className="space-y-2">
-                <label
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Số điện thoại
-                </label>
-                <input
-                  type="tel"
-                  defaultValue={phone}
-                  placeholder="Nhập số điện thoại"
-                  className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
-                />
-              </div>
-
-              {/* Slug */}
-              <div className="space-y-2">
-                <label
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Đường dẫn hồ sơ (slug)
-                </label>
-                <div className="flex items-center gap-0">
-                  <span className="bg-[#e5e7eb] rounded-l-2xl px-4 py-3.5 text-sm text-[#434654] border-r border-[#d1d5db]">
-                    careerflow.vn/ung-vien/
-                  </span>
-                  <input
-                    type="text"
-                    defaultValue={slug}
-                    placeholder="ten-cua-ban"
-                    className="flex-1 bg-[#f3f4f6] rounded-r-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
-                  />
-                </div>
-                <p className="text-xs text-[#434654]/60">
-                  Đường dẫn công khai đến hồ sơ của bạn. Chỉ sử dụng chữ thường, số và dấu gạch ngang.
-                </p>
-              </div>
-            </div>
-
-            {/* Save Button */}
-            <div className="flex justify-end pt-4">
-              <button
-                className="kinetic-gradient text-white font-extrabold text-base px-10 py-4 rounded-2xl shadow-lg hover:opacity-90 hover:scale-[1.02] transition-all"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Lưu thay đổi
-              </button>
-            </div>
+          <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10">
+            <ProfileForm
+              userId={user.id}
+              initialName={displayName}
+              email={user.email || ""}
+              initialPhone={phone}
+              initialSlug={slug}
+            />
           </div>
         </div>
       </main>

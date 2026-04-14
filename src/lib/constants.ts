@@ -68,6 +68,11 @@ export const CV_TEMPLATES = [
   { id: "minimal", name: "Minimal", premium: true, description: "Tối giản, tinh tế" },
   { id: "creative", name: "Creative", premium: true, description: "Nổi bật, ấn tượng" },
   { id: "executive", name: "Executive", premium: true, description: "Trang trọng, cao cấp" },
+  { id: "milano", name: "Milano", premium: true, description: "Editorial magazine style" },
+  { id: "tokyo", name: "Tokyo", premium: true, description: "Zen minimalist, tinh tế" },
+  { id: "berlin", name: "Berlin", premium: true, description: "Bold graphic, mạnh mẽ" },
+  { id: "dubai", name: "Dubai", premium: true, description: "Luxury premium, sang trọng" },
+  { id: "seoul", name: "Seoul", premium: true, description: "Tech startup, năng động" },
 ] as const;
 
 export const APP_NAME = "YourCV";

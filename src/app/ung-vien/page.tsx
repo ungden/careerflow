@@ -1,52 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Ứng viên",
   description:
     "Tìm kiếm và kết nối với những ứng viên xuất sắc nhất. Khám phá hồ sơ ứng viên phù hợp cho đội ngũ của bạn.",
 };
-
-const candidates = [
-  {
-    id: 1,
-    name: "Nguyễn Minh Anh",
-    title: "Senior Content Strategist",
-    skills: ["Content Strategy", "SEO", "Copywriting"],
-    location: "TP. Hồ Chí Minh",
-    experience: "5 năm",
-    featured: true,
-  },
-  {
-    id: 2,
-    name: "Trần Đức Huy",
-    title: "Editorial Lead",
-    skills: ["Editorial", "Team Lead", "Brand Voice"],
-    location: "Hà Nội",
-    experience: "7 năm",
-    featured: false,
-  },
-  {
-    id: 3,
-    name: "Lê Thanh Hoa",
-    title: "UX Writer",
-    skills: ["UX Writing", "Figma", "Research"],
-    location: "Đà Nẵng",
-    experience: "3 năm",
-    featured: true,
-  },
-  {
-    id: 4,
-    name: "Phạm Quỳnh Trang",
-    title: "Digital Marketing Manager",
-    skills: ["Marketing", "Analytics", "Ads"],
-    location: "TP. Hồ Chí Minh",
-    experience: "6 năm",
-    featured: false,
-  },
-];
 
 const skillFilters = [
   "Content Strategy",
@@ -61,7 +24,22 @@ const experienceLevels = ["1-2 năm", "3-5 năm", "5-10 năm", "10+ năm"];
 
 const availabilityOptions = ["Sẵn sàng ngay", "2 tuần", "1 tháng", "Đang làm việc"];
 
-export default function UngVienPage() {
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .map((w) => w[0])
+    .slice(-2)
+    .join("");
+}
+
+export default async function UngVienPage() {
+  const supabase = await createClient();
+  const { data: candidates } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("is_published", true)
+    .order("published_at", { ascending: false });
+
   return (
     <>
       <Header />
@@ -176,80 +154,112 @@ export default function UngVienPage() {
 
             {/* Candidate Grid */}
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
-              {candidates.map((c) => (
-                <div
-                  key={c.id}
-                  className="relative bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5 hover:shadow-lg transition-shadow"
-                >
-                  {/* Featured Badge */}
-                  {c.featured && (
-                    <span
-                      className="absolute top-6 right-6 px-4 py-1.5 text-xs font-bold text-white rounded-2xl"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #003d9b 0%, #0052cc 100%)",
-                      }}
-                    >
-                      Nổi bật
-                    </span>
-                  )}
-
-                  {/* Photo Placeholder */}
-                  <div className="w-20 h-20 rounded-full bg-[#f3f4f6] flex items-center justify-center">
-                    <span className="text-2xl font-black text-[#003d9b]/30">
-                      {c.name
-                        .split(" ")
-                        .map((w) => w[0])
-                        .slice(-2)
-                        .join("")}
-                    </span>
-                  </div>
-
-                  {/* Info */}
-                  <div className="space-y-1">
-                    <h2
-                      className="text-xl font-extrabold text-[#191c1e]"
-                      style={{ fontFamily: "var(--font-headline)" }}
-                    >
-                      {c.name}
-                    </h2>
-                    <p className="text-sm text-[#434654]">{c.title}</p>
-                    <p className="text-xs text-[#434654]/70">
-                      {c.location} &middot; {c.experience}
-                    </p>
-                  </div>
-
-                  {/* Skills */}
-                  <div className="flex flex-wrap gap-2">
-                    {c.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1.5 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex gap-3 pt-2">
-                    <Link
-                      href={`/ung-vien/${c.id}`}
-                      className="flex-1 text-center px-5 py-3 text-sm font-bold text-[#003d9b] bg-[#f3f4f6] rounded-2xl hover:bg-[#003d9b]/10 transition-colors"
-                      style={{ fontFamily: "var(--font-headline)" }}
-                    >
-                      Xem Profile
-                    </Link>
-                    <Link
-                      href={`/ung-vien/${c.id}/lien-he`}
-                      className="flex-1 text-center kinetic-gradient text-white font-bold text-sm px-5 py-3 rounded-2xl shadow-md hover:opacity-90 transition-all"
-                      style={{ fontFamily: "var(--font-headline)" }}
-                    >
-                      Liên hệ
-                    </Link>
-                  </div>
+              {(!candidates || candidates.length === 0) ? (
+                <div className="md:col-span-2 bg-white/80 backdrop-blur-xl rounded-[40px] p-12 text-center space-y-4">
+                  <p
+                    className="text-xl font-extrabold text-[#191c1e]"
+                    style={{ fontFamily: "var(--font-headline)" }}
+                  >
+                    Chưa có ứng viên nào publish
+                  </p>
+                  <p className="text-sm text-[#434654]">
+                    Hãy là người đầu tiên!
+                  </p>
                 </div>
-              ))}
+              ) : (
+                candidates.map((c) => (
+                  <div
+                    key={c.id}
+                    className="relative bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5 hover:shadow-lg transition-shadow"
+                  >
+                    {/* Featured Badge */}
+                    {c.subscription_tier === "pro" && (
+                      <span
+                        className="absolute top-6 right-6 px-4 py-1.5 text-xs font-bold text-white rounded-2xl"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, #003d9b 0%, #0052cc 100%)",
+                        }}
+                      >
+                        Nổi bật
+                      </span>
+                    )}
+
+                    {/* Photo or Initials */}
+                    <div className="w-20 h-20 rounded-full bg-[#f3f4f6] flex items-center justify-center overflow-hidden">
+                      {c.photo_url ? (
+                        <Image
+                          src={c.photo_url}
+                          alt={c.full_name ?? "Ứng viên"}
+                          width={80}
+                          height={80}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-2xl font-black text-[#003d9b]/30">
+                          {getInitials(c.full_name ?? "UV")}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Info */}
+                    <div className="space-y-1">
+                      <h2
+                        className="text-xl font-extrabold text-[#191c1e]"
+                        style={{ fontFamily: "var(--font-headline)" }}
+                      >
+                        {c.full_name}
+                      </h2>
+                      {c.headline && (
+                        <p className="text-sm text-[#434654]">{c.headline}</p>
+                      )}
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-[#434654]/70">
+                        {c.location && <span>{c.location}</span>}
+                        {c.location && c.experience_level && (
+                          <span>&middot;</span>
+                        )}
+                        {c.experience_level && <span>{c.experience_level}</span>}
+                      </div>
+                      {c.industry && (
+                        <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl">
+                          {c.industry}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Skills */}
+                    {c.skills && Array.isArray(c.skills) && c.skills.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {(c.skills as string[]).map((skill: string) => (
+                          <span
+                            key={skill}
+                            className="px-3 py-1.5 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Actions */}
+                    <div className="flex gap-3 pt-2">
+                      <Link
+                        href={`/ung-vien/${c.slug}`}
+                        className="flex-1 text-center px-5 py-3 text-sm font-bold text-[#003d9b] bg-[#f3f4f6] rounded-2xl hover:bg-[#003d9b]/10 transition-colors"
+                        style={{ fontFamily: "var(--font-headline)" }}
+                      >
+                        Xem Profile
+                      </Link>
+                      <button
+                        className="flex-1 text-center kinetic-gradient text-white font-bold text-sm px-5 py-3 rounded-2xl shadow-md hover:opacity-90 transition-all"
+                        style={{ fontFamily: "var(--font-headline)" }}
+                      >
+                        Liên hệ
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>

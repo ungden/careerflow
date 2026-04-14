@@ -1,15 +1,110 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { createClient } from "@/lib/supabase/client";
 
-export const metadata: Metadata = {
-  title: "Tạo thư xin việc",
-  description:
-    "Tạo thư xin việc chuyên nghiệp bằng AI. Nhập mô tả công việc và nhận thư xin việc được cá nhân hóa.",
-};
+interface CVItem {
+  id: string;
+  title: string;
+  personal_info: Record<string, unknown>;
+  experiences: unknown[];
+  education: unknown[];
+  skills: unknown[];
+}
 
 export default function ThuXinViecPage() {
+  const [cvList, setCvList] = useState<CVItem[]>([]);
+  const [selectedCvId, setSelectedCvId] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+  const [tone, setTone] = useState("Chuyên nghiệp");
+  const [loading, setLoading] = useState(false);
+  const [coverLetter, setCoverLetter] = useState("");
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const tones = ["Chuyên nghiệp", "Nhiệt huyết", "Sáng tạo", "Trang trọng"];
+
+  useEffect(() => {
+    async function fetchCVs() {
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data } = await supabase
+          .from("cvs")
+          .select("id, title, personal_info, experiences, education, skills")
+          .eq("user_id", user.id)
+          .order("updated_at", { ascending: false });
+
+        if (data) setCvList(data as CVItem[]);
+      } catch {
+        // silently fail
+      }
+    }
+    fetchCVs();
+  }, []);
+
+  async function handleGenerate() {
+    if (!jobDescription.trim()) {
+      setError("Vui lòng nhập mô tả công việc.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    setCoverLetter("");
+
+    try {
+      const cv = cvList.find((c) => c.id === selectedCvId);
+
+      const res = await fetch("/api/ai/cover-letter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cv_data: cv
+            ? {
+                personal_info: cv.personal_info,
+                experiences: cv.experiences,
+                education: cv.education,
+                skills: cv.skills,
+              }
+            : null,
+          job_description: jobDescription,
+          tone,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Đã xảy ra lỗi.");
+        return;
+      }
+
+      setCoverLetter(data.cover_letter);
+    } catch {
+      setError("Không thể kết nối đến server. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(coverLetter);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+    }
+  }
+
   return (
     <>
       <Header />
@@ -43,6 +138,35 @@ export default function ThuXinViecPage() {
 
           {/* Form */}
           <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-8">
+            {/* CV selector (optional) */}
+            {cvList.length > 0 && (
+              <div className="space-y-3">
+                <label
+                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  Chọn CV (tùy chọn)
+                </label>
+                <p className="text-sm text-[#434654]">
+                  Chọn CV để AI tham khảo thông tin cá nhân khi viết thư
+                </p>
+                <div className="bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#434654]">
+                  <select
+                    className="w-full bg-transparent outline-none cursor-pointer"
+                    value={selectedCvId}
+                    onChange={(e) => setSelectedCvId(e.target.value)}
+                  >
+                    <option value="">Không sử dụng CV</option>
+                    {cvList.map((cv) => (
+                      <option key={cv.id} value={cv.id}>
+                        {cv.title || "CV không tên"}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
+
             {/* Mô tả công việc */}
             <div className="space-y-3">
               <label
@@ -56,25 +180,9 @@ export default function ThuXinViecPage() {
               </p>
               <textarea
                 rows={6}
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Ví dụ: Chúng tôi đang tìm kiếm một Content Strategist với 3+ năm kinh nghiệm..."
-                className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-4 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none resize-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
-              />
-            </div>
-
-            {/* Thông tin thêm */}
-            <div className="space-y-3">
-              <label
-                className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Thông tin bổ sung (tùy chọn)
-              </label>
-              <p className="text-sm text-[#434654]">
-                Thêm điểm mạnh, kinh nghiệm nổi bật hoặc lý do bạn phù hợp với vị trí này
-              </p>
-              <textarea
-                rows={4}
-                placeholder="Ví dụ: Tôi có 5 năm kinh nghiệm trong lĩnh vực content marketing, từng quản lý đội ngũ 10 người..."
                 className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-4 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none resize-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
               />
             </div>
@@ -88,61 +196,105 @@ export default function ThuXinViecPage() {
                 Giọng văn
               </label>
               <div className="flex flex-wrap gap-3">
-                {[
-                  "Chuyên nghiệp",
-                  "Nhiệt huyết",
-                  "Sáng tạo",
-                  "Trang trọng",
-                ].map((tone) => (
-                  <span
-                    key={tone}
-                    className="px-5 py-2.5 text-sm font-semibold text-[#003d9b] bg-[#f3f4f6] rounded-2xl cursor-pointer hover:bg-[#003d9b]/10 transition-colors"
+                {tones.map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setTone(t)}
+                    className={`px-5 py-2.5 text-sm font-semibold rounded-2xl cursor-pointer transition-colors ${
+                      tone === t
+                        ? "bg-[#003d9b] text-white"
+                        : "text-[#003d9b] bg-[#f3f4f6] hover:bg-[#003d9b]/10"
+                    }`}
                   >
-                    {tone}
-                  </span>
+                    {t}
+                  </button>
                 ))}
               </div>
             </div>
 
+            {/* Error */}
+            {error && (
+              <div className="bg-red-50 text-red-700 rounded-2xl px-5 py-4 text-sm">
+                {error}
+              </div>
+            )}
+
             {/* CTA */}
             <div className="text-center pt-4">
               <button
-                className="kinetic-gradient text-white font-extrabold text-lg px-12 py-5 rounded-2xl shadow-2xl hover:opacity-90 hover:scale-[1.02] transition-all"
+                onClick={handleGenerate}
+                disabled={loading}
+                className="kinetic-gradient text-white font-extrabold text-lg px-12 py-5 rounded-2xl shadow-2xl hover:opacity-90 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
-                Tạo thư xin việc
+                {loading ? (
+                  <span className="flex items-center gap-3">
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Đang tạo thư...
+                  </span>
+                ) : (
+                  "Tạo thư xin việc"
+                )}
               </button>
             </div>
           </div>
 
-          {/* Result Placeholder */}
+          {/* Result */}
           <div className="mt-10 bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-6">
-            <h2
-              className="text-xl font-extrabold text-[#191c1e]"
-              style={{ fontFamily: "var(--font-headline)" }}
-            >
-              Kết quả
-            </h2>
-            <div className="bg-[#f3f4f6] rounded-3xl p-8 text-center space-y-4">
-              <div className="w-16 h-16 rounded-2xl bg-[#003d9b]/5 flex items-center justify-center mx-auto">
-                <svg
-                  className="w-8 h-8 text-[#003d9b]/30"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            <div className="flex items-center justify-between">
+              <h2
+                className="text-xl font-extrabold text-[#191c1e]"
+                style={{ fontFamily: "var(--font-headline)" }}
+              >
+                Kết quả
+              </h2>
+              {coverLetter && (
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center gap-2 text-sm font-semibold text-[#003d9b] bg-[#003d9b]/5 px-4 py-2 rounded-xl hover:bg-[#003d9b]/10 transition-colors"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </div>
-              <p className="text-sm text-[#434654]/60">
-                Thư xin việc sẽ hiển thị tại đây sau khi bạn nhấn &quot;Tạo thư xin việc&quot;
-              </p>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {copied ? "Đã sao chép!" : "Sao chép"}
+                </button>
+              )}
             </div>
+
+            {coverLetter ? (
+              <div className="bg-[#f3f4f6] rounded-3xl p-8">
+                <div className="prose prose-sm max-w-none text-[#191c1e] whitespace-pre-wrap leading-relaxed">
+                  {coverLetter}
+                </div>
+              </div>
+            ) : (
+              <div className="bg-[#f3f4f6] rounded-3xl p-8 text-center space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-[#003d9b]/5 flex items-center justify-center mx-auto">
+                  <svg
+                    className="w-8 h-8 text-[#003d9b]/30"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+                <p className="text-sm text-[#434654]/60">
+                  Thư xin việc sẽ hiển thị tại đây sau khi bạn nhấn &quot;Tạo thư xin việc&quot;
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </main>

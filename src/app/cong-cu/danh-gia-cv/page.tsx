@@ -1,15 +1,105 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { createClient } from "@/lib/supabase/client";
 
-export const metadata: Metadata = {
-  title: "AI Review CV",
-  description:
-    "Đánh giá CV của bạn bằng trí tuệ nhân tạo. Nhận phản hồi chi tiết và gợi ý cải thiện để CV của bạn nổi bật hơn.",
-};
+interface CVItem {
+  id: string;
+  title: string;
+  personal_info: Record<string, unknown>;
+  experiences: unknown[];
+  education: unknown[];
+  skills: unknown[];
+}
+
+interface ReviewResult {
+  score: number;
+  summary: string;
+  suggestions: string[];
+}
 
 export default function DanhGiaCVPage() {
+  const [cvList, setCvList] = useState<CVItem[]>([]);
+  const [selectedCvId, setSelectedCvId] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingCvs, setLoadingCvs] = useState(true);
+  const [result, setResult] = useState<ReviewResult | null>(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchCVs() {
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          setLoadingCvs(false);
+          return;
+        }
+
+        const { data } = await supabase
+          .from("cvs")
+          .select("id, title, personal_info, experiences, education, skills")
+          .eq("user_id", user.id)
+          .order("updated_at", { ascending: false });
+
+        if (data) setCvList(data as CVItem[]);
+      } catch {
+        // silently fail - user may not be logged in
+      } finally {
+        setLoadingCvs(false);
+      }
+    }
+    fetchCVs();
+  }, []);
+
+  async function handleReview() {
+    if (!selectedCvId) {
+      setError("Vui lòng chọn một CV để đánh giá.");
+      return;
+    }
+
+    const cv = cvList.find((c) => c.id === selectedCvId);
+    if (!cv) return;
+
+    setLoading(true);
+    setError("");
+    setResult(null);
+
+    try {
+      const res = await fetch("/api/ai/review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cv_data: {
+            personal_info: cv.personal_info,
+            experiences: cv.experiences,
+            education: cv.education,
+            skills: cv.skills,
+          },
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Đã xảy ra lỗi.");
+        return;
+      }
+
+      setResult(data);
+    } catch {
+      setError("Không thể kết nối đến server. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Header />
@@ -36,13 +126,13 @@ export default function DanhGiaCVPage() {
               AI Review CV
             </h1>
             <p className="text-lg text-[#434654] max-w-2xl mx-auto leading-relaxed">
-              Tải lên CV của bạn và nhận phân tích chi tiết từ AI. Chúng tôi sẽ đánh giá
-              nội dung, bố cục, từ khóa và đưa ra gợi ý cải thiện cụ thể để tăng cơ hội
+              Chọn CV của bạn và nhận phân tích chi tiết từ AI. Chúng tôi sẽ đánh giá
+              nội dung, từ khóa và đưa ra gợi ý cải thiện cụ thể để tăng cơ hội
               được mời phỏng vấn.
             </p>
           </div>
 
-          {/* Upload Area */}
+          {/* CV Selector */}
           <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-8">
             <h2
               className="text-xl font-extrabold text-[#191c1e]"
@@ -51,77 +141,155 @@ export default function DanhGiaCVPage() {
               Chọn CV của bạn
             </h2>
 
-            {/* Drop zone placeholder */}
-            <div className="border-2 border-dashed border-[#003d9b]/20 rounded-3xl p-12 text-center space-y-4 hover:border-[#003d9b]/40 transition-colors">
-              <div className="w-16 h-16 rounded-2xl bg-[#003d9b]/5 flex items-center justify-center mx-auto">
-                <svg
-                  className="w-8 h-8 text-[#003d9b]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
+            {loadingCvs ? (
+              <div className="text-center py-8">
+                <div className="w-8 h-8 border-3 border-[#003d9b] border-t-transparent rounded-full animate-spin mx-auto" />
+                <p className="text-sm text-[#434654] mt-3">Đang tải danh sách CV...</p>
               </div>
-              <p className="text-[#434654] font-medium">
-                Kéo thả file CV vào đây hoặc nhấn để chọn file
-              </p>
-              <p className="text-sm text-[#434654]/60">
-                Hỗ trợ định dạng PDF, DOC, DOCX (tối đa 10MB)
-              </p>
-            </div>
-
-            {/* Options */}
-            <div className="space-y-4">
-              <h3
-                className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Tùy chọn đánh giá
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  "Phân tích từ khóa ATS",
-                  "Đánh giá bố cục & thiết kế",
-                  "Kiểm tra ngữ pháp & chính tả",
-                  "So sánh với tiêu chuẩn ngành",
-                ].map((option) => (
+            ) : cvList.length === 0 ? (
+              <div className="bg-[#f3f4f6] rounded-3xl p-8 text-center space-y-4">
+                <p className="text-sm text-[#434654]">
+                  Bạn chưa có CV nào. Hãy tạo CV trước khi sử dụng tính năng đánh giá.
+                </p>
+                <Link
+                  href="/cv/tao-moi"
+                  className="inline-block kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-xl"
+                >
+                  Tạo CV mới
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {cvList.map((cv) => (
                   <label
-                    key={option}
-                    className="flex items-center gap-3 bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#434654] cursor-pointer hover:bg-[#003d9b]/5 transition-colors"
+                    key={cv.id}
+                    className={`flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer transition-colors ${
+                      selectedCvId === cv.id
+                        ? "bg-[#003d9b]/10 ring-2 ring-[#003d9b]/30"
+                        : "bg-[#f3f4f6] hover:bg-[#003d9b]/5"
+                    }`}
                   >
-                    <span className="w-5 h-5 rounded-lg border-2 border-[#003d9b]/20 flex items-center justify-center shrink-0">
-                      <span className="w-2.5 h-2.5 rounded-sm bg-[#003d9b]" />
+                    <input
+                      type="radio"
+                      name="cv-select"
+                      value={cv.id}
+                      checked={selectedCvId === cv.id}
+                      onChange={() => setSelectedCvId(cv.id)}
+                      className="accent-[#003d9b]"
+                    />
+                    <span className="text-sm font-semibold text-[#191c1e]">
+                      {cv.title || "CV không tên"}
                     </span>
-                    {option}
                   </label>
                 ))}
               </div>
-            </div>
+            )}
+
+            {/* Error */}
+            {error && (
+              <div className="bg-red-50 text-red-700 rounded-2xl px-5 py-4 text-sm">
+                {error}
+              </div>
+            )}
 
             {/* CTA */}
             <div className="text-center pt-4">
               <button
-                className="kinetic-gradient text-white font-extrabold text-lg px-12 py-5 rounded-2xl shadow-2xl hover:opacity-90 hover:scale-[1.02] transition-all"
+                onClick={handleReview}
+                disabled={loading || !selectedCvId}
+                className="kinetic-gradient text-white font-extrabold text-lg px-12 py-5 rounded-2xl shadow-2xl hover:opacity-90 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
-                Bắt đầu đánh giá
+                {loading ? (
+                  <span className="flex items-center gap-3">
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Đang đánh giá...
+                  </span>
+                ) : (
+                  "Bắt đầu đánh giá"
+                )}
               </button>
             </div>
           </div>
+
+          {/* Results */}
+          {result && (
+            <div className="mt-10 space-y-6">
+              {/* Score */}
+              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 text-center space-y-4">
+                <h2
+                  className="text-xl font-extrabold text-[#191c1e]"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  Kết quả đánh giá
+                </h2>
+                <div className="relative w-32 h-32 mx-auto">
+                  <svg className="w-32 h-32 -rotate-90" viewBox="0 0 120 120">
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      stroke="#f3f4f6"
+                      strokeWidth="10"
+                    />
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      stroke={result.score >= 70 ? "#22c55e" : result.score >= 40 ? "#f59e0b" : "#ef4444"}
+                      strokeWidth="10"
+                      strokeLinecap="round"
+                      strokeDasharray={`${(result.score / 100) * 327} 327`}
+                    />
+                  </svg>
+                  <span
+                    className="absolute inset-0 flex items-center justify-center text-4xl font-black text-[#191c1e]"
+                    style={{ fontFamily: "var(--font-headline)" }}
+                  >
+                    {result.score}
+                  </span>
+                </div>
+                <p className="text-sm text-[#434654] max-w-lg mx-auto leading-relaxed">
+                  {result.summary}
+                </p>
+              </div>
+
+              {/* Suggestions */}
+              {result.suggestions?.length > 0 && (
+                <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-6">
+                  <h2
+                    className="text-xl font-extrabold text-[#191c1e]"
+                    style={{ fontFamily: "var(--font-headline)" }}
+                  >
+                    Gợi ý cải thiện
+                  </h2>
+                  <ul className="space-y-3">
+                    {result.suggestions.map((suggestion, idx) => (
+                      <li
+                        key={idx}
+                        className="flex gap-3 bg-[#f3f4f6] rounded-2xl px-5 py-4 text-sm text-[#434654]"
+                      >
+                        <span className="shrink-0 w-6 h-6 rounded-full bg-[#003d9b]/10 text-[#003d9b] font-bold text-xs flex items-center justify-center">
+                          {idx + 1}
+                        </span>
+                        <span className="leading-relaxed">{suggestion}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* How it works */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 step: "01",
-                title: "Tải lên CV",
-                description: "Chọn file CV định dạng PDF hoặc Word của bạn.",
+                title: "Chọn CV",
+                description: "Chọn CV bạn muốn đánh giá từ danh sách CV đã tạo.",
               },
               {
                 step: "02",

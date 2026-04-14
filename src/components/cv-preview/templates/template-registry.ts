@@ -3,6 +3,11 @@ import { ModernTemplate } from "./modern";
 import { MinimalTemplate } from "./minimal";
 import { CreativeTemplate } from "./creative";
 import { ExecutiveTemplate } from "./executive";
+import { MilanoTemplate } from "./milano";
+import { TokyoTemplate } from "./tokyo";
+import { BerlinTemplate } from "./berlin";
+import { DubaiTemplate } from "./dubai";
+import { SeoulTemplate } from "./seoul";
 
 export const templates = {
   classic: {
@@ -34,6 +39,36 @@ export const templates = {
     name: "Executive",
     premium: true,
     description: "Trang trọng, cao cấp",
+  },
+  milano: {
+    component: MilanoTemplate,
+    name: "Milano",
+    premium: true,
+    description: "Editorial magazine style",
+  },
+  tokyo: {
+    component: TokyoTemplate,
+    name: "Tokyo",
+    premium: true,
+    description: "Zen minimalist, tinh tế",
+  },
+  berlin: {
+    component: BerlinTemplate,
+    name: "Berlin",
+    premium: true,
+    description: "Bold graphic, mạnh mẽ",
+  },
+  dubai: {
+    component: DubaiTemplate,
+    name: "Dubai",
+    premium: true,
+    description: "Luxury premium, sang trọng",
+  },
+  seoul: {
+    component: SeoulTemplate,
+    name: "Seoul",
+    premium: true,
+    description: "Tech startup, năng động",
   },
 } as const;
 

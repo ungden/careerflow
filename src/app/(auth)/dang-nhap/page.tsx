@@ -91,10 +91,15 @@ function LoginForm() {
               required
             />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full kinetic-gradient text-white font-extrabold text-base px-8 py-4 rounded-2xl shadow-lg hover:opacity-90 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center"
+            style={{ fontFamily: "var(--font-headline)" }}
+          >
             {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
             Đăng nhập
-          </Button>
+          </button>
         </form>
 
         <div className="relative my-6">
