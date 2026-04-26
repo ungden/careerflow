@@ -33,11 +33,15 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protected routes - redirect to login if not authenticated
+  // Protected routes - redirect to login if not authenticated.
+  // Public exceptions are evaluated first so things like /cv/p/[slug] (the
+  // public CV share viewer) don't get gated behind auth.
+  const publicPrefixes = ["/cv/p/"];
   const protectedPaths = ["/dashboard", "/cv", "/ho-so", "/nha-tuyen-dung", "/viec-da-luu", "/tin-nhan"];
-  const isProtected = protectedPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
-  );
+  const path = request.nextUrl.pathname;
+  const isPublicException = publicPrefixes.some((p) => path.startsWith(p));
+  const isProtected =
+    !isPublicException && protectedPaths.some((p) => path.startsWith(p));
 
   if (isProtected && !user) {
     const url = request.nextUrl.clone();
