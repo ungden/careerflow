@@ -39,6 +39,8 @@ export function generateRefCode(plan: SepayPlan): string {
   return `CF${SEPAY_PLANS[plan].code}${suffix}`;
 }
 
+// VietQR via Sepay — params per https://docs.sepay.vn/tao-qr-code-vietqr-dong.html
+// Only `acc`, `bank` are required. `amount` + `des` are optional but used here for dynamic QR.
 export function buildQrUrl(opts: {
   amount: number;
   refCode: string;
@@ -50,8 +52,6 @@ export function buildQrUrl(opts: {
     bank: bank,
     amount: String(opts.amount),
     des: opts.refCode,
-    template: "compact",
-    download: "false",
   });
   return `https://qr.sepay.vn/img?${params.toString()}`;
 }

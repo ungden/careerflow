@@ -3,18 +3,20 @@ import { createServerClient } from "@supabase/ssr";
 import { extractRefCode, SEPAY_PLANS, verifySepayAuth } from "@/lib/sepay";
 import { env } from "@/lib/env";
 
-// Sepay webhook payload shape (https://sepay.vn/docs).
+// Sepay webhook payload — https://docs.sepay.vn/tich-hop-webhooks.html
 interface SepayPayload {
   id: number | string;
   gateway?: string;
   transactionDate?: string;
   accountNumber?: string;
+  subAccount?: string | null; // virtual-account id when present
+  code?: string | null; // payment code Sepay extracted from content
   content?: string;
   transferType?: "in" | "out";
   transferAmount?: number;
+  accumulated?: number;
   referenceCode?: string;
   description?: string;
-  code?: string | null;
 }
 
 function service() {
@@ -41,14 +43,14 @@ export async function POST(request: NextRequest) {
   }
 
   if (payload.transferType && payload.transferType !== "in") {
-    return NextResponse.json({ ok: true, ignored: "outgoing" });
+    return NextResponse.json({ success: true, ignored: "outgoing" });
   }
 
   const refCode =
     payload.code || extractRefCode(payload.content || payload.description);
   if (!refCode) {
     console.warn("Sepay webhook: no ref code in content", payload.content);
-    return NextResponse.json({ ok: true, ignored: "no_ref" });
+    return NextResponse.json({ success: true, ignored: "no_ref" });
   }
 
   const supabase = service();
@@ -62,7 +64,7 @@ export async function POST(request: NextRequest) {
     .eq("provider_transaction_id", sepayId)
     .maybeSingle();
   if (existing) {
-    return NextResponse.json({ ok: true, idempotent: true });
+    return NextResponse.json({ success: true, idempotent: true });
   }
 
   const { data: pending } = await supabase
@@ -75,7 +77,7 @@ export async function POST(request: NextRequest) {
 
   if (!pending) {
     console.warn("Sepay webhook: no matching pending tx", refCode);
-    return NextResponse.json({ ok: true, ignored: "no_match" });
+    return NextResponse.json({ success: true, ignored: "no_match" });
   }
 
   if (
@@ -90,7 +92,7 @@ export async function POST(request: NextRequest) {
         metadata: { ...(pending.metadata as object | null), reason: "underpaid", paid: payload.transferAmount },
       })
       .eq("id", pending.id);
-    return NextResponse.json({ ok: true, status: "underpaid" });
+    return NextResponse.json({ success: true, status: "underpaid" });
   }
 
   // Mark as succeeded; unique index on (provider, provider_transaction_id) enforces idempotency at DB level.
@@ -164,5 +166,5 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ success: true });
 }
