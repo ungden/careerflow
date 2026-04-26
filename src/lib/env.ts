@@ -1,15 +1,11 @@
 import { z } from "zod";
 
 const isProd = process.env.NODE_ENV === "production";
-// During `next build`, env vars used only at runtime won't be set. Don't fail
-// the build for those — only fail at boot when running the app.
-const isBuildPhase =
-  process.env.NEXT_PHASE === "phase-production-build" ||
-  process.env.NEXT_PHASE === "phase-export";
-const isStrict = isProd && !isBuildPhase;
 
-const required = (msg: string) =>
-  isStrict ? z.string().min(1, msg) : z.string().min(1, msg).optional();
+// All "required" vars validate as optional + warn when missing. Each route
+// returns a proper 503/500 when its dependency is unset. This keeps the app
+// bootable when only some features are configured.
+const required = (msg: string) => z.string().min(1, msg).optional();
 
 const schema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
@@ -54,13 +50,8 @@ if (!parsed.success) {
   const message = Object.entries(flat)
     .map(([key, errs]) => `  - ${key}: ${(errs ?? []).join(", ")}`)
     .join("\n");
-  if (isStrict) {
-    throw new Error(`Invalid environment variables:\n${message}`);
-  } else {
-    console.warn(
-      `[env] Missing/invalid env vars (dev or build phase — continuing):\n${message}`
-    );
-  }
+  // Warn only — never throw. Routes guard their own dependencies.
+  console.warn(`[env] Missing/invalid env vars:\n${message}`);
 }
 
 const data = (parsed.success ? parsed.data : (process.env as unknown)) as z.infer<
