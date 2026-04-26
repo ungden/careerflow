@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
+import { JobCardRow } from "@/components/jobs/job-card-row";
 
 export const metadata: Metadata = {
   title: "Việc làm",
@@ -57,17 +58,32 @@ export default async function ViecLamPage({
   const jobCount = jobs?.length ?? 0;
   const hasFilters = q || industry || type || location;
 
-  function formatSalary(salaryMin?: number | null, salaryMax?: number | null) {
-    if (salaryMin && salaryMax) {
-      return `${salaryMin / 1000} - ${salaryMax / 1000} triệu`;
+  // Pre-load viewer's primary CV + already-applied set so each card can
+  // render a real 1-click apply button instead of a generic CTA.
+  const {
+    data: { user: viewer },
+  } = await supabase.auth.getUser();
+
+  let primaryCvId: string | null = null;
+  let appliedSet = new Set<string>();
+  if (viewer) {
+    const { data: pcv } = await supabase
+      .from("cvs")
+      .select("id")
+      .eq("user_id", viewer.id)
+      .eq("is_primary", true)
+      .maybeSingle();
+    primaryCvId = pcv?.id ?? null;
+
+    const jobIds = (jobs ?? []).map((j) => j.id);
+    if (jobIds.length > 0) {
+      const { data: applied } = await supabase
+        .from("applications")
+        .select("job_id")
+        .eq("candidate_id", viewer.id)
+        .in("job_id", jobIds);
+      appliedSet = new Set((applied ?? []).map((a) => a.job_id));
     }
-    if (salaryMin) {
-      return `Từ ${salaryMin / 1000} triệu`;
-    }
-    if (salaryMax) {
-      return `Đến ${salaryMax / 1000} triệu`;
-    }
-    return "Thỏa thuận";
   }
 
   return (
@@ -271,69 +287,15 @@ export default async function ViecLamPage({
                   )}
                 </div>
               ) : (
-                jobs.map((job) => {
-                  const companyName = job.company?.name ?? "Công ty";
-                  const companyInitial = companyName.charAt(0);
-
-                  return (
-                    <Link
-                      key={job.id}
-                      href={`/viec-lam/${job.slug}`}
-                      className="block bg-white/80 backdrop-blur-xl rounded-[40px] p-8 flex flex-col md:flex-row md:items-center gap-6 hover:shadow-lg hover:bg-white transition-all"
-                    >
-                      {/* Logo Placeholder */}
-                      <div className="w-16 h-16 rounded-2xl bg-[#f3f4f6] flex items-center justify-center shrink-0">
-                        <span className="text-2xl font-black text-[#003d9b]/30">
-                          {companyInitial}
-                        </span>
-                      </div>
-
-                      {/* Info */}
-                      <div className="flex-1 space-y-2">
-                        <h2
-                          className="text-xl font-extrabold text-[#191c1e]"
-                          style={{ fontFamily: "var(--font-headline)" }}
-                        >
-                          {job.title}
-                        </h2>
-                        <p className="text-sm text-[#434654]">{companyName}</p>
-                        <div className="flex flex-wrap gap-2 pt-1">
-                          {job.location && (
-                            <span className="px-3 py-1 text-xs font-medium bg-[#f3f4f6] text-[#434654] rounded-xl">
-                              {job.location}
-                            </span>
-                          )}
-                          {job.job_type && (
-                            <span className="px-3 py-1 text-xs font-medium bg-[#f3f4f6] text-[#434654] rounded-xl">
-                              {job.job_type}
-                            </span>
-                          )}
-                          {job.industry && (
-                            <span className="px-3 py-1 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl">
-                              {job.industry}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Salary + CTA */}
-                      <div className="flex flex-col items-end gap-3 shrink-0">
-                        <span
-                          className="text-lg font-black text-[#003d9b]"
-                          style={{ fontFamily: "var(--font-headline)" }}
-                        >
-                          {formatSalary(job.salary_min, job.salary_max)}
-                        </span>
-                        <span
-                          className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-2xl shadow-md transition-all"
-                          style={{ fontFamily: "var(--font-headline)" }}
-                        >
-                          Xem chi tiết
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })
+                jobs.map((job) => (
+                  <JobCardRow
+                    key={job.id}
+                    job={job}
+                    showApply={Boolean(viewer)}
+                    primaryCvId={primaryCvId}
+                    alreadyApplied={appliedSet.has(job.id)}
+                  />
+                ))
               )}
             </div>
           </div>
