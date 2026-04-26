@@ -66,34 +66,65 @@ export default async function CandidateProfilePage({ params }: Props) {
         <div className="max-w-5xl mx-auto px-6 pt-28 pb-16">
           {/* Profile Header */}
           <div className="bg-white rounded-[32px] overflow-hidden shadow-sm mb-8">
-            <div className="h-32 kinetic-gradient relative" />
-            <div className="px-8 pb-8 -mt-14">
-              <div className="flex flex-col sm:flex-row items-start gap-6">
-                <div className="w-28 h-28 rounded-full bg-white border-4 border-white shadow-lg overflow-hidden flex items-center justify-center shrink-0">
+            <div className="h-40 kinetic-gradient" />
+            <div className="px-8 pb-8">
+              {/* Avatar half-overlaps banner; contact button aligned to bottom */}
+              <div className="flex justify-between items-end -mt-16 mb-5 gap-4">
+                <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-lg overflow-hidden flex items-center justify-center shrink-0">
                   {profile.avatar_url || info.photo_url ? (
-                    <img src={profile.avatar_url || info.photo_url} alt={profile.full_name} className="w-full h-full object-cover" />
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={profile.avatar_url || info.photo_url}
+                      alt={profile.full_name}
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
-                    <div className="w-full h-full bg-[#e8f0fe] flex items-center justify-center text-[32px] font-bold text-[#003d9b]">{initials}</div>
+                    <div className="w-full h-full bg-[#e8f0fe] flex items-center justify-center text-[32px] font-bold text-[#003d9b]">
+                      {initials}
+                    </div>
                   )}
                 </div>
-                <div className="flex-1 pt-16 sm:pt-4">
-                  <h1 className="text-[28px] font-extrabold text-[#1a1a1a] tracking-tight" style={{ fontFamily: "var(--font-headline)" }}>
-                    {profile.full_name}
-                  </h1>
-                  {profile.headline && <p className="text-[15px] text-[#003d9b] font-semibold mt-1">{profile.headline}</p>}
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {profile.industry && <span className="px-3 py-1 bg-[#e8f0fe] text-[#003d9b] rounded-full text-[12px] font-semibold">{profile.industry}</span>}
-                    {profile.experience_level && <span className="px-3 py-1 bg-[#f3f4f6] text-[#555] rounded-full text-[12px] font-medium">{profile.experience_level}</span>}
-                    {profile.location && (
-                      <span className="px-3 py-1 bg-[#f3f4f6] text-[#555] rounded-full text-[12px] font-medium flex items-center gap-1">
-                        <MapPin className="h-3 w-3" />{profile.location}
-                      </span>
-                    )}
-                  </div>
+                <div className="pb-2">
+                  <ContactDialog
+                    candidateId={profile.id}
+                    candidateName={profile.full_name}
+                  />
                 </div>
-                <div className="shrink-0 pt-16 sm:pt-4">
-                  <ContactDialog candidateId={profile.id} candidateName={profile.full_name} />
-                </div>
+              </div>
+
+              <h1
+                className="text-[28px] font-extrabold text-[#1a1a1a] tracking-tight"
+                style={{ fontFamily: "var(--font-headline)" }}
+              >
+                {profile.full_name}
+              </h1>
+              {profile.headline && (
+                <p className="text-[15px] text-[#003d9b] font-semibold mt-1">
+                  {profile.headline}
+                </p>
+              )}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {profile.industry && (
+                  <span className="px-3 py-1 bg-[#e8f0fe] text-[#003d9b] rounded-full text-[12px] font-semibold">
+                    {profile.industry}
+                  </span>
+                )}
+                {profile.experience_level && (
+                  <span className="px-3 py-1 bg-[#f3f4f6] text-[#555] rounded-full text-[12px] font-medium capitalize">
+                    {profile.experience_level}
+                  </span>
+                )}
+                {profile.location && (
+                  <span className="px-3 py-1 bg-[#f3f4f6] text-[#555] rounded-full text-[12px] font-medium flex items-center gap-1">
+                    <MapPin className="h-3 w-3" />
+                    {profile.location}
+                  </span>
+                )}
+                {profile.availability === "open" && (
+                  <span className="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[12px] font-semibold">
+                    Sẵn sàng nhận việc
+                  </span>
+                )}
               </div>
             </div>
           </div>
