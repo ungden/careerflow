@@ -276,9 +276,10 @@ export default async function ViecLamPage({
                   const companyInitial = companyName.charAt(0);
 
                   return (
-                    <div
+                    <Link
                       key={job.id}
-                      className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 flex flex-col md:flex-row md:items-center gap-6 hover:shadow-lg transition-shadow"
+                      href={`/viec-lam/${job.slug}`}
+                      className="block bg-white/80 backdrop-blur-xl rounded-[40px] p-8 flex flex-col md:flex-row md:items-center gap-6 hover:shadow-lg hover:bg-white transition-all"
                     >
                       {/* Logo Placeholder */}
                       <div className="w-16 h-16 rounded-2xl bg-[#f3f4f6] flex items-center justify-center shrink-0">
@@ -323,15 +324,14 @@ export default async function ViecLamPage({
                         >
                           {formatSalary(job.salary_min, job.salary_max)}
                         </span>
-                        <Link
-                          href={`/viec-lam/${job.slug}`}
-                          className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-2xl shadow-md hover:opacity-90 transition-all"
+                        <span
+                          className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-2xl shadow-md transition-all"
                           style={{ fontFamily: "var(--font-headline)" }}
                         >
-                          Ứng tuyển 1-click
-                        </Link>
+                          Xem chi tiết
+                        </span>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })
               )}
