@@ -1,5 +1,8 @@
 import { env } from "@/lib/env";
 
+// Plan codes are exactly 4 alphanumeric chars so every ref code is a fixed
+// 12-char pattern: `CF` + 4-char plan + 6-char random — easy to match in Sepay
+// "Cấu trúc mã thanh toán": tiền tố `CF`, hậu tố 10 ký tự, số và chữ.
 export const SEPAY_PLANS = {
   pro_monthly: {
     code: "PROM",
@@ -14,13 +17,13 @@ export const SEPAY_PLANS = {
     durationDays: 366,
   },
   featured_basic: {
-    code: "FEAT1",
+    code: "FTBS",
     label: "Job Featured 7 ngày",
     amount: 199000,
     durationDays: 7,
   },
   featured_pro: {
-    code: "FEAT2",
+    code: "FTPR",
     label: "Job Featured 30 ngày",
     amount: 599000,
     durationDays: 30,
@@ -77,6 +80,7 @@ export function verifySepayAuth(authHeader: string | null): boolean {
 
 export function extractRefCode(transferContent: string | null | undefined): string | null {
   if (!transferContent) return null;
-  const match = transferContent.match(/CF[A-Z0-9]{4,}[A-Z0-9]{6}/);
+  // CF + 4-char plan + 6-char random suffix = 12 chars total, alphanumeric uppercase.
+  const match = transferContent.toUpperCase().match(/CF[A-Z0-9]{10}/);
   return match ? match[0] : null;
 }
