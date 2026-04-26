@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import {
@@ -134,9 +135,9 @@ export function ApplyDialog({ jobId }: ApplyDialogProps) {
             ) : cvs.length === 0 ? (
               <p className="text-sm text-[#999]">
                 Bạn chưa có CV nào.{" "}
-                <a href="/cv/moi" className="text-[#003d9b] underline">
+                <Link href="/cv/moi" className="text-[#003d9b] underline">
                   Tạo CV ngay
-                </a>
+                </Link>
               </p>
             ) : (
               <div className="space-y-2">

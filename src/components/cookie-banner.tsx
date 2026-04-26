@@ -7,17 +7,20 @@ import { X } from "lucide-react";
 const STORAGE_KEY = "cookie_consent";
 
 export function CookieBanner() {
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     try {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        setVisible(true);
-      }
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) setVisible(true);
     } catch {
       // SSR / blocked storage
     }
   }, []);
+
+  if (!mounted) return null;
 
   function notifyConsent() {
     try {
