@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
         hostname: "i.pravatar.cc",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+        pathname: "/api/portraits/**",
+      },
     ],
   },
   poweredByHeader: false,
