@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!profile) return { title: "Ứng viên không tồn tại" };
   return {
     title: profile.full_name || "Ứng viên",
-    description: profile.headline || `Xem hồ sơ của ${profile.full_name} trên CareerFlow`,
+    description: profile.headline || `Xem hồ sơ của ${profile.full_name} trên YourCV`,
   };
 }
 

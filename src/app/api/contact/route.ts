@@ -35,7 +35,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
 
     const { error } = await supabase.from("email_queue").insert({
-      to_email: "support@careerflow.vn",
+      to_email: "support@yourcv.net",
+      subject: `[Liên hệ] ${subject}`.slice(0, 200),
       template: "contact_form",
       payload: {
         name,

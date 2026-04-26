@@ -6,4 +6,4 @@ export function getResend(): Resend | null {
 }
 
 export const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL || "CareerFlow <no-reply@careerflow.vn>";
+  process.env.RESEND_FROM_EMAIL || "YourCV <no-reply@yourcv.net>";

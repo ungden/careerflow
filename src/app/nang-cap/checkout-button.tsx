@@ -1,45 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { SepayCheckout } from "@/components/sepay-checkout";
 
 export function UpgradeCheckoutButton() {
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const [show, setShow] = useState(false);
 
-  async function handleCheckout() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/stripe/checkout", { method: "POST" });
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.error || "Không thể bắt đầu thanh toán.");
-        setLoading(false);
-        return;
-      }
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        toast.error("Không nhận được link thanh toán.");
-        setLoading(false);
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Đã có lỗi xảy ra. Vui lòng thử lại.");
-      setLoading(false);
-    }
+  if (show) {
+    return (
+      <div className="rounded-3xl bg-white p-6 text-[#191c1e]">
+        <SepayCheckout
+          plan="pro_monthly"
+          onPaid={() => {
+            setTimeout(() => router.refresh(), 1500);
+          }}
+        />
+      </div>
+    );
   }
 
   return (
     <button
       type="button"
-      onClick={handleCheckout}
-      disabled={loading}
-      className="block w-full text-center py-4 px-8 rounded-xl font-bold text-sm bg-white text-[#003d9b] hover:opacity-90 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+      onClick={() => setShow(true)}
+      className="block w-full rounded-xl bg-white px-8 py-4 text-center text-sm font-bold text-[#003d9b] transition-all hover:opacity-90"
       style={{ fontFamily: "var(--font-headline)" }}
     >
-      {loading ? "Đang chuyển hướng..." : "Thanh toán với Stripe"}
+      Nâng cấp với chuyển khoản (Sepay)
     </button>
   );
 }

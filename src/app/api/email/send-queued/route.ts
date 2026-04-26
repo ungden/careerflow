@@ -2,14 +2,22 @@ import { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getResend, FROM_EMAIL } from "@/lib/email/resend";
 import { renderTemplate, type EmailTemplateName } from "@/lib/email/templates";
+import { env } from "@/lib/env";
+import { timingSafeEqual } from "@/lib/sepay";
 
 export async function POST(request: NextRequest) {
-  const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret) {
-    const auth = request.headers.get("authorization");
-    if (auth !== `Bearer ${cronSecret}`) {
-      return Response.json({ error: "Không có quyền" }, { status: 401 });
-    }
+  const cronSecret = env.CRON_SECRET;
+  if (!cronSecret) {
+    console.error("CRON_SECRET not set — refusing to run cron job");
+    return Response.json(
+      { error: "Cron not configured" },
+      { status: 500 }
+    );
+  }
+  const auth = request.headers.get("authorization") ?? "";
+  const expected = `Bearer ${cronSecret}`;
+  if (!timingSafeEqual(auth, expected)) {
+    return Response.json({ error: "Không có quyền" }, { status: 401 });
   }
 
   const resend = getResend();

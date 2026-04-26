@@ -1,25 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { isPro as isProTier } from "@/lib/subscription";
+import { chatJSON } from "@/lib/openai";
+import { rateLimit } from "@/lib/rate-limit";
+import { env } from "@/lib/env";
 
 const TOOL = "cover_letter";
 const FREE_LIMIT = 3;
 
+const Body = z.object({
+  cv_data: z.unknown().optional(),
+  job_description: z.string().min(20).max(5000),
+  tone: z.enum(["chuyên nghiệp", "thân thiện", "tự tin"]).optional(),
+});
+
 export async function POST(request: NextRequest) {
+  const limit = await rateLimit(request, {
+    name: "ai_cover_letter",
+    max: 10,
+    windowSec: 60,
+  });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: "rate_limited", message: "Quá nhiều yêu cầu. Thử lại sau." },
+      { status: 429 }
+    );
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select("subscription_tier, subscription_expires_at")
     .eq("id", user.id)
     .single();
-  const isPro = profile?.subscription_tier === "pro";
+  const isPro = isProTier(profile);
   const month = new Date().toISOString().slice(0, 7);
 
   let usageCount = 0;
@@ -32,7 +54,6 @@ export async function POST(request: NextRequest) {
       .eq("month", month)
       .single();
     usageCount = usage?.count ?? 0;
-
     if (usageCount >= FREE_LIMIT) {
       return NextResponse.json(
         {
@@ -45,89 +66,54 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
+  if (!env.OPENAI_API_KEY) {
     return NextResponse.json(
       { error: "AI tạm chưa khả dụng. Vui lòng thử lại sau." },
       { status: 503 }
     );
   }
 
-  try {
-    const { cv_data, job_description, tone } = await request.json();
-
-    if (!job_description) {
-      return NextResponse.json(
-        { error: "Vui lòng nhập mô tả công việc." },
-        { status: 400 }
-      );
-    }
-
-    const systemPrompt = `Bạn là chuyên gia viết thư xin việc chuyên nghiệp tại Việt Nam. Hãy viết thư xin việc bằng tiếng Việt với giọng văn ${tone || "chuyên nghiệp"}. Thư phải ngắn gọn, súc tích, thể hiện sự phù hợp của ứng viên với vị trí.`;
-
-    const userPrompt = `Dựa trên thông tin CV và mô tả công việc dưới đây, hãy viết một thư xin việc chuyên nghiệp bằng tiếng Việt.
-
-Trả về JSON với format: { "cover_letter": "<nội dung thư xin việc>" }
-
-${cv_data ? `Thông tin CV:\n${JSON.stringify(cv_data, null, 2)}\n\n` : ""}Mô tả công việc:
-${job_description}`;
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.7,
-        response_format: { type: "json_object" },
-      }),
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      console.error("OpenAI API error:", errorData);
-      return NextResponse.json(
-        { error: "Không thể tạo thư xin việc. Vui lòng thử lại sau." },
-        { status: 502 }
-      );
-    }
-
-    const data = await res.json();
-    const content = data.choices?.[0]?.message?.content;
-
-    if (!content) {
-      return NextResponse.json(
-        { error: "Không nhận được phản hồi từ AI." },
-        { status: 502 }
-      );
-    }
-
-    const result = JSON.parse(content);
-
-    if (!isPro) {
-      await supabase.from("ai_usage").upsert(
-        {
-          user_id: user.id,
-          tool: TOOL,
-          month,
-          count: usageCount + 1,
-        },
-        { onConflict: "user_id,tool,month" }
-      );
-    }
-
-    return NextResponse.json({ cover_letter: result.cover_letter });
-  } catch (error) {
-    console.error("Cover letter error:", error);
+  const json = await request.json().catch(() => null);
+  const parsed = Body.safeParse(json);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "Đã xảy ra lỗi. Vui lòng thử lại." },
-      { status: 500 }
+      { error: "Vui lòng nhập mô tả công việc hợp lệ." },
+      { status: 400 }
     );
   }
+  const { cv_data, job_description, tone } = parsed.data;
+  const cvJson = cv_data ? JSON.stringify(cv_data).slice(0, 30_000) : "";
+
+  const result = await chatJSON<{ cover_letter: string }>({
+    apiKey: env.OPENAI_API_KEY,
+    maxTokens: 1500,
+    messages: [
+      {
+        role: "system",
+        content: `Bạn là chuyên gia viết thư xin việc chuyên nghiệp tại Việt Nam. Hãy viết thư xin việc bằng tiếng Việt với giọng văn ${tone || "chuyên nghiệp"}. Thư phải ngắn gọn, súc tích.`,
+      },
+      {
+        role: "user",
+        content: `Dựa trên thông tin CV và mô tả công việc, hãy viết thư xin việc bằng tiếng Việt.
+
+Trả về JSON: { "cover_letter": "<nội dung>" }
+
+${cvJson ? `Thông tin CV:\n${cvJson}\n\n` : ""}Mô tả công việc:
+${job_description}`,
+      },
+    ],
+  });
+
+  if (!result.ok) {
+    return NextResponse.json({ error: result.message }, { status: result.status });
+  }
+
+  if (!isPro) {
+    await supabase.from("ai_usage").upsert(
+      { user_id: user.id, tool: TOOL, month, count: usageCount + 1 },
+      { onConflict: "user_id,tool,month" }
+    );
+  }
+
+  return NextResponse.json({ cover_letter: result.data.cover_letter });
 }

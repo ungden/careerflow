@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/footer";
 export const metadata: Metadata = {
   title: "Chính sách bảo mật",
   description:
-    "Cách CareerFlow thu thập, sử dụng và bảo vệ dữ liệu cá nhân của người dùng theo tiêu chuẩn quốc tế.",
+    "Cách YourCV thu thập, sử dụng và bảo vệ dữ liệu cá nhân của người dùng theo tiêu chuẩn quốc tế.",
 };
 
 const sections = [
@@ -16,7 +16,7 @@ const sections = [
     body: (
       <>
         <p>
-          Để cung cấp Dịch vụ, CareerFlow thu thập các nhóm thông tin sau:
+          Để cung cấp Dịch vụ, YourCV thu thập các nhóm thông tin sau:
         </p>
         <ul>
           <li>
@@ -48,7 +48,7 @@ const sections = [
       <>
         <p>Thông tin của bạn được sử dụng nhằm:</p>
         <ul>
-          <li>Cung cấp, vận hành và cải thiện Dịch vụ CareerFlow.</li>
+          <li>Cung cấp, vận hành và cải thiện Dịch vụ YourCV.</li>
           <li>
             Cá nhân hoá trải nghiệm: gợi ý việc làm, ứng viên, mẫu CV phù
             hợp.
@@ -69,7 +69,7 @@ const sections = [
     body: (
       <>
         <p>
-          CareerFlow <strong>không bán</strong> dữ liệu cá nhân của bạn cho
+          YourCV <strong>không bán</strong> dữ liệu cá nhân của bạn cho
           bên thứ ba. Chúng tôi chỉ chia sẻ thông tin trong các trường hợp:
         </p>
         <ul>
@@ -79,7 +79,7 @@ const sections = [
           </li>
           <li>
             <strong>Với đối tác kỹ thuật:</strong> nhà cung cấp hosting
-            (Supabase), email (SendGrid/Resend), thanh toán (VNPay/Momo),
+            (Supabase), email (Resend), thanh toán (Sepay, Stripe),
             phân tích (Google Analytics) — tất cả đều ký cam kết bảo mật.
           </li>
           <li>
@@ -113,7 +113,7 @@ const sections = [
         <ul>
           <li>
             <strong>Truy cập và sao chép</strong> dữ liệu cá nhân đang được
-            CareerFlow lưu trữ.
+            YourCV lưu trữ.
           </li>
           <li>
             <strong>Chỉnh sửa</strong> thông tin sai lệch hoặc lỗi thời.
@@ -132,7 +132,7 @@ const sections = [
         </ul>
         <p>
           Để thực hiện quyền trên, vui lòng gửi yêu cầu về{" "}
-          <a href="mailto:privacy@careerflow.vn">privacy@careerflow.vn</a>.
+          <a href="mailto:privacy@yourcv.net">privacy@yourcv.net</a>.
           Chúng tôi phản hồi trong vòng 72 giờ làm việc.
         </p>
       </>
@@ -159,7 +159,7 @@ const sections = [
     body: (
       <>
         <p>
-          CareerFlow chỉ dành cho người từ <strong>16 tuổi trở lên</strong>.
+          YourCV chỉ dành cho người từ <strong>16 tuổi trở lên</strong>.
           Chúng tôi không cố ý thu thập dữ liệu của trẻ em dưới 16 tuổi. Nếu
           phát hiện, dữ liệu sẽ bị xoá ngay lập tức.
         </p>
@@ -186,13 +186,13 @@ const sections = [
       <>
         <p>
           Cán bộ phụ trách bảo vệ dữ liệu (Data Protection Officer) của
-          CareerFlow tiếp nhận mọi khiếu nại, yêu cầu liên quan đến quyền
+          YourCV tiếp nhận mọi khiếu nại, yêu cầu liên quan đến quyền
           riêng tư:
         </p>
         <ul>
           <li>
             Email DPO:{" "}
-            <a href="mailto:privacy@careerflow.vn">privacy@careerflow.vn</a>
+            <a href="mailto:privacy@yourcv.net">privacy@yourcv.net</a>
           </li>
           <li>
             Văn phòng: TP. Hồ Chí Minh, Việt Nam
@@ -271,7 +271,7 @@ export default function PrivacyPage() {
               Bạn muốn yêu cầu xuất hoặc xoá dữ liệu cá nhân?
             </p>
             <Link
-              href="mailto:privacy@careerflow.vn"
+              href="mailto:privacy@yourcv.net"
               className="inline-flex items-center gap-2 bg-[#003d9b] text-white px-6 py-3 rounded-[24px] font-semibold hover:bg-[#002d75] transition-colors"
             >
               Liên hệ DPO

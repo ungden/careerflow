@@ -65,7 +65,7 @@
 }
 
 :root {
-  /* CareerFlow — Editorial Architect Refined */
+  /* YourCV — Editorial Architect Refined */
   --background: #eef1f5;
   --foreground: #121720;
   --card: #ffffff;
@@ -169,7 +169,7 @@
   }
 }
 
-/* CareerFlow Utilities */
+/* YourCV Utilities */
 .kinetic-gradient {
   background: linear-gradient(135deg, #0041a8 0%, #0052cc 100%);
 }

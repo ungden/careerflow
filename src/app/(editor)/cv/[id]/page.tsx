@@ -1,5 +1,7 @@
 "use client";
 
+import { isPro as isProTier } from "@/lib/subscription";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useCVEditorStore } from "@/lib/store/cv-editor-store";
@@ -63,10 +65,10 @@ export default function CVEditorPage() {
       if (!user) return;
       const { data: profile } = await supabase
         .from("profiles")
-        .select("subscription_tier")
+        .select("subscription_tier, subscription_expires_at")
         .eq("id", user.id)
         .single();
-      setIsPro(profile?.subscription_tier === "pro");
+      setIsPro(isProTier(profile));
     })();
   }, []);
 
@@ -118,7 +120,7 @@ export default function CVEditorPage() {
       <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0px_12px_32px_rgba(25,28,30,0.04)]">
         <div className="max-w-full mx-auto flex justify-between items-center h-20 px-8">
           <div className="flex items-center gap-8">
-            <span className="text-2xl font-black tracking-tighter text-blue-800" style={{ fontFamily: "var(--font-headline)" }}>CareerFlow</span>
+            <span className="text-2xl font-black tracking-tighter text-blue-800" style={{ fontFamily: "var(--font-headline)" }}>YourCV</span>
             <nav className="hidden md:flex gap-6">
               <span className="text-blue-700 font-bold border-b-2 border-blue-700 pb-1 text-sm tracking-tight" style={{ fontFamily: "var(--font-headline)" }}>Tạo CV</span>
               <a className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/viec-lam" style={{ fontFamily: "var(--font-headline)" }}>Việc làm</a>

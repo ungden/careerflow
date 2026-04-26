@@ -26,7 +26,7 @@ export function Header() {
       <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-8">
         {/* Logo */}
         <Link href="/" className="text-2xl font-black tracking-tighter text-blue-800 font-[var(--font-headline)]" style={{ fontFamily: "var(--font-headline)" }}>
-          CareerFlow
+          YourCV
         </Link>
 
         {/* Desktop Nav */}

@@ -1,5 +1,7 @@
 "use client";
 
+import { isPro as isProTier } from "@/lib/subscription";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCVEditorStore } from "@/lib/store/cv-editor-store";
@@ -27,10 +29,10 @@ export default function NewCVPage() {
       if (!user) return;
       const { data: profile } = await supabase
         .from("profiles")
-        .select("subscription_tier")
+        .select("subscription_tier, subscription_expires_at")
         .eq("id", user.id)
         .single();
-      setIsPro(profile?.subscription_tier === "pro");
+      setIsPro(isProTier(profile));
     })();
   }, []);
 

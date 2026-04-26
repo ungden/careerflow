@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Việc làm đã lưu",
-  description: "Danh sách việc làm bạn đã lưu trên CareerFlow",
+  description: "Danh sách việc làm bạn đã lưu trên YourCV",
 };
 
 function formatSalary(min?: number | null, max?: number | null) {

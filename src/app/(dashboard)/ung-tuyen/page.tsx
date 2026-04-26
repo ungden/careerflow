@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Đơn ứng tuyển của tôi",
-  description: "Theo dõi trạng thái các đơn ứng tuyển của bạn trên CareerFlow",
+  description: "Theo dõi trạng thái các đơn ứng tuyển của bạn trên YourCV",
 };
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string }> = {

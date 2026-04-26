@@ -1,8 +1,16 @@
 import { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe/client";
+import { env } from "@/lib/env";
 
 export async function POST(request: NextRequest) {
+  if (!env.STRIPE_ENABLED) {
+    return Response.json(
+      { error: "Stripe đang tạm tắt — vui lòng dùng Sepay." },
+      { status: 404 }
+    );
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -25,7 +33,7 @@ export async function POST(request: NextRequest) {
 
   const origin =
     request.headers.get("origin") ||
-    process.env.NEXT_PUBLIC_APP_URL ||
+    env.NEXT_PUBLIC_APP_URL ||
     "http://localhost:3000";
 
   try {
@@ -38,7 +46,7 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: "vnd",
             product_data: {
-              name: "CareerFlow Pro Monthly",
+              name: "YourCV Pro Monthly",
               description:
                 "Tất cả templates, AI không giới hạn, không watermark",
             },

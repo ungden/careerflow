@@ -41,7 +41,7 @@ export default function Error({
         </h1>
         <p className="text-[#434654] mb-8">
           Rất tiếc, hệ thống đang gặp sự cố. Bạn có thể thử lại hoặc quay về
-          trang chủ. Đội ngũ CareerFlow đã được thông báo về vấn đề này.
+          trang chủ. Đội ngũ YourCV đã được thông báo về vấn đề này.
         </p>
 
         {error.digest && (

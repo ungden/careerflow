@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Tin nhắn",
-  description: "Hộp thư đến trên CareerFlow",
+  description: "Hộp thư đến trên YourCV",
 };
 
 export default async function MessagesPage() {

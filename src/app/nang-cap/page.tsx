@@ -3,12 +3,13 @@ import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
+import { isPro as isProTier } from "@/lib/subscription";
 import { UpgradeCheckoutButton } from "./checkout-button";
 
 export const metadata: Metadata = {
   title: "Nâng cấp Pro",
   description:
-    "Mở khoá toàn bộ templates, AI không giới hạn và nhiều tính năng cao cấp khác với CareerFlow Pro.",
+    "Mở khoá toàn bộ templates, AI không giới hạn và nhiều tính năng cao cấp khác với YourCV Pro.",
 };
 
 export const dynamic = "force-dynamic";
@@ -38,7 +39,7 @@ export default async function UpgradePage() {
       .eq("id", user.id)
       .single();
 
-    isPro = profile?.subscription_tier === "pro";
+    isPro = isProTier(profile);
     expiresAt = profile?.subscription_expires_at ?? null;
   }
 
@@ -52,7 +53,7 @@ export default async function UpgradePage() {
               className="text-4xl md:text-5xl font-extrabold text-[#191c1e] tracking-tight"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Nâng cấp lên CareerFlow Pro
+              Nâng cấp lên YourCV Pro
             </h1>
             <p className="text-[#434654] text-lg max-w-2xl mx-auto">
               Đầu tư cho sự nghiệp với chỉ 99,000đ/tháng. Huỷ bất cứ lúc nào.
@@ -127,13 +128,14 @@ export default async function UpgradePage() {
 
             <div className="mt-6 pt-6 border-t border-white/10 text-center">
               <p className="text-xs text-blue-200">
-                VNPay/MoMo đang được cấu hình (sắp có)
+                Thanh toán nhanh qua chuyển khoản ngân hàng (Sepay)
               </p>
             </div>
           </div>
 
           <p className="text-center text-xs text-[#6b7280] mt-6">
-            Thanh toán an toàn qua Stripe. Huỷ bất cứ lúc nào trong dashboard.
+            Thanh toán an toàn qua chuyển khoản ngân hàng. Quyền lợi kích hoạt
+            tự động khi giao dịch hoàn tất.
           </p>
         </div>
       </main>

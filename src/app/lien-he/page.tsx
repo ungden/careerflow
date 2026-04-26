@@ -7,15 +7,15 @@ import { ContactForm } from "./contact-form";
 export const metadata: Metadata = {
   title: "Liên hệ",
   description:
-    "Liên hệ với đội ngũ CareerFlow. Hỗ trợ ứng viên, nhà tuyển dụng và đối tác.",
+    "Liên hệ với đội ngũ YourCV. Hỗ trợ ứng viên, nhà tuyển dụng và đối tác.",
 };
 
 const channels = [
   {
     label: "Hỗ trợ người dùng",
     desc: "Câu hỏi về CV, tài khoản, thanh toán, kỹ thuật.",
-    value: "support@careerflow.vn",
-    href: "mailto:support@careerflow.vn",
+    value: "support@yourcv.net",
+    href: "mailto:support@yourcv.net",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -25,8 +25,8 @@ const channels = [
   {
     label: "Doanh nghiệp & Tuyển dụng",
     desc: "Hợp tác Pro Employer, gói tuyển dụng số lượng lớn, EVP.",
-    value: "sales@careerflow.vn",
-    href: "mailto:sales@careerflow.vn",
+    value: "sales@yourcv.net",
+    href: "mailto:sales@yourcv.net",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -76,7 +76,7 @@ export default function ContactPage() {
             </h1>
             <p className="text-[#434654] text-lg max-w-2xl mx-auto">
               Dù bạn là ứng viên cần hỗ trợ hay nhà tuyển dụng muốn hợp tác,
-              đội ngũ CareerFlow sẵn sàng đồng hành.
+              đội ngũ YourCV sẵn sàng đồng hành.
             </p>
           </div>
 

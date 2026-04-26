@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 export const metadata: Metadata = {
   title: "Bảng giá",
   description:
-    "So sánh các gói dịch vụ CareerFlow. Bắt đầu miễn phí hoặc nâng cấp Pro để sử dụng toàn bộ tính năng.",
+    "So sánh các gói dịch vụ YourCV. Bắt đầu miễn phí hoặc nâng cấp Pro để sử dụng toàn bộ tính năng.",
 };
 
 const freeTier = [
@@ -192,7 +192,7 @@ export default async function PricingPage() {
                 </Link>
               )}
               <p className="text-blue-200/80 text-xs text-center mt-3">
-                Thanh toán qua VNPay/Stripe đang được cấu hình
+                Thanh toán bằng chuyển khoản ngân hàng (Sepay)
               </p>
             </div>
           </div>

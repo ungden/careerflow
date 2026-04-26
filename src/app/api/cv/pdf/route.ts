@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { isPro as isProTier } from "@/lib/subscription";
 
-const WATERMARK_TEXT = "Tạo bởi CareerFlow - careerflow.vn";
+const WATERMARK_TEXT = "Tạo bởi YourCV - yourcv.net";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -33,10 +34,10 @@ export async function GET(request: NextRequest) {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select("subscription_tier, subscription_expires_at")
     .eq("id", user.id)
     .single();
-  const isPro = profile?.subscription_tier === "pro";
+  const isPro = isProTier(profile);
 
   // HTML-based PDF-ready output (printable in browser)
   const watermarkOverlay = !isPro
@@ -73,7 +74,7 @@ export async function GET(request: NextRequest) {
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>${cv.title || "CV"} - CareerFlow</title>
+  <title>${cv.title || "CV"} - YourCV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     @page { size: A4; margin: 0; }

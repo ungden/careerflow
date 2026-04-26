@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/footer";
 export const metadata: Metadata = {
   title: "Điều khoản dịch vụ",
   description:
-    "Điều khoản và điều kiện sử dụng nền tảng CareerFlow. Vui lòng đọc kỹ trước khi sử dụng dịch vụ.",
+    "Điều khoản và điều kiện sử dụng nền tảng YourCV. Vui lòng đọc kỹ trước khi sử dụng dịch vụ.",
 };
 
 const sections = [
@@ -16,13 +16,13 @@ const sections = [
     body: (
       <>
         <p>
-          CareerFlow là nền tảng kiến tạo sự nghiệp thông minh dành cho người
+          YourCV là nền tảng kiến tạo sự nghiệp thông minh dành cho người
           Việt, cung cấp công cụ tạo CV chuyên nghiệp, publish hồ sơ trực tuyến
           và kết nối ứng viên với nhà tuyển dụng (NTD) hàng đầu.
         </p>
         <p>
           Khi truy cập, đăng ký tài khoản hoặc sử dụng bất kỳ tính năng nào
-          của CareerFlow (sau đây gọi là &ldquo;Dịch vụ&rdquo;), bạn xác nhận
+          của YourCV (sau đây gọi là &ldquo;Dịch vụ&rdquo;), bạn xác nhận
           đã đọc, hiểu và đồng ý với toàn bộ Điều khoản này. Nếu bạn không
           đồng ý, vui lòng ngừng sử dụng Dịch vụ.
         </p>
@@ -45,9 +45,9 @@ const sections = [
             trên tài khoản của mình.
           </li>
           <li>
-            Thông báo ngay cho CareerFlow nếu phát hiện tài khoản bị truy cập
+            Thông báo ngay cho YourCV nếu phát hiện tài khoản bị truy cập
             trái phép qua email{" "}
-            <a href="mailto:support@careerflow.vn">support@careerflow.vn</a>.
+            <a href="mailto:support@yourcv.net">support@yourcv.net</a>.
           </li>
           <li>
             Không chia sẻ tài khoản, không tạo nhiều tài khoản giả mạo nhằm
@@ -55,7 +55,7 @@ const sections = [
           </li>
         </ul>
         <p>
-          CareerFlow có quyền tạm khóa hoặc xóa vĩnh viễn tài khoản vi phạm mà
+          YourCV có quyền tạm khóa hoặc xóa vĩnh viễn tài khoản vi phạm mà
           không cần báo trước.
         </p>
       </>
@@ -92,13 +92,13 @@ const sections = [
         <p>
           Bạn giữ toàn bộ quyền sở hữu trí tuệ đối với CV, hồ sơ, ảnh đại diện
           và các nội dung mà bạn tải lên (&ldquo;Nội dung người dùng&rdquo;).
-          Khi đăng tải, bạn cấp cho CareerFlow giấy phép không độc quyền,
+          Khi đăng tải, bạn cấp cho YourCV giấy phép không độc quyền,
           miễn phí, có thể chuyển nhượng để lưu trữ, hiển thị và xử lý nội
           dung phục vụ mục đích vận hành Dịch vụ.
         </p>
         <p>
           Bạn cam kết Nội dung người dùng không vi phạm bản quyền, không chứa
-          thông tin sai lệch hoặc gây thiệt hại cho bên thứ ba. CareerFlow có
+          thông tin sai lệch hoặc gây thiệt hại cho bên thứ ba. YourCV có
           quyền gỡ bỏ nội dung vi phạm mà không cần báo trước.
         </p>
       </>
@@ -109,7 +109,7 @@ const sections = [
     title: "5. Thanh toán và hoàn tiền",
     body: (
       <>
-        <p>CareerFlow cung cấp hai gói dịch vụ:</p>
+        <p>YourCV cung cấp hai gói dịch vụ:</p>
         <ul>
           <li>
             <strong>Gói Free:</strong> Miễn phí trọn đời với 1 template cơ
@@ -124,7 +124,7 @@ const sections = [
           <strong>Chính sách hoàn tiền:</strong> Bạn được hoàn tiền 100% trong
           vòng 7 ngày kể từ thời điểm thanh toán nếu chưa sử dụng quá 5 lượt
           AI hoặc chưa export bản PDF không watermark. Yêu cầu hoàn tiền gửi
-          về <a href="mailto:support@careerflow.vn">support@careerflow.vn</a>{" "}
+          về <a href="mailto:support@yourcv.net">support@yourcv.net</a>{" "}
           kèm mã giao dịch.
         </p>
       </>
@@ -163,8 +163,8 @@ const sections = [
     body: (
       <>
         <p>
-          CareerFlow cung cấp Dịch vụ trên nguyên tắc &ldquo;hiện trạng&rdquo;
-          (as-is). Trong phạm vi pháp luật cho phép, CareerFlow không chịu
+          YourCV cung cấp Dịch vụ trên nguyên tắc &ldquo;hiện trạng&rdquo;
+          (as-is). Trong phạm vi pháp luật cho phép, YourCV không chịu
           trách nhiệm với:
         </p>
         <ul>
@@ -183,7 +183,7 @@ const sections = [
         </ul>
         <p>
           Tổng mức bồi thường (nếu có) không vượt quá tổng số tiền bạn đã
-          thanh toán cho CareerFlow trong 12 tháng gần nhất.
+          thanh toán cho YourCV trong 12 tháng gần nhất.
         </p>
       </>
     ),
@@ -194,7 +194,7 @@ const sections = [
     body: (
       <>
         <p>
-          CareerFlow có quyền điều chỉnh Điều khoản bất kỳ lúc nào. Phiên bản
+          YourCV có quyền điều chỉnh Điều khoản bất kỳ lúc nào. Phiên bản
           cập nhật sẽ được công bố tại trang này kèm thời điểm hiệu lực. Việc
           tiếp tục sử dụng Dịch vụ sau ngày hiệu lực được xem như bạn chấp
           thuận các thay đổi.
@@ -228,11 +228,11 @@ const sections = [
         <ul>
           <li>
             Email hỗ trợ:{" "}
-            <a href="mailto:support@careerflow.vn">support@careerflow.vn</a>
+            <a href="mailto:support@yourcv.net">support@yourcv.net</a>
           </li>
           <li>
             Trang liên hệ:{" "}
-            <Link href="/lien-he">careerflow.vn/lien-he</Link>
+            <Link href="/lien-he">yourcv.net/lien-he</Link>
           </li>
         </ul>
       </>
@@ -304,7 +304,7 @@ export default function TermsPage() {
           {/* CTA */}
           <div className="mt-16 card-elevated bg-white rounded-[24px] p-8 border border-slate-100 text-center">
             <p className="text-[#434654] mb-4">
-              Còn thắc mắc về điều khoản? Đội ngũ CareerFlow luôn sẵn sàng hỗ
+              Còn thắc mắc về điều khoản? Đội ngũ YourCV luôn sẵn sàng hỗ
               trợ.
             </p>
             <Link

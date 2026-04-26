@@ -56,7 +56,7 @@ export default async function TinTuyenPage() {
               Chưa có tin tuyển dụng nào
             </h3>
             <p className="text-sm text-slate-500 mb-6 max-w-sm">
-              Hãy đăng tin đầu tiên để tiếp cận hàng ngàn ứng viên tiềm năng trên CareerFlow.
+              Hãy đăng tin đầu tiên để tiếp cận hàng ngàn ứng viên tiềm năng trên YourCV.
             </p>
             <Link
               href="/nha-tuyen-dung/dang-tin"

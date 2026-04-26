@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Thanh toán thành công",
-  description: "Cảm ơn bạn đã nâng cấp lên CareerFlow Pro.",
+  description: "Cảm ơn bạn đã nâng cấp lên YourCV Pro.",
 };
 
 export const dynamic = "force-dynamic";
@@ -91,7 +91,7 @@ export default async function PaymentSuccessPage() {
             <div className="flex items-center justify-between text-sm mb-2">
               <span className="text-[#434654]">Gói hiện tại</span>
               <span className="font-bold text-[#191c1e]">
-                {isPro ? "CareerFlow Pro" : "Free"}
+                {isPro ? "YourCV Pro" : "Free"}
               </span>
             </div>
             {isPro && expiresAt && (

@@ -144,7 +144,7 @@ export function CompanyForm({ userId, initialCompany }: CompanyFormProps) {
             placeholder="cong-ty-abc"
           />
           <p className="text-xs text-slate-500 mt-1">
-            Tự động tạo từ tên công ty. careerflow.vn/cong-ty/{slug || "..."}
+            Tự động tạo từ tên công ty. yourcv.net/cong-ty/{slug || "..."}
           </p>
         </div>
 

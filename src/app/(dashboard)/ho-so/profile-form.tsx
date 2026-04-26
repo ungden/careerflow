@@ -144,7 +144,7 @@ export function ProfileForm({
           </label>
           <div className="flex items-center gap-0">
             <span className="bg-[#e5e7eb] rounded-l-2xl px-4 py-3.5 text-sm text-[#434654] border-r border-[#d1d5db]">
-              careerflow.vn/ung-vien/
+              yourcv.net/ung-vien/
             </span>
             <input
               type="text"

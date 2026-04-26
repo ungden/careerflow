@@ -4,7 +4,7 @@ import { FileText } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Tài khoản",
-  description: "Đăng nhập hoặc đăng ký tài khoản CareerFlow",
+  description: "Đăng nhập hoặc đăng ký tài khoản YourCV",
 };
 
 export default function AuthLayout({

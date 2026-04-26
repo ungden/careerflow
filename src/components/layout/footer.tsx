@@ -6,10 +6,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8">
         <div className="space-y-4">
           <div className="text-lg font-bold text-white" style={{ fontFamily: "var(--font-headline)" }}>
-            CareerFlow
+            YourCV
           </div>
           <p className="text-sm text-slate-400">
-            &copy; {new Date().getFullYear()} CareerFlow. The Editorial Architect.
+            &copy; {new Date().getFullYear()} YourCV. The Editorial Architect.
           </p>
         </div>
         <div className="flex flex-wrap gap-8 justify-start md:justify-end">

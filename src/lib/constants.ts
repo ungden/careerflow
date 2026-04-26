@@ -75,6 +75,8 @@ export const CV_TEMPLATES = [
   { id: "seoul", name: "Seoul", premium: true, description: "Tech startup, năng động" },
 ] as const;
 
+import { env } from "@/lib/env";
+
 export const APP_NAME = "YourCV";
 export const APP_DESCRIPTION = "Tạo CV chuyên nghiệp, tìm việc dễ dàng";
-export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+export const APP_URL = env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";

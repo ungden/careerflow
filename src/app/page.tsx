@@ -215,7 +215,7 @@ export default function HomePage() {
                   Sẵn sàng để bắt đầu hành trình sự nghiệp mới?
                 </h2>
                 <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-                  Tham gia cùng hàng nghìn chuyên gia đã thay đổi cuộc đời với CareerFlow.
+                  Tham gia cùng hàng nghìn chuyên gia đã thay đổi cuộc đời với YourCV.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                   <Link

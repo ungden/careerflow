@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const companyName = (job.company as any)?.name || "";
   return {
     title: `${job.title} - ${companyName}`,
-    description: `Ứng tuyển vị trí ${job.title} tại ${companyName} trên CareerFlow`,
+    description: `Ứng tuyển vị trí ${job.title} tại ${companyName} trên YourCV`,
   };
 }
 
@@ -67,8 +67,55 @@ export default async function JobDetailPage({ params }: Props) {
 
   const company = job.company as any;
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL || "https://yourcv.net";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: job.description,
+    datePosted: job.created_at,
+    validThrough: job.expires_at ?? undefined,
+    employmentType: (job.job_type || "").toUpperCase().replace("-", "_"),
+    hiringOrganization: company
+      ? {
+          "@type": "Organization",
+          name: company.name,
+          sameAs: company.website || undefined,
+          logo: company.logo_url || undefined,
+        }
+      : undefined,
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: job.location,
+        addressCountry: "VN",
+      },
+    },
+    baseSalary:
+      job.salary_min || job.salary_max
+        ? {
+            "@type": "MonetaryAmount",
+            currency: "VND",
+            value: {
+              "@type": "QuantitativeValue",
+              minValue: job.salary_min ?? undefined,
+              maxValue: job.salary_max ?? undefined,
+              unitText: "MONTH",
+            },
+          }
+        : undefined,
+    industry: job.industry,
+    url: `${baseUrl}/viec-lam/${job.slug}`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header />
       <main className="min-h-screen bg-[#f8f9fb]">
         <div className="max-w-5xl mx-auto px-6 pt-28 pb-16">

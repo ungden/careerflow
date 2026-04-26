@@ -19,6 +19,12 @@ export function CookieBanner() {
     }
   }, []);
 
+  function notifyConsent() {
+    try {
+      window.dispatchEvent(new Event("cookie-consent-changed"));
+    } catch {}
+  }
+
   function accept() {
     try {
       localStorage.setItem(
@@ -26,6 +32,7 @@ export function CookieBanner() {
         JSON.stringify({ accepted: true, at: new Date().toISOString() })
       );
     } catch {}
+    notifyConsent();
     setVisible(false);
   }
 
@@ -36,6 +43,7 @@ export function CookieBanner() {
         JSON.stringify({ accepted: false, at: new Date().toISOString() })
       );
     } catch {}
+    notifyConsent();
     setVisible(false);
   }
 

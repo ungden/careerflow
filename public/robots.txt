@@ -5,4 +5,4 @@ Disallow: /cv
 Disallow: /ho-so
 Disallow: /api/
 
-Sitemap: https://careerflow.vn/sitemap.xml
+Sitemap: https://yourcv.net/sitemap.xml

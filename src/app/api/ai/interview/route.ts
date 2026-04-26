@@ -1,25 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { isPro as isProTier } from "@/lib/subscription";
+import { chatJSON } from "@/lib/openai";
+import { rateLimit } from "@/lib/rate-limit";
+import { env } from "@/lib/env";
 
 const TOOL = "interview";
 const FREE_LIMIT = 5;
 
+const Body = z.object({
+  industry: z.string().min(1).max(200),
+  position: z.string().min(1).max(200),
+  level: z.string().max(100).optional(),
+});
+
 export async function POST(request: NextRequest) {
+  const limit = await rateLimit(request, {
+    name: "ai_interview",
+    max: 10,
+    windowSec: 60,
+  });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: "rate_limited", message: "Quá nhiều yêu cầu." },
+      { status: 429 }
+    );
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select("subscription_tier, subscription_expires_at")
     .eq("id", user.id)
     .single();
-  const isPro = profile?.subscription_tier === "pro";
+  const isPro = isProTier(profile);
   const month = new Date().toISOString().slice(0, 7);
 
   let usageCount = 0;
@@ -32,12 +54,11 @@ export async function POST(request: NextRequest) {
       .eq("month", month)
       .single();
     usageCount = usage?.count ?? 0;
-
     if (usageCount >= FREE_LIMIT) {
       return NextResponse.json(
         {
           error: "quota_exceeded",
-          message: `Bạn đã hết lượt sử dụng miễn phí (${FREE_LIMIT}/tháng). Nâng cấp Pro để dùng không giới hạn.`,
+          message: `Bạn đã hết lượt miễn phí (${FREE_LIMIT}/tháng). Nâng cấp Pro để dùng không giới hạn.`,
           limit: FREE_LIMIT,
         },
         { status: 429 }
@@ -45,97 +66,57 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
+  if (!env.OPENAI_API_KEY) {
     return NextResponse.json(
-      { error: "AI tạm chưa khả dụng. Vui lòng thử lại sau." },
+      { error: "AI tạm chưa khả dụng." },
       { status: 503 }
     );
   }
 
-  try {
-    const { industry, position, level } = await request.json();
+  const json = await request.json().catch(() => null);
+  const parsed = Body.safeParse(json);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Vui lòng chọn ngành nghề và vị trí." },
+      { status: 400 }
+    );
+  }
+  const { industry, position, level } = parsed.data;
 
-    if (!industry || !position) {
-      return NextResponse.json(
-        { error: "Vui lòng chọn ngành nghề và vị trí." },
-        { status: 400 }
-      );
-    }
-
-    const systemPrompt =
-      "Bạn là chuyên gia phỏng vấn tuyển dụng tại Việt Nam với kinh nghiệm phỏng vấn hàng ngàn ứng viên. Hãy đưa ra các câu hỏi phỏng vấn thực tế và gợi ý cách trả lời hay bằng tiếng Việt.";
-
-    const userPrompt = `Hãy tạo 10 câu hỏi phỏng vấn thực tế cho vị trí sau, kèm gợi ý cách trả lời hay.
+  const result = await chatJSON<{
+    questions: Array<{ question: string; suggested_answer: string }>;
+  }>({
+    apiKey: env.OPENAI_API_KEY,
+    maxTokens: 2500,
+    messages: [
+      {
+        role: "system",
+        content:
+          "Bạn là chuyên gia phỏng vấn tuyển dụng tại Việt Nam. Hãy đưa ra các câu hỏi phỏng vấn thực tế và gợi ý cách trả lời hay bằng tiếng Việt.",
+      },
+      {
+        role: "user",
+        content: `Hãy tạo 10 câu hỏi phỏng vấn thực tế cho vị trí sau, kèm gợi ý cách trả lời hay.
 
 Ngành nghề: ${industry}
 Vị trí: ${position}
 Cấp bậc: ${level || "Không xác định"}
 
-Trả về JSON với format:
-{
-  "questions": [
-    { "question": "<câu hỏi>", "suggested_answer": "<gợi ý trả lời>" },
-    ...
-  ]
-}`;
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+Trả về JSON: { "questions": [{ "question": "...", "suggested_answer": "..." }, ...] }`,
       },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.7,
-        response_format: { type: "json_object" },
-      }),
-    });
+    ],
+  });
 
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      console.error("OpenAI API error:", errorData);
-      return NextResponse.json(
-        { error: "Không thể tạo câu hỏi phỏng vấn. Vui lòng thử lại sau." },
-        { status: 502 }
-      );
-    }
+  if (!result.ok) {
+    return NextResponse.json({ error: result.message }, { status: result.status });
+  }
 
-    const data = await res.json();
-    const content = data.choices?.[0]?.message?.content;
-
-    if (!content) {
-      return NextResponse.json(
-        { error: "Không nhận được phản hồi từ AI." },
-        { status: 502 }
-      );
-    }
-
-    const result = JSON.parse(content);
-
-    if (!isPro) {
-      await supabase.from("ai_usage").upsert(
-        {
-          user_id: user.id,
-          tool: TOOL,
-          month,
-          count: usageCount + 1,
-        },
-        { onConflict: "user_id,tool,month" }
-      );
-    }
-
-    return NextResponse.json({ questions: result.questions });
-  } catch (error) {
-    console.error("Interview questions error:", error);
-    return NextResponse.json(
-      { error: "Đã xảy ra lỗi. Vui lòng thử lại." },
-      { status: 500 }
+  if (!isPro) {
+    await supabase.from("ai_usage").upsert(
+      { user_id: user.id, tool: TOOL, month, count: usageCount + 1 },
+      { onConflict: "user_id,tool,month" }
     );
   }
+
+  return NextResponse.json({ questions: result.data.questions });
 }

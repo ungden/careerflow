@@ -7,7 +7,7 @@ import { ProfileForm } from "./profile-form";
 
 export const metadata: Metadata = {
   title: "Hồ sơ cá nhân",
-  description: "Quản lý hồ sơ cá nhân và cài đặt tài khoản CareerFlow.",
+  description: "Quản lý hồ sơ cá nhân và cài đặt tài khoản YourCV.",
 };
 
 export default async function HoSoPage() {

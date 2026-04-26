@@ -6,17 +6,17 @@ import { Footer } from "@/components/layout/footer";
 export const metadata: Metadata = {
   title: "Câu hỏi thường gặp (FAQ)",
   description:
-    "Giải đáp những thắc mắc phổ biến về CareerFlow: gói dịch vụ, bảo mật, cách publish CV, hoàn tiền và nhiều hơn nữa.",
+    "Giải đáp những thắc mắc phổ biến về YourCV: gói dịch vụ, bảo mật, cách publish CV, hoàn tiền và nhiều hơn nữa.",
 };
 
 const faqs = [
   {
-    q: "CareerFlow là gì?",
-    a: "CareerFlow là nền tảng kiến tạo sự nghiệp thông minh dành cho người Việt. Chúng tôi cung cấp công cụ tạo CV chuyên nghiệp với nhiều template hiện đại, publish hồ sơ trực tuyến để NTD chủ động tìm thấy bạn, và bộ AI tools hỗ trợ cover letter, mô phỏng phỏng vấn, đàm phán lương.",
+    q: "YourCV là gì?",
+    a: "YourCV là nền tảng kiến tạo sự nghiệp thông minh dành cho người Việt. Chúng tôi cung cấp công cụ tạo CV chuyên nghiệp với nhiều template hiện đại, publish hồ sơ trực tuyến để NTD chủ động tìm thấy bạn, và bộ AI tools hỗ trợ cover letter, mô phỏng phỏng vấn, đàm phán lương.",
   },
   {
     q: "Tôi có thể sử dụng miễn phí được không?",
-    a: "Có. Gói Free hoàn toàn miễn phí trọn đời và bao gồm: 1 template CV cơ bản, export PDF (có watermark CareerFlow), publish profile lên marketplace, và 1 lượt AI review CV. Bạn không cần nhập thẻ tín dụng để bắt đầu.",
+    a: "Có. Gói Free hoàn toàn miễn phí trọn đời và bao gồm: 1 template CV cơ bản, export PDF (có watermark YourCV), publish profile lên marketplace, và 1 lượt AI review CV. Bạn không cần nhập thẻ tín dụng để bắt đầu.",
   },
   {
     q: "Gói Pro có gì khác biệt so với gói Free?",
@@ -24,11 +24,11 @@ const faqs = [
   },
   {
     q: "Làm sao để publish CV của tôi?",
-    a: 'Sau khi hoàn thiện CV trong editor, vào dashboard và bật toggle "Publish profile". CV sẽ có URL công khai dạng careerflow.vn/u/<username> và xuất hiện trong marketplace để NTD tìm thấy. Bạn có thể tắt publish bất cứ lúc nào.',
+    a: 'Sau khi hoàn thiện CV trong editor, vào dashboard và bật toggle "Publish profile". CV sẽ có URL công khai dạng yourcv.net/u/<username> và xuất hiện trong marketplace để NTD tìm thấy. Bạn có thể tắt publish bất cứ lúc nào.',
   },
   {
     q: "Nhà tuyển dụng có phải trả phí không?",
-    a: "NTD có thể tạo tài khoản và đăng tin tuyển dụng miễn phí với giới hạn 3 tin/tháng. Để xem hồ sơ ứng viên đầy đủ, gửi tin nhắn trực tiếp và sử dụng bộ lọc nâng cao, NTD cần đăng ký gói Pro Employer. Liên hệ sales@careerflow.vn để nhận báo giá doanh nghiệp.",
+    a: "NTD có thể tạo tài khoản và đăng tin tuyển dụng miễn phí với giới hạn 3 tin/tháng. Để xem hồ sơ ứng viên đầy đủ, gửi tin nhắn trực tiếp và sử dụng bộ lọc nâng cao, NTD cần đăng ký gói Pro Employer. Liên hệ sales@yourcv.net để nhận báo giá doanh nghiệp.",
   },
   {
     q: "Làm sao để liên hệ NTD hoặc ứng viên?",
@@ -36,19 +36,19 @@ const faqs = [
   },
   {
     q: "Dữ liệu CV của tôi có an toàn không?",
-    a: "Có. Toàn bộ dữ liệu được lưu trên hạ tầng Supabase với mã hoá HTTPS/TLS 1.3, mật khẩu hash bcrypt, dữ liệu nhạy cảm mã hoá at-rest. CareerFlow tuân thủ Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân tại Việt Nam.",
+    a: "Có. Toàn bộ dữ liệu được lưu trên hạ tầng Supabase với mã hoá HTTPS/TLS 1.3, mật khẩu hash bcrypt, dữ liệu nhạy cảm mã hoá at-rest. YourCV tuân thủ Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân tại Việt Nam.",
   },
   {
     q: "Xuất PDF có watermark không?",
-    a: "Tài khoản Free khi export PDF sẽ có dòng watermark mờ 'Made with CareerFlow' ở chân trang. Tài khoản Pro export PDF hoàn toàn sạch, không watermark, sẵn sàng gửi cho NTD ở bất kỳ định dạng nào.",
+    a: "Tài khoản Free khi export PDF sẽ có dòng watermark mờ 'Made with YourCV' ở chân trang. Tài khoản Pro export PDF hoàn toàn sạch, không watermark, sẵn sàng gửi cho NTD ở bất kỳ định dạng nào.",
   },
   {
     q: "Chính sách hoàn tiền như thế nào?",
-    a: "Bạn được hoàn tiền 100% trong vòng 7 ngày kể từ thời điểm thanh toán gói Pro, với điều kiện chưa sử dụng quá 5 lượt AI hoặc chưa export PDF không watermark. Gửi yêu cầu kèm mã giao dịch về support@careerflow.vn — tiền sẽ về tài khoản trong 5–7 ngày làm việc.",
+    a: "Bạn được hoàn tiền 100% trong vòng 7 ngày kể từ thời điểm thanh toán gói Pro, với điều kiện chưa sử dụng quá 5 lượt AI hoặc chưa export PDF không watermark. Gửi yêu cầu kèm mã giao dịch về support@yourcv.net — tiền sẽ về tài khoản trong 5–7 ngày làm việc.",
   },
   {
     q: "Làm sao để báo cáo nội dung lạm dụng?",
-    a: "Trên mỗi hồ sơ ứng viên, tin tuyển dụng hoặc tin nhắn đều có nút 'Báo cáo'. Bạn có thể chọn lý do (spam, gian lận, nội dung không phù hợp...) và gửi kèm mô tả. Đội ngũ moderation sẽ xử lý trong vòng 24 giờ. Trường hợp khẩn cấp, gửi email trực tiếp tới support@careerflow.vn.",
+    a: "Trên mỗi hồ sơ ứng viên, tin tuyển dụng hoặc tin nhắn đều có nút 'Báo cáo'. Bạn có thể chọn lý do (spam, gian lận, nội dung không phù hợp...) và gửi kèm mô tả. Đội ngũ moderation sẽ xử lý trong vòng 24 giờ. Trường hợp khẩn cấp, gửi email trực tiếp tới support@yourcv.net.",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function FAQPage() {
               Câu hỏi thường gặp
             </h1>
             <p className="text-[#434654] text-lg">
-              10 câu hỏi phổ biến nhất về CareerFlow.
+              10 câu hỏi phổ biến nhất về YourCV.
             </p>
           </div>
 
@@ -126,7 +126,7 @@ export default function FAQPage() {
               Vẫn chưa tìm thấy câu trả lời?
             </h2>
             <p className="text-white/85 mb-6 max-w-xl mx-auto">
-              Đội ngũ hỗ trợ CareerFlow sẵn sàng giải đáp mọi thắc mắc trong
+              Đội ngũ hỗ trợ YourCV sẵn sàng giải đáp mọi thắc mắc trong
               vòng 24 giờ làm việc.
             </p>
             <Link
