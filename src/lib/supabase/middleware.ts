@@ -36,7 +36,7 @@ export async function updateSession(request: NextRequest) {
   // Protected routes - redirect to login if not authenticated.
   // Public exceptions are evaluated first so things like /cv/p/[slug] (the
   // public CV share viewer) don't get gated behind auth.
-  const publicPrefixes = ["/cv/p/"];
+  const publicPrefixes = ["/cv/p/", "/v2"];
   const protectedPaths = ["/dashboard", "/cv", "/ho-so", "/nha-tuyen-dung", "/viec-da-luu", "/tin-nhan"];
   const path = request.nextUrl.pathname;
   const isPublicException = publicPrefixes.some((p) => path.startsWith(p));
