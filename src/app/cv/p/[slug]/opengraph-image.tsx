@@ -130,7 +130,7 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             {(name || "?")
               .split(/\s+/)
               .filter(Boolean)
-              .map((w) => w[0])
+              .map((w: string) => w[0])
               .slice(-2)
               .join("")
               .toUpperCase()}
