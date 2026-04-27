@@ -53,14 +53,14 @@ export default async function SavedJobsPage() {
           </header>
 
           {(!rows || rows.length === 0) ? (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
               <Bookmark size={36} className="mx-auto text-slate-300" />
               <p className="mt-4 text-base font-bold text-slate-700">
                 Bạn chưa lưu việc nào.
               </p>
               <Link
                 href="/viec-lam"
-                className="mt-5 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+                className="mt-5 inline-flex h-10 items-center gap-2 rounded-xl bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
               >
                 Khám phá việc làm
               </Link>
@@ -84,9 +84,9 @@ export default async function SavedJobsPage() {
                   <Link
                     key={row.id}
                     href={`/viec-lam/${job.slug}`}
-                    className="group flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center"
+                    className="group flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center"
                   >
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-blue-50 text-xl font-black text-[#1557ff]">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-xl font-black text-[#1557ff]">
                       {job.company?.name?.[0] ?? "C"}
                     </div>
                     <div className="flex-1">
@@ -98,18 +98,18 @@ export default async function SavedJobsPage() {
                       </p>
                       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500">
                         {job.location && (
-                          <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
+                          <span className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-2 py-1">
                             <MapPin size={12} /> {job.location}
                           </span>
                         )}
                         {job.job_type && (
-                          <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
+                          <span className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-2 py-1">
                             <Briefcase size={12} />
                             {JOB_TYPE_LABELS[job.job_type] ?? job.job_type}
                           </span>
                         )}
                         {!job.is_active && (
-                          <span className="rounded-md bg-amber-50 px-2 py-1 text-amber-700">
+                          <span className="rounded-xl bg-amber-50 px-2 py-1 text-amber-700">
                             Đã đóng
                           </span>
                         )}

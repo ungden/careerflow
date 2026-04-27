@@ -52,7 +52,7 @@ export default async function UngTuyenPage() {
             {(["pending", "viewed", "shortlisted", "hired", "rejected"] as const).map((s) => (
               <div
                 key={s}
-                className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
+                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
               >
                 <p className="text-xs font-black uppercase text-slate-500">
                   {STATUS_LABELS[s].label}
@@ -64,7 +64,7 @@ export default async function UngTuyenPage() {
             ))}
           </div>
 
-          <div className="rounded-lg border border-slate-200 bg-white shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
             {(!apps || apps.length === 0) ? (
               <div className="p-10 text-center">
                 <p className="text-base font-bold text-slate-700">
@@ -72,7 +72,7 @@ export default async function UngTuyenPage() {
                 </p>
                 <Link
                   href="/viec-lam"
-                  className="mt-4 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+                  className="mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
                 >
                   Xem việc làm
                 </Link>
@@ -110,7 +110,7 @@ export default async function UngTuyenPage() {
                         </p>
                       </div>
                       <span
-                        className={`rounded-md px-3 py-1 text-xs font-black ${meta.tone}`}
+                        className={`rounded-xl px-3 py-1 text-xs font-black ${meta.tone}`}
                       >
                         {meta.label}
                       </span>

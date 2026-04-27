@@ -54,7 +54,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <h1
         className="text-2xl font-black"
         style={{ fontFamily: "var(--font-headline)" }}
@@ -77,7 +77,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
           />
         </div>
         <div className="space-y-1.5">
@@ -91,13 +91,13 @@ function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
           />
         </div>
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#1557ff] text-base font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5] disabled:opacity-60"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1557ff] text-base font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5] disabled:opacity-60"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           Đăng nhập
@@ -115,7 +115,7 @@ function LoginForm() {
       <button
         type="button"
         onClick={handleGoogleLogin}
-        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-slate-200 bg-white text-sm font-bold text-slate-700 hover:border-[#1557ff] hover:text-[#1557ff]"
+        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-700 hover:border-[#1557ff] hover:text-[#1557ff]"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden>
           <path

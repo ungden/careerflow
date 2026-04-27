@@ -38,7 +38,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <h1
         className="text-2xl font-black"
         style={{ fontFamily: "var(--font-headline)" }}
@@ -53,7 +53,7 @@ export default function RegisterPage() {
         <button
           type="button"
           onClick={() => setRole("candidate")}
-          className={`flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition ${
+          className={`flex flex-col items-center gap-2 rounded-2xl border-2 p-4 transition ${
             role === "candidate"
               ? "border-[#1557ff] bg-blue-50 text-[#1557ff]"
               : "border-slate-200 text-slate-500 hover:border-slate-300"
@@ -65,7 +65,7 @@ export default function RegisterPage() {
         <button
           type="button"
           onClick={() => setRole("employer")}
-          className={`flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition ${
+          className={`flex flex-col items-center gap-2 rounded-2xl border-2 p-4 transition ${
             role === "employer"
               ? "border-[#1557ff] bg-blue-50 text-[#1557ff]"
               : "border-slate-200 text-slate-500 hover:border-slate-300"
@@ -87,7 +87,7 @@ export default function RegisterPage() {
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
-            className="h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
           />
         </div>
         <div className="space-y-1.5">
@@ -101,7 +101,7 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
           />
         </div>
         <div className="space-y-1.5">
@@ -116,13 +116,13 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             minLength={6}
             required
-            className="h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
           />
         </div>
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#1557ff] text-base font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5] disabled:opacity-60"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1557ff] text-base font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5] disabled:opacity-60"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           Đăng ký {role === "candidate" ? "ứng viên" : "nhà tuyển dụng"}

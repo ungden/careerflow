@@ -83,13 +83,13 @@ export default function NewCVPage() {
               }}
             >
               <CardContent className="p-4">
-                <div className="aspect-[210/297] bg-muted rounded-md mb-3 flex items-center justify-center relative">
+                <div className="aspect-[210/297] bg-muted rounded-xl mb-3 flex items-center justify-center relative">
                   <FileText className="h-12 w-12 text-muted-foreground/30" />
                   <span className="absolute bottom-2 text-xs font-medium text-muted-foreground">
                     {template.name}
                   </span>
                   {isLocked && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background/70 rounded-md">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background/70 rounded-xl">
                       <Lock className="h-6 w-6 text-[#1557ff]" />
                       <Badge variant="secondary" className="gap-1 bg-[#1557ff] text-white hover:bg-[#1557ff]">
                         Nâng cấp Pro

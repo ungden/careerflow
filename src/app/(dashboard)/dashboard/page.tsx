@@ -82,7 +82,7 @@ export default async function DashboardPage() {
                 <Link
                   key={s.label}
                   href={s.href}
-                  className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
+                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <Icon className="text-[#1557ff]" size={20} />
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
           </div>
 
           <div className="mb-8 grid gap-4 lg:grid-cols-3">
-            <div className="rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm lg:col-span-2">
+            <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm lg:col-span-2">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-xs font-black uppercase text-[#1557ff]">
@@ -111,14 +111,14 @@ export default async function DashboardPage() {
                 {!isPro && (
                   <Link
                     href="/nang-cap"
-                    className="inline-flex h-11 items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+                    className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
                   >
                     Nâng cấp Pro <ArrowRight size={14} />
                   </Link>
                 )}
               </div>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <p className="text-xs font-black uppercase text-slate-500">Hồ sơ public</p>
               {profile?.is_published && profile?.slug ? (
                 <>
@@ -135,7 +135,7 @@ export default async function DashboardPage() {
                   <p className="mt-1 text-base font-black">Chưa publish</p>
                   <Link
                     href="/ho-so"
-                    className="mt-3 inline-flex h-9 items-center gap-1 rounded-md border border-slate-200 px-3 text-xs font-bold text-slate-700"
+                    className="mt-3 inline-flex h-9 items-center gap-1 rounded-xl border border-slate-200 px-3 text-xs font-bold text-slate-700"
                   >
                     Bật publish
                   </Link>
@@ -173,9 +173,9 @@ export default async function DashboardPage() {
                 <Link
                   key={a.title}
                   href={a.href}
-                  className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
+                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-[#1557ff]">
                     <Icon size={20} />
                   </div>
                   <h3

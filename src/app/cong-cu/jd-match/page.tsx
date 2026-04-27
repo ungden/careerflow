@@ -61,13 +61,13 @@ export default async function JdMatchPage({ searchParams }: Props) {
           </header>
 
           {(!cvs || cvs.length === 0) ? (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-10 text-center">
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
               <p className="text-base font-bold text-slate-700">
                 Bạn chưa có CV nào để so khớp.
               </p>
               <Link
                 href="/cv/moi"
-                className="mt-4 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white"
+                className="mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-[#1557ff] px-4 text-sm font-bold text-white"
               >
                 Tạo CV ngay
               </Link>

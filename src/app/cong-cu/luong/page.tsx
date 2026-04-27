@@ -291,7 +291,7 @@ export default function SoSanhLuongPage() {
                         left: `${(result.salary_median / maxSalary) * 100}%`,
                       }}
                     >
-                      <div className="bg-[#1557ff] text-white text-xs font-bold px-2 py-1 rounded-lg">
+                      <div className="bg-[#1557ff] text-white text-xs font-bold px-2 py-1 rounded-2xl">
                         {result.salary_median}tr
                       </div>
                     </div>

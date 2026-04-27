@@ -25,7 +25,7 @@ export default async function CompanyPipelinePage() {
           <p className="mt-3 text-slate-600">Tạo hồ sơ công ty trước khi quản lý ứng viên.</p>
           <Link
             href="/nha-tuyen-dung/cong-ty"
-            className="mt-6 inline-flex h-11 items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25"
+            className="mt-6 inline-flex h-11 items-center gap-2 rounded-xl bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25"
           >
             Tạo hồ sơ công ty
           </Link>
@@ -70,13 +70,13 @@ export default async function CompanyPipelinePage() {
           </header>
 
           {(!apps || apps.length === 0) ? (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
               <p className="text-base font-bold text-slate-700">
                 Chưa có ai ứng tuyển vào tin của bạn.
               </p>
               <Link
                 href="/nha-tuyen-dung/tin-tuyen"
-                className="mt-4 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white"
+                className="mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-[#1557ff] px-4 text-sm font-bold text-white"
               >
                 Quản lý tin tuyển dụng
               </Link>

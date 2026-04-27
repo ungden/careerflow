@@ -88,13 +88,13 @@ export function JdMatchTool({
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
       {/* Input */}
-      <div className="space-y-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div>
           <label className="text-sm font-black uppercase text-slate-500">CV của bạn</label>
           <select
             value={selectedCv}
             onChange={(e) => setSelectedCv(e.target.value)}
-            className="mt-2 h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+            className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
           >
             {cvs.map((cv) => (
               <option key={cv.id} value={cv.id}>
@@ -111,14 +111,14 @@ export function JdMatchTool({
             value={jd}
             onChange={(e) => setJd(e.target.value)}
             placeholder="Dán JD mục tiêu vào đây — càng chi tiết càng đo chính xác..."
-            className="mt-2 w-full rounded-md border border-slate-200 bg-white p-3 text-sm leading-7 outline-none focus:border-[#1557ff]"
+            className="mt-2 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm leading-7 outline-none focus:border-[#1557ff]"
           />
           <p className="mt-1 text-xs text-slate-400">{jd.length} ký tự</p>
         </div>
         <button
           onClick={run}
           disabled={loading || cvs.length === 0}
-          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#1557ff] text-base font-bold text-white shadow-sm shadow-blue-500/25 disabled:opacity-60"
+          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1557ff] text-base font-bold text-white shadow-sm shadow-blue-500/25 disabled:opacity-60"
         >
           {loading ? (
             <>
@@ -135,7 +135,7 @@ export function JdMatchTool({
       {/* Output */}
       <div className="space-y-4">
         {!result ? (
-          <div className="rounded-lg border border-dashed border-slate-300 bg-white p-10 text-center">
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
             <Sparkles className="mx-auto text-[#1557ff]" size={28} />
             <p className="mt-3 text-base font-bold text-slate-700">
               Kết quả AI sẽ hiện ở đây
@@ -150,7 +150,7 @@ export function JdMatchTool({
               <ScoreCard label="Match Score" value={result.match_score} tone="blue" />
               <ScoreCard label="ATS Score" value={result.ats_score} tone="emerald" />
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <p className="text-sm font-black uppercase text-slate-500">Tóm tắt</p>
               <p className="mt-2 text-sm leading-7 text-slate-700">{result.overall}</p>
             </div>
@@ -168,11 +168,11 @@ export function JdMatchTool({
             )}
 
             {result.bullet_rewrite_suggestions?.length > 0 && (
-              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <p className="text-sm font-black uppercase text-[#1557ff]">Gợi ý viết lại bullet</p>
                 <div className="mt-3 space-y-3">
                   {result.bullet_rewrite_suggestions.map((s, i) => (
-                    <div key={i} className="rounded-md bg-slate-50 p-3">
+                    <div key={i} className="rounded-xl bg-slate-50 p-3">
                       <p className="text-xs font-black uppercase text-slate-400">CV cũ</p>
                       <p className="mt-1 text-sm text-slate-600 line-through">{s.from}</p>
                       <p className="mt-2 text-xs font-black uppercase text-emerald-600">AI đề xuất</p>
@@ -195,7 +195,7 @@ function ScoreCard({ label, value, tone }: { label: string; value: number; tone:
       ? "from-blue-50 via-white to-blue-50 text-[#1557ff]"
       : "from-emerald-50 via-white to-emerald-50 text-emerald-700";
   return (
-    <div className={`rounded-lg border border-slate-200 bg-gradient-to-br ${palette} p-5 shadow-sm`}>
+    <div className={`rounded-2xl border border-slate-200 bg-gradient-to-br ${palette} p-5 shadow-sm`}>
       <p className="text-xs font-black uppercase">{label}</p>
       <p className="mt-2 text-5xl font-black">{value}<span className="text-2xl text-slate-400">/100</span></p>
     </div>
@@ -206,12 +206,12 @@ function KwBox({ title, tone, items }: { title: string; tone: "emerald" | "red";
   const palette =
     tone === "emerald" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600";
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <p className="text-sm font-black uppercase text-slate-500">{title}</p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {items?.length ? (
           items.map((k) => (
-            <span key={k} className={`rounded-md px-2 py-1 text-xs font-bold ${palette}`}>
+            <span key={k} className={`rounded-xl px-2 py-1 text-xs font-bold ${palette}`}>
               {k}
             </span>
           ))
@@ -226,7 +226,7 @@ function KwBox({ title, tone, items }: { title: string; tone: "emerald" | "red";
 function ListBox({ title, tone, items }: { title: string; tone: "emerald" | "amber"; items: string[] }) {
   const dot = tone === "emerald" ? "bg-emerald-500" : "bg-amber-500";
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <p className="text-sm font-black uppercase text-slate-500">{title}</p>
       <ul className="mt-3 space-y-2">
         {items.map((s, i) => (

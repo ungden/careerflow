@@ -186,7 +186,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                         {p.technologies?.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mt-2">
                             {p.technologies.map((t: string, j: number) => (
-                              <span key={j} className="px-2.5 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded-md text-[11px] font-semibold">{t}</span>
+                              <span key={j} className="px-2.5 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded-xl text-[11px] font-semibold">{t}</span>
                             ))}
                           </div>
                         )}

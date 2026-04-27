@@ -81,7 +81,7 @@ export default async function BangGiaPage() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Free */}
-            <div className="flex flex-col rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="flex flex-col rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
               <p className="text-xs font-black uppercase text-slate-500">Free</p>
               <h2
                 className="mt-2 text-2xl font-black"
@@ -109,18 +109,18 @@ export default async function BangGiaPage() {
               {!user ? (
                 <Link
                   href="/dang-ky"
-                  className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md border border-[#1557ff] bg-white text-base font-bold text-[#1557ff] hover:bg-blue-50"
+                  className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-xl border border-[#1557ff] bg-white text-base font-bold text-[#1557ff] hover:bg-blue-50"
                 >
                   Bắt đầu miễn phí
                 </Link>
               ) : !isPro ? (
-                <div className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md bg-slate-100 text-base font-bold text-slate-600">
+                <div className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-xl bg-slate-100 text-base font-bold text-slate-600">
                   Đang sử dụng
                 </div>
               ) : (
                 <Link
                   href="/cv/moi"
-                  className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md border border-slate-200 bg-white text-base font-bold text-slate-700"
+                  className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-xl border border-slate-200 bg-white text-base font-bold text-slate-700"
                 >
                   Tạo CV mới
                 </Link>
@@ -128,8 +128,8 @@ export default async function BangGiaPage() {
             </div>
 
             {/* Pro */}
-            <div className="relative flex flex-col rounded-lg border-2 border-[#1557ff] bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-8 shadow-md">
-              <div className="absolute right-6 top-6 inline-flex items-center gap-1 rounded-md bg-emerald-500 px-2 py-1 text-xs font-black text-white">
+            <div className="relative flex flex-col rounded-2xl border-2 border-[#1557ff] bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-8 shadow-md">
+              <div className="absolute right-6 top-6 inline-flex items-center gap-1 rounded-xl bg-emerald-500 px-2 py-1 text-xs font-black text-white">
                 <Sparkles size={12} /> Phổ biến
               </div>
               <p className="text-xs font-black uppercase text-[#1557ff]">YourCV Pro</p>
@@ -160,13 +160,13 @@ export default async function BangGiaPage() {
                 ))}
               </ul>
               {isPro ? (
-                <div className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md bg-[#1557ff]/15 text-base font-bold text-[#1557ff]">
+                <div className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-xl bg-[#1557ff]/15 text-base font-bold text-[#1557ff]">
                   Bạn đang dùng Pro
                 </div>
               ) : (
                 <Link
                   href={user ? "/nang-cap" : "/dang-nhap?next=/nang-cap"}
-                  className="mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#1557ff] text-base font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0e3fd5]"
+                  className="mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1557ff] text-base font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0e3fd5]"
                 >
                   Nâng cấp Pro
                 </Link>
@@ -185,7 +185,7 @@ export default async function BangGiaPage() {
             >
               So sánh chi tiết
             </h2>
-            <div className="mt-6 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+            <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <table className="w-full text-sm">
                 <thead className="bg-slate-50 text-left">
                   <tr>

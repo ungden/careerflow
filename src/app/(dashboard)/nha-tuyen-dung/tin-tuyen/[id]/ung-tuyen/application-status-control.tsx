@@ -58,7 +58,7 @@ export function ApplicationStatusControl({
           value={status}
           onChange={(e) => handleChange(e.target.value)}
           disabled={isPending}
-          className="text-xs font-semibold border border-slate-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1557ff]/30 disabled:opacity-60"
+          className="text-xs font-semibold border border-slate-200 rounded-2xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1557ff]/30 disabled:opacity-60"
         >
           {STATUSES.map((s) => (
             <option key={s.value} value={s.value}>

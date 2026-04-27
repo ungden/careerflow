@@ -89,14 +89,14 @@ export default function CongCuHubPage() {
                 <Link
                   key={t.title}
                   href={t.href}
-                  className="group flex h-full flex-col rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
+                  className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-[#1557ff]">
                       <Icon size={22} />
                     </div>
                     {t.badge && (
-                      <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
+                      <span className="rounded-xl bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
                         {t.badge}
                       </span>
                     )}
@@ -125,8 +125,8 @@ export default function CongCuHubPage() {
               );
             })}
             {/* Pro upsell card */}
-            <div className="flex h-full flex-col rounded-lg border border-emerald-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-6 shadow-sm">
-              <div className="flex h-12 w-12 items-center justify-center rounded-md bg-emerald-500 text-white">
+            <div className="flex h-full flex-col rounded-2xl border border-emerald-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-6 shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500 text-white">
                 <Sparkles size={22} />
               </div>
               <h3
@@ -140,7 +140,7 @@ export default function CongCuHubPage() {
               </p>
               <Link
                 href="/nang-cap"
-                className="mt-4 inline-flex h-11 w-fit items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+                className="mt-4 inline-flex h-11 w-fit items-center gap-2 rounded-xl bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
               >
                 Nâng cấp Pro <ArrowRight size={14} />
               </Link>

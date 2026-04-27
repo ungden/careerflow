@@ -122,9 +122,9 @@ export default async function ViecLamPage({
           <form
             action="/viec-lam"
             method="GET"
-            className="mb-8 flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-center"
+            className="mb-8 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-center"
           >
-            <div className="flex flex-1 items-center gap-2 rounded-md border border-slate-200 px-3">
+            <div className="flex flex-1 items-center gap-2 rounded-xl border border-slate-200 px-3">
               <Search size={18} className="text-slate-400" />
               <input
                 name="q"
@@ -133,7 +133,7 @@ export default async function ViecLamPage({
                 className="h-11 flex-1 bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-slate-400"
               />
             </div>
-            <div className="flex items-center gap-2 rounded-md border border-slate-200 px-3 md:w-56">
+            <div className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 md:w-56">
               <MapPin size={18} className="text-slate-400" />
               <input
                 name="location"
@@ -147,7 +147,7 @@ export default async function ViecLamPage({
             )}
             <button
               type="submit"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-6 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#1557ff] px-6 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
             >
               <Filter size={16} /> Lọc
             </button>
@@ -156,7 +156,7 @@ export default async function ViecLamPage({
           <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
             {/* Sidebar */}
             <aside className="space-y-4">
-              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <p className="text-sm font-black uppercase tracking-wider text-slate-700">
                   Ngành nghề
                 </p>
@@ -170,7 +170,7 @@ export default async function ViecLamPage({
                       <li key={ind}>
                         <Link
                           href={href}
-                          className={`flex items-center gap-2 rounded-md px-2 py-2 text-sm font-bold ${
+                          className={`flex items-center gap-2 rounded-xl px-2 py-2 text-sm font-bold ${
                             active
                               ? "bg-blue-50 text-[#1557ff]"
                               : "text-slate-600 hover:bg-slate-50"
@@ -189,7 +189,7 @@ export default async function ViecLamPage({
                 </ul>
               </div>
 
-              <div className="rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm">
+              <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm">
                 <p className="text-xs font-black uppercase text-[#1557ff]">
                   Tip
                 </p>
@@ -202,7 +202,7 @@ export default async function ViecLamPage({
             {/* List */}
             <div className="space-y-4">
               {(!jobs || jobs.length === 0) ? (
-                <div className="rounded-lg border border-slate-200 bg-white p-10 text-center text-slate-500">
+                <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500">
                   Chưa có vị trí phù hợp. Thử bỏ bớt filter.
                 </div>
               ) : (
@@ -212,9 +212,9 @@ export default async function ViecLamPage({
                     <Link
                       key={job.id}
                       href={`/viec-lam/${job.slug}`}
-                      className="group flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center"
+                      className="group flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center"
                     >
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-blue-50 text-xl font-black text-[#1557ff]">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-xl font-black text-[#1557ff]">
                         {company.name?.[0] ?? "C"}
                       </div>
                       <div className="flex-1">
@@ -231,26 +231,26 @@ export default async function ViecLamPage({
                             </p>
                           </div>
                           {job.is_featured && (
-                            <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
+                            <span className="rounded-xl bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
                               Featured
                             </span>
                           )}
                         </div>
                         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500">
                           {job.location && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
+                            <span className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-2 py-1">
                               <MapPin size={12} />
                               {job.location}
                             </span>
                           )}
                           {job.job_type && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
+                            <span className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-2 py-1">
                               <Briefcase size={12} />
                               {JOB_TYPE_LABELS[job.job_type] ?? job.job_type}
                             </span>
                           )}
                           {job.industry && (
-                            <span className="rounded-md bg-blue-50 px-2 py-1 text-[#1557ff]">
+                            <span className="rounded-xl bg-blue-50 px-2 py-1 text-[#1557ff]">
                               {job.industry}
                             </span>
                           )}
@@ -270,10 +270,10 @@ export default async function ViecLamPage({
                             jobId={job.id}
                             cvId={primaryCvId}
                             alreadyApplied={appliedSet.has(job.id)}
-                            className="inline-flex h-9 items-center justify-center gap-1 rounded-md bg-[#1557ff] px-3 text-xs font-bold text-white shadow-sm shadow-blue-500/25"
+                            className="inline-flex h-9 items-center justify-center gap-1 rounded-xl bg-[#1557ff] px-3 text-xs font-bold text-white shadow-sm shadow-blue-500/25"
                           />
                         ) : (
-                          <span className="inline-flex h-9 items-center justify-center gap-1 rounded-md bg-[#1557ff] px-3 text-xs font-bold text-white shadow-sm shadow-blue-500/25">
+                          <span className="inline-flex h-9 items-center justify-center gap-1 rounded-xl bg-[#1557ff] px-3 text-xs font-bold text-white shadow-sm shadow-blue-500/25">
                             Xem chi tiết
                           </span>
                         )}

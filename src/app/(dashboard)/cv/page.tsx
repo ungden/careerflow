@@ -46,21 +46,21 @@ export default async function CvLibraryPage() {
             </div>
             <Link
               href="/cv/moi"
-              className="inline-flex h-11 items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+              className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
             >
               <Plus size={18} /> Tạo CV mới
             </Link>
           </div>
 
           {(!cvs || cvs.length === 0) ? (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
               <FileText size={36} className="mx-auto text-slate-300" />
               <p className="mt-4 text-base font-bold text-slate-700">
                 Bạn chưa có CV nào.
               </p>
               <Link
                 href="/cv/moi"
-                className="mt-5 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white"
+                className="mt-5 inline-flex h-10 items-center gap-2 rounded-xl bg-[#1557ff] px-4 text-sm font-bold text-white"
               >
                 <Plus size={16} /> Bắt đầu CV đầu tiên
               </Link>
@@ -70,14 +70,14 @@ export default async function CvLibraryPage() {
               {cvs.map((cv) => (
                 <div
                   key={cv.id}
-                  className="group flex flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
+                  className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-[#1557ff]">
                       <FileText size={20} />
                     </div>
                     {cv.is_primary && (
-                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
+                      <span className="inline-flex items-center gap-1 rounded-xl bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
                         <Star size={12} fill="currentColor" /> Primary
                       </span>
                     )}
@@ -97,14 +97,14 @@ export default async function CvLibraryPage() {
                   <div className="mt-5 flex flex-wrap gap-2">
                     <Link
                       href={`/cv/${cv.id}`}
-                      className="inline-flex h-9 items-center gap-1 rounded-md bg-[#1557ff] px-3 text-xs font-bold text-white"
+                      className="inline-flex h-9 items-center gap-1 rounded-xl bg-[#1557ff] px-3 text-xs font-bold text-white"
                     >
                       <Pencil size={12} /> Chỉnh sửa
                     </Link>
                     {cv.is_primary && profile?.is_published && profile.slug && (
                       <Link
                         href={`/cv/p/${profile.slug}`}
-                        className="inline-flex h-9 items-center gap-1 rounded-md border border-slate-200 px-3 text-xs font-bold text-slate-700 hover:border-[#1557ff] hover:text-[#1557ff]"
+                        className="inline-flex h-9 items-center gap-1 rounded-xl border border-slate-200 px-3 text-xs font-bold text-slate-700 hover:border-[#1557ff] hover:text-[#1557ff]"
                       >
                         Public link
                       </Link>

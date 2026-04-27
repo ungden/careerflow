@@ -83,9 +83,9 @@ export default async function UngVienPage({
           <form
             action="/ung-vien"
             method="GET"
-            className="mb-8 flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-center"
+            className="mb-8 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-center"
           >
-            <div className="flex flex-1 items-center gap-2 rounded-md border border-slate-200 px-3">
+            <div className="flex flex-1 items-center gap-2 rounded-xl border border-slate-200 px-3">
               <Search size={18} className="text-slate-400" />
               <input
                 name="q"
@@ -94,7 +94,7 @@ export default async function UngVienPage({
                 className="h-11 flex-1 bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-slate-400"
               />
             </div>
-            <div className="flex items-center gap-2 rounded-md border border-slate-200 px-3 md:w-56">
+            <div className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 md:w-56">
               <MapPin size={18} className="text-slate-400" />
               <input
                 name="location"
@@ -108,7 +108,7 @@ export default async function UngVienPage({
             )}
             <button
               type="submit"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-6 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#1557ff] px-6 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
             >
               Tìm
             </button>
@@ -116,7 +116,7 @@ export default async function UngVienPage({
 
           <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
             <aside className="space-y-4">
-              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <p className="text-sm font-black uppercase tracking-wider text-slate-700">
                   Ngành nghề
                 </p>
@@ -130,7 +130,7 @@ export default async function UngVienPage({
                       <li key={ind}>
                         <Link
                           href={href}
-                          className={`flex items-center gap-2 rounded-md px-2 py-2 text-sm font-bold ${
+                          className={`flex items-center gap-2 rounded-xl px-2 py-2 text-sm font-bold ${
                             active
                               ? "bg-blue-50 text-[#1557ff]"
                               : "text-slate-600 hover:bg-slate-50"
@@ -148,7 +148,7 @@ export default async function UngVienPage({
                   })}
                 </ul>
               </div>
-              <div className="rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm">
+              <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm">
                 <p className="text-xs font-black uppercase text-[#1557ff]">
                   HR Tip
                 </p>
@@ -167,13 +167,13 @@ export default async function UngVienPage({
 
             <div className="grid gap-4 sm:grid-cols-2">
               {(!candidates || candidates.length === 0) ? (
-                <div className="sm:col-span-2 rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+                <div className="sm:col-span-2 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
                   <p className="text-base font-bold text-slate-700">
                     Chưa có ứng viên nào public.
                   </p>
                   <Link
                     href="/cv/moi"
-                    className="mt-4 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white"
+                    className="mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-[#1557ff] px-4 text-sm font-bold text-white"
                   >
                     Hãy là người đầu tiên
                   </Link>
