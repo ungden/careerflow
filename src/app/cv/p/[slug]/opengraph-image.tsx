@@ -103,7 +103,7 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
           </div>
         </div>
 
-        {/* Right: avatar */}
+        {/* Right: initials avatar (rendered in-process for reliability) */}
         <div
           style={{
             width: 320,
@@ -112,21 +112,29 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             justifyContent: "center",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={
-              profile?.avatar_url ||
-              `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=320&background=ffffff&color=1557ff&bold=true`
-            }
-            width={300}
-            height={300}
+          <div
             style={{
+              width: 280,
+              height: 280,
               borderRadius: 9999,
               border: "10px solid rgba(255,255,255,0.95)",
-              objectFit: "cover",
+              background: "white",
+              color: "#1557ff",
+              fontSize: 120,
+              fontWeight: 900,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            alt={name}
-          />
+          >
+            {(name || "?")
+              .split(/\s+/)
+              .filter(Boolean)
+              .map((w) => w[0])
+              .slice(-2)
+              .join("")
+              .toUpperCase()}
+          </div>
         </div>
       </div>
     ),
