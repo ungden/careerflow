@@ -98,7 +98,7 @@ export default async function ViecLamPage({
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Kiến tạo sự nghiệp{" "}
-              <span className="italic text-[#003d9b]">Editorial</span> của bạn.
+              <span className="italic text-[#1557ff]">Editorial</span> của bạn.
             </h1>
             <p className="text-lg text-[#434654] max-w-2xl mx-auto">
               Khám phá hàng ngàn cơ hội việc làm từ các công ty hàng đầu Việt Nam
@@ -162,11 +162,11 @@ export default async function ViecLamPage({
                       <Link
                         key={ind}
                         href={href}
-                        className="flex items-center gap-3 text-sm text-[#434654] cursor-pointer hover:text-[#003d9b] transition-colors"
+                        className="flex items-center gap-3 text-sm text-[#434654] cursor-pointer hover:text-[#1557ff] transition-colors"
                       >
                         <span
                           className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 ${
-                            isActive ? "bg-[#003d9b]" : "bg-[#f3f4f6]"
+                            isActive ? "bg-[#1557ff]" : "bg-[#f3f4f6]"
                           }`}
                         >
                           <span
@@ -175,7 +175,7 @@ export default async function ViecLamPage({
                             }`}
                           />
                         </span>
-                        <span className={isActive ? "font-semibold text-[#003d9b]" : ""}>
+                        <span className={isActive ? "font-semibold text-[#1557ff]" : ""}>
                           {ind}
                         </span>
                       </Link>
@@ -199,7 +199,7 @@ export default async function ViecLamPage({
                       style={{
                         width: "60%",
                         background:
-                          "linear-gradient(135deg, #003d9b 0%, #0052cc 100%)",
+                          "linear-gradient(135deg, #1557ff 0%, #3b6dff 100%)",
                       }}
                     />
                   </div>
@@ -231,8 +231,8 @@ export default async function ViecLamPage({
                         href={href}
                         className={`px-4 py-2 text-xs font-semibold rounded-2xl transition-colors ${
                           isActive
-                            ? "bg-[#003d9b] text-white"
-                            : "text-[#003d9b] bg-[#f3f4f6] hover:bg-[#003d9b]/10"
+                            ? "bg-[#1557ff] text-white"
+                            : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
                         }`}
                       >
                         {jt.label}
@@ -246,7 +246,7 @@ export default async function ViecLamPage({
               {hasFilters && (
                 <Link
                   href="/viec-lam"
-                  className="block text-center text-sm text-[#003d9b] font-semibold hover:underline"
+                  className="block text-center text-sm text-[#1557ff] font-semibold hover:underline"
                 >
                   Xoá bộ lọc
                 </Link>

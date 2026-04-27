@@ -53,7 +53,7 @@ export default async function DashboardPage() {
       <div className="space-y-8">
         <div>
           <h1
-            className="text-3xl font-black tracking-tight text-[#003d9b]"
+            className="text-3xl font-black tracking-tight text-[#1557ff]"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             Dashboard nhà tuyển dụng
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
             <CardContent className="p-6">
               <p className="text-sm text-slate-500 font-semibold">Tin đang active</p>
               <p
-                className="text-4xl font-black text-[#003d9b] mt-2"
+                className="text-4xl font-black text-[#1557ff] mt-2"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
                 {activeJobs}
@@ -83,7 +83,7 @@ export default async function DashboardPage() {
             <CardContent className="p-6">
               <p className="text-sm text-slate-500 font-semibold">Tổng ứng tuyển</p>
               <p
-                className="text-4xl font-black text-[#003d9b] mt-2"
+                className="text-4xl font-black text-[#1557ff] mt-2"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
                 {totalApplications}
@@ -94,7 +94,7 @@ export default async function DashboardPage() {
             <CardContent className="p-6">
               <p className="text-sm text-slate-500 font-semibold">Tổng lượt xem</p>
               <p
-                className="text-4xl font-black text-[#003d9b] mt-2"
+                className="text-4xl font-black text-[#1557ff] mt-2"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
                 {totalViews}
@@ -115,7 +115,7 @@ export default async function DashboardPage() {
             <Card className="card-elevated rounded-[24px] border-0 hover:-translate-y-1 transition-transform">
               <CardContent className="p-5">
                 <Link href="/nha-tuyen-dung/cong-ty" className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#003d9b]/10 text-[#003d9b]">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1557ff]/10 text-[#1557ff]">
                     <Building2 className="h-5 w-5" />
                   </div>
                   <div>
@@ -193,7 +193,7 @@ export default async function DashboardPage() {
             <CardContent className="p-6 flex flex-col items-start gap-4">
               <div>
                 <h3
-                  className="text-lg font-bold text-[#003d9b]"
+                  className="text-lg font-bold text-[#1557ff]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Bước tiếp theo: Tạo hồ sơ công ty

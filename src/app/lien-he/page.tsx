@@ -65,7 +65,7 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto">
           {/* Hero */}
           <div className="text-center mb-16 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#003d9b]/10 text-[#003d9b] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1557ff]/10 text-[#1557ff] text-xs font-semibold uppercase tracking-wider">
               Liên hệ
             </div>
             <h1
@@ -87,10 +87,10 @@ export default function ContactPage() {
                 <a
                   key={c.value}
                   href={c.href}
-                  className="card-elevated block bg-white rounded-[24px] p-6 border border-slate-100 hover:border-[#003d9b]/30 hover:shadow-lg transition-all group"
+                  className="card-elevated block bg-white rounded-[24px] p-6 border border-slate-100 hover:border-[#1557ff]/30 hover:shadow-lg transition-all group"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#003d9b]/10 text-[#003d9b] flex items-center justify-center shrink-0 group-hover:bg-[#003d9b] group-hover:text-white transition-colors">
+                    <div className="w-12 h-12 rounded-2xl bg-[#1557ff]/10 text-[#1557ff] flex items-center justify-center shrink-0 group-hover:bg-[#1557ff] group-hover:text-white transition-colors">
                       {c.icon}
                     </div>
                     <div className="min-w-0">
@@ -101,7 +101,7 @@ export default function ContactPage() {
                         {c.label}
                       </h3>
                       <p className="text-sm text-[#434654] mb-2">{c.desc}</p>
-                      <p className="text-[#003d9b] font-semibold text-sm break-all">
+                      <p className="text-[#1557ff] font-semibold text-sm break-all">
                         {c.value}
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export default function ContactPage() {
 
               <div className="card-elevated bg-white rounded-[24px] p-6 border border-slate-100">
                 <h3
-                  className="text-sm font-bold text-[#003d9b] uppercase tracking-wider mb-4"
+                  className="text-sm font-bold text-[#1557ff] uppercase tracking-wider mb-4"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Thông tin liên hệ
@@ -130,7 +130,7 @@ export default function ContactPage() {
                 </dl>
               </div>
 
-              <div className="card-elevated bg-gradient-to-br from-[#003d9b] to-[#0056d6] rounded-[24px] p-6 text-white">
+              <div className="card-elevated bg-gradient-to-br from-[#1557ff] to-[#0056d6] rounded-[24px] p-6 text-white">
                 <h3
                   className="font-bold mb-2"
                   style={{ fontFamily: "var(--font-headline)" }}
@@ -153,7 +153,7 @@ export default function ContactPage() {
                   <a
                     key={s.label}
                     href={s.href}
-                    className="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-[#434654] hover:border-[#003d9b] hover:text-[#003d9b] transition-colors"
+                    className="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-[#434654] hover:border-[#1557ff] hover:text-[#1557ff] transition-colors"
                   >
                     {s.label}
                   </a>

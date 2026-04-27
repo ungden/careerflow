@@ -90,8 +90,8 @@ export default function NewCVPage() {
                   </span>
                   {isLocked && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background/70 rounded-md">
-                      <Lock className="h-6 w-6 text-[#003d9b]" />
-                      <Badge variant="secondary" className="gap-1 bg-[#003d9b] text-white hover:bg-[#003d9b]">
+                      <Lock className="h-6 w-6 text-[#1557ff]" />
+                      <Badge variant="secondary" className="gap-1 bg-[#1557ff] text-white hover:bg-[#1557ff]">
                         Nâng cấp Pro
                       </Badge>
                     </div>

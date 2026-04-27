@@ -95,7 +95,7 @@ export default function SoSanhLuongPage() {
         <div className="max-w-4xl mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-[#434654] mb-8">
-            <Link href="/cong-cu" className="hover:text-[#003d9b] transition-colors">
+            <Link href="/cong-cu" className="hover:text-[#1557ff] transition-colors">
               Công cụ
             </Link>
             <span>/</span>
@@ -274,12 +274,12 @@ export default function SoSanhLuongPage() {
                       style={{
                         left: `${(result.salary_min / maxSalary) * 100}%`,
                         width: `${((result.salary_max - result.salary_min) / maxSalary) * 100}%`,
-                        background: "linear-gradient(135deg, #003d9b20 0%, #003d9b40 100%)",
+                        background: "linear-gradient(135deg, #1557ff20 0%, #1557ff40 100%)",
                       }}
                     />
                     {/* Median marker */}
                     <div
-                      className="absolute top-0 h-full w-1 bg-[#003d9b]"
+                      className="absolute top-0 h-full w-1 bg-[#1557ff]"
                       style={{
                         left: `${(result.salary_median / maxSalary) * 100}%`,
                       }}
@@ -291,7 +291,7 @@ export default function SoSanhLuongPage() {
                         left: `${(result.salary_median / maxSalary) * 100}%`,
                       }}
                     >
-                      <div className="bg-[#003d9b] text-white text-xs font-bold px-2 py-1 rounded-lg">
+                      <div className="bg-[#1557ff] text-white text-xs font-bold px-2 py-1 rounded-lg">
                         {result.salary_median}tr
                       </div>
                     </div>
@@ -304,8 +304,8 @@ export default function SoSanhLuongPage() {
                       <p className="font-bold text-[#191c1e]">{result.salary_min} triệu</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-[#003d9b] text-xs font-semibold">Trung bình</p>
-                      <p className="font-bold text-[#003d9b] text-lg">{result.salary_median} triệu</p>
+                      <p className="text-[#1557ff] text-xs font-semibold">Trung bình</p>
+                      <p className="font-bold text-[#1557ff] text-lg">{result.salary_median} triệu</p>
                     </div>
                     <div className="text-center">
                       <p className="text-[#434654] text-xs">Cao nhất</p>
@@ -317,7 +317,7 @@ export default function SoSanhLuongPage() {
                 {/* Insights */}
                 <div className="bg-[#f0f9ff] rounded-3xl p-6 space-y-3">
                   <h3
-                    className="text-sm font-extrabold text-[#003d9b] uppercase tracking-wide"
+                    className="text-sm font-extrabold text-[#1557ff] uppercase tracking-wide"
                     style={{ fontFamily: "var(--font-headline)" }}
                   >
                     Phân tích chi tiết
@@ -352,7 +352,7 @@ export default function SoSanhLuongPage() {
                     key={stat.label}
                     className={`backdrop-blur-xl rounded-[40px] p-8 text-center space-y-2 ${
                       stat.highlight
-                        ? "bg-[#003d9b] text-white"
+                        ? "bg-[#1557ff] text-white"
                         : "bg-white/80"
                     }`}
                   >
@@ -365,7 +365,7 @@ export default function SoSanhLuongPage() {
                     </p>
                     <p
                       className={`text-3xl font-black ${
-                        stat.highlight ? "text-white" : "text-[#003d9b]"
+                        stat.highlight ? "text-white" : "text-[#1557ff]"
                       }`}
                       style={{ fontFamily: "var(--font-headline)" }}
                     >
@@ -403,8 +403,8 @@ export default function SoSanhLuongPage() {
                           height: `${h}%`,
                           background:
                             i === 4
-                              ? "linear-gradient(135deg, #003d9b 0%, #0052cc 100%)"
-                              : "#003d9b20",
+                              ? "linear-gradient(135deg, #1557ff 0%, #3b6dff 100%)"
+                              : "#1557ff20",
                         }}
                       />
                       <span className="text-xs text-[#434654]">

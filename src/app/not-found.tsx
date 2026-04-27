@@ -9,7 +9,7 @@ export default function NotFound() {
       <main className="flex-1 flex flex-col items-center justify-center px-8 py-32 bg-[#f8f9fb]">
         <div className="max-w-lg text-center space-y-8">
           <h1
-            className="text-8xl font-extrabold text-[#003d9b] tracking-tighter"
+            className="text-8xl font-extrabold text-[#1557ff] tracking-tighter"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             404

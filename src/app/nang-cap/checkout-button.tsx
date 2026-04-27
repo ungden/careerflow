@@ -25,7 +25,7 @@ export function UpgradeCheckoutButton() {
     <button
       type="button"
       onClick={() => setShow(true)}
-      className="block w-full rounded-xl bg-white px-8 py-4 text-center text-sm font-bold text-[#003d9b] transition-all hover:opacity-90"
+      className="block w-full rounded-xl bg-white px-8 py-4 text-center text-sm font-bold text-[#1557ff] transition-all hover:opacity-90"
       style={{ fontFamily: "var(--font-headline)" }}
     >
       Nâng cấp với chuyển khoản (Sepay)

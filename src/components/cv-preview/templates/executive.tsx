@@ -88,27 +88,27 @@ export function ExecutiveTemplate({ cv }: TemplateProps) {
             {info.full_name || "Họ và tên"}
           </h1>
           {info.title && (
-            <p className="text-[14px] text-[#003d9b] font-semibold mt-1 uppercase tracking-wider">{info.title}</p>
+            <p className="text-[14px] text-[#1557ff] font-semibold mt-1 uppercase tracking-wider">{info.title}</p>
           )}
         </header>
 
         {info.summary && (
           <section>
-            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-3 pb-2 border-b-2 border-[#003d9b]">Giới thiệu</h2>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-3 pb-2 border-b-2 border-[#1557ff]">Giới thiệu</h2>
             <p className="text-[13px] text-[#555] leading-[1.8] whitespace-pre-line">{info.summary}</p>
           </section>
         )}
 
         {cv.experiences.length > 0 && (
           <section>
-            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-4 pb-2 border-b-2 border-[#003d9b]">Kinh nghiệm làm việc</h2>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-4 pb-2 border-b-2 border-[#1557ff]">Kinh nghiệm làm việc</h2>
             <div className="space-y-5">
               {cv.experiences.map((exp, i) => (
                 <div key={i}>
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-[14px] font-bold text-[#1e293b]">{exp.position || "Vị trí"}</h3>
-                      <p className="text-[13px] text-[#003d9b] font-semibold mt-0.5">{exp.company}</p>
+                      <p className="text-[13px] text-[#1557ff] font-semibold mt-0.5">{exp.company}</p>
                     </div>
                     <span className="text-[11px] text-[#999] shrink-0 ml-4 mt-0.5">
                       {exp.start_date} — {exp.is_current ? "Hiện tại" : exp.end_date}
@@ -125,7 +125,7 @@ export function ExecutiveTemplate({ cv }: TemplateProps) {
 
         {cv.education.length > 0 && (
           <section>
-            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-4 pb-2 border-b-2 border-[#003d9b]">Học vấn</h2>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-4 pb-2 border-b-2 border-[#1557ff]">Học vấn</h2>
             <div className="space-y-4">
               {cv.education.map((edu, i) => (
                 <div key={i}>
@@ -142,7 +142,7 @@ export function ExecutiveTemplate({ cv }: TemplateProps) {
 
         {cv.projects.length > 0 && (
           <section>
-            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-4 pb-2 border-b-2 border-[#003d9b]">Dự án</h2>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1e293b] mb-4 pb-2 border-b-2 border-[#1557ff]">Dự án</h2>
             <div className="space-y-4">
               {cv.projects.map((project, i) => (
                 <div key={i}>

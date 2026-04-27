@@ -111,7 +111,7 @@ export function SepayCheckout({
         type="button"
         onClick={create}
         disabled={creating}
-        className="w-full rounded-2xl bg-[#003d9b] px-6 py-3 text-base font-semibold text-white hover:bg-[#002d75] disabled:opacity-60"
+        className="w-full rounded-2xl bg-[#1557ff] px-6 py-3 text-base font-semibold text-white hover:bg-[#002d75] disabled:opacity-60"
       >
         {creating ? (
           <span className="inline-flex items-center gap-2">
@@ -201,7 +201,7 @@ function Field({
     <div
       className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 ${
         highlight
-          ? "border-[#003d9b]/30 bg-[#003d9b]/5"
+          ? "border-[#1557ff]/30 bg-[#1557ff]/5"
           : "border-slate-200 bg-white"
       }`}
     >
@@ -211,7 +211,7 @@ function Field({
         </div>
         <div
           className={`truncate font-mono text-sm ${
-            highlight ? "font-bold text-[#003d9b]" : "text-slate-900"
+            highlight ? "font-bold text-[#1557ff]" : "text-slate-900"
           }`}
         >
           {value}

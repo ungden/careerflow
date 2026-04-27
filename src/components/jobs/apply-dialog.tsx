@@ -118,7 +118,7 @@ export function ApplyDialog({ jobId }: ApplyDialogProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md rounded-xl">
         <DialogHeader>
-          <DialogTitle className="text-[#003d9b]">Ứng tuyển vị trí này</DialogTitle>
+          <DialogTitle className="text-[#1557ff]">Ứng tuyển vị trí này</DialogTitle>
           <DialogDescription>
             Chọn CV và viết thư giới thiệu để gửi đến nhà tuyển dụng.
           </DialogDescription>
@@ -135,7 +135,7 @@ export function ApplyDialog({ jobId }: ApplyDialogProps) {
             ) : cvs.length === 0 ? (
               <p className="text-sm text-[#999]">
                 Bạn chưa có CV nào.{" "}
-                <Link href="/cv/moi" className="text-[#003d9b] underline">
+                <Link href="/cv/moi" className="text-[#1557ff] underline">
                   Tạo CV ngay
                 </Link>
               </p>
@@ -146,8 +146,8 @@ export function ApplyDialog({ jobId }: ApplyDialogProps) {
                     key={cv.id}
                     className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${
                       selectedCV === cv.id
-                        ? "border-[#003d9b] bg-[#003d9b]/5"
-                        : "border-[#e5e7eb] hover:border-[#003d9b]/30"
+                        ? "border-[#1557ff] bg-[#1557ff]/5"
+                        : "border-[#e5e7eb] hover:border-[#1557ff]/30"
                     }`}
                   >
                     <input
@@ -156,7 +156,7 @@ export function ApplyDialog({ jobId }: ApplyDialogProps) {
                       value={cv.id}
                       checked={selectedCV === cv.id}
                       onChange={() => setSelectedCV(cv.id)}
-                      className="accent-[#003d9b]"
+                      className="accent-[#1557ff]"
                     />
                     <span className="text-sm font-medium text-[#1a1a1a]">
                       {cv.title || "CV không tiêu đề"}
@@ -178,7 +178,7 @@ export function ApplyDialog({ jobId }: ApplyDialogProps) {
               onChange={(e) => setCoverLetter(e.target.value)}
               placeholder="Viết vài dòng giới thiệu bản thân và lý do bạn phù hợp với vị trí này..."
               rows={4}
-              className="w-full bg-[#f3f4f6] rounded-xl px-4 py-3 text-sm text-[#1a1a1a] placeholder:text-[#999] outline-none resize-none focus:ring-2 focus:ring-[#003d9b]/20"
+              className="w-full bg-[#f3f4f6] rounded-xl px-4 py-3 text-sm text-[#1a1a1a] placeholder:text-[#999] outline-none resize-none focus:ring-2 focus:ring-[#1557ff]/20"
             />
           </div>
         </div>

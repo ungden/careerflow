@@ -45,7 +45,7 @@ export default async function SavedJobsPage() {
     <div className="space-y-8">
       <div>
         <h1
-          className="text-3xl font-black tracking-tight text-[#003d9b]"
+          className="text-3xl font-black tracking-tight text-[#1557ff]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           Việc làm đã lưu
@@ -60,7 +60,7 @@ export default async function SavedJobsPage() {
       {validSavedJobs.length === 0 ? (
         <div className="bg-white rounded-[24px] p-12 shadow-sm flex flex-col items-center text-center">
           <div className="w-16 h-16 rounded-full bg-[#e8f0fe] flex items-center justify-center mb-4">
-            <Bookmark className="h-7 w-7 text-[#003d9b]" />
+            <Bookmark className="h-7 w-7 text-[#1557ff]" />
           </div>
           <h3
             className="text-lg font-bold text-[#1a1a1a]"
@@ -91,19 +91,19 @@ export default async function SavedJobsPage() {
                 className="bg-white rounded-[24px] p-6 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#f3f4f6] flex items-center justify-center text-lg font-black text-[#003d9b]/30 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-[#f3f4f6] flex items-center justify-center text-lg font-black text-[#1557ff]/30 shrink-0">
                     {company?.name?.charAt(0) || "C"}
                   </div>
                   <div className="flex-1 min-w-0">
                     <Link href={`/viec-lam/${job.slug}`} className="block">
                       <h3
-                        className="text-[16px] font-bold text-[#1a1a1a] hover:text-[#003d9b] transition-colors"
+                        className="text-[16px] font-bold text-[#1a1a1a] hover:text-[#1557ff] transition-colors"
                         style={{ fontFamily: "var(--font-headline)" }}
                       >
                         {job.title}
                       </h3>
                     </Link>
-                    <p className="text-[13px] text-[#003d9b] font-semibold mt-0.5">
+                    <p className="text-[13px] text-[#1557ff] font-semibold mt-0.5">
                       {company?.name}
                     </p>
                     <div className="flex flex-wrap gap-2 mt-3">
@@ -119,7 +119,7 @@ export default async function SavedJobsPage() {
                           {JOB_TYPE_LABELS[job.job_type] || job.job_type}
                         </span>
                       )}
-                      <span className="px-2.5 py-1 bg-[#e8f0fe] text-[#003d9b] rounded-full text-[11px] font-semibold">
+                      <span className="px-2.5 py-1 bg-[#e8f0fe] text-[#1557ff] rounded-full text-[11px] font-semibold">
                         {formatSalary(job.salary_min, job.salary_max)}
                       </span>
                     </div>

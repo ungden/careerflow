@@ -160,7 +160,7 @@ export function PublishDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg shadow-[#003d9b]/20 kinetic-gradient">
+      <DialogTrigger className="px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg shadow-[#1557ff]/20 kinetic-gradient">
         Publish lên Marketplace
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg p-0 overflow-hidden">
@@ -288,7 +288,7 @@ export function PublishDialog() {
             {skills && (
               <div className="flex flex-wrap gap-1.5 mt-1">
                 {skills.split(",").map((s) => s.trim()).filter(Boolean).map((s, i) => (
-                  <span key={i} className="px-2 py-0.5 bg-[#e8f0fe] text-[#003d9b] rounded text-[11px] font-medium">
+                  <span key={i} className="px-2 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded text-[11px] font-medium">
                     {s}
                   </span>
                 ))}

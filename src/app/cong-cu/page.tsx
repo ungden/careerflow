@@ -29,7 +29,7 @@ export default function CongCuPage() {
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Nâng tầm sự nghiệp với{" "}
-              <span className="font-black text-[#003d9b]">Bộ công cụ AI</span>
+              <span className="font-black text-[#1557ff]">Bộ công cụ AI</span>
             </h1>
             <p className="text-lg text-[#434654] max-w-2xl mx-auto">
               Công cụ thông minh giúp bạn nổi bật hơn trong mắt nhà tuyển dụng
@@ -42,8 +42,8 @@ export default function CongCuPage() {
           <div className="grid grid-cols-12 gap-6">
             {/* Card 1: AI Review CV */}
             <div className="col-span-12 md:col-span-6 bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-6 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-[#003d9b]/10 flex items-center justify-center">
-                <svg className="w-7 h-7 text-[#003d9b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="w-14 h-14 rounded-2xl bg-[#1557ff]/10 flex items-center justify-center">
+                <svg className="w-7 h-7 text-[#1557ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
@@ -61,7 +61,7 @@ export default function CongCuPage() {
                 >
                   Dùng thử ngay
                 </Link>
-                <span className="px-5 py-3 text-sm font-bold text-[#003d9b] bg-[#f3f4f6] rounded-2xl">
+                <span className="px-5 py-3 text-sm font-bold text-[#1557ff] bg-[#f3f4f6] rounded-2xl">
                   Phổ biến nhất
                 </span>
               </div>
@@ -91,8 +91,8 @@ export default function CongCuPage() {
 
             {/* Card 3: Tạo Cover Letter */}
             <div className="col-span-12 md:col-span-6 bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-6 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-[#003d9b]/10 flex items-center justify-center">
-                <svg className="w-7 h-7 text-[#003d9b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="w-14 h-14 rounded-2xl bg-[#1557ff]/10 flex items-center justify-center">
+                <svg className="w-7 h-7 text-[#1557ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
               </div>
@@ -157,7 +157,7 @@ export default function CongCuPage() {
                 key={stat.label}
                 className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 text-center space-y-2"
               >
-                <div className="text-4xl font-black text-[#003d9b]" style={{ fontFamily: "var(--font-headline)" }}>
+                <div className="text-4xl font-black text-[#1557ff]" style={{ fontFamily: "var(--font-headline)" }}>
                   {stat.value}
                 </div>
                 <div className="text-sm text-[#434654] font-medium">

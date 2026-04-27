@@ -13,7 +13,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
   return (
     <div className="bg-white text-[#2d2d2d] min-h-[297mm] w-[210mm] mx-auto" style={{ fontFamily: "'Inter', sans-serif" }}>
       {/* Header */}
-      <div className="bg-[#003d9b] text-white px-10 py-8">
+      <div className="bg-[#1557ff] text-white px-10 py-8">
         <h1 className="text-[30px] font-extrabold tracking-tight">
           {info.full_name || "Họ và tên"}
         </h1>
@@ -47,7 +47,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Skills */}
           {cv.skills.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">
                 Kỹ năng
               </h2>
               <div className="space-y-3">
@@ -57,7 +57,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
                       <span className="font-semibold text-[#333]">{skill.name}</span>
                     </div>
                     <div className="h-2 bg-[#dde3ed] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#003d9b] rounded-full transition-all" style={{ width: `${(skill.level / 5) * 100}%` }} />
+                      <div className="h-full bg-[#1557ff] rounded-full transition-all" style={{ width: `${(skill.level / 5) * 100}%` }} />
                     </div>
                   </div>
                 ))}
@@ -68,7 +68,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Languages */}
           {cv.languages.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">
                 Ngoại ngữ
               </h2>
               <div className="space-y-2.5">
@@ -85,7 +85,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Certifications */}
           {cv.certifications.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">
                 Chứng chỉ
               </h2>
               <div className="space-y-3">
@@ -106,7 +106,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Summary */}
           {info.summary && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-3 pb-2 border-b-2 border-[#003d9b]/20">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-3 pb-2 border-b-2 border-[#1557ff]/20">
                 Giới thiệu
               </h2>
               <p className="text-[13px] text-[#444] leading-[1.7] whitespace-pre-line">{info.summary}</p>
@@ -116,20 +116,20 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Experience */}
           {cv.experiences.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4 pb-2 border-b-2 border-[#003d9b]/20">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4 pb-2 border-b-2 border-[#1557ff]/20">
                 Kinh nghiệm
               </h2>
               <div className="space-y-5">
                 {cv.experiences.map((exp, i) => (
                   <div key={i} className="relative pl-5 border-l-2 border-[#dde3ed]">
-                    <div className="absolute left-[-5px] top-1 h-2 w-2 rounded-full bg-[#003d9b]" />
+                    <div className="absolute left-[-5px] top-1 h-2 w-2 rounded-full bg-[#1557ff]" />
                     <div className="flex justify-between items-start">
                       <h3 className="text-[14px] font-bold text-[#1a1a1a]">{exp.position || "Vị trí"}</h3>
                       <span className="text-[11px] text-[#999] shrink-0 ml-3 mt-0.5">
                         {exp.start_date}{(exp.end_date || exp.is_current) && ` — ${exp.is_current ? "Hiện tại" : exp.end_date}`}
                       </span>
                     </div>
-                    <p className="text-[12px] text-[#003d9b] font-semibold mt-0.5">
+                    <p className="text-[12px] text-[#1557ff] font-semibold mt-0.5">
                       {exp.company}{exp.location && ` | ${exp.location}`}
                     </p>
                     {exp.description && (
@@ -144,7 +144,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Education */}
           {cv.education.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4 pb-2 border-b-2 border-[#003d9b]/20">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4 pb-2 border-b-2 border-[#1557ff]/20">
                 Học vấn
               </h2>
               <div className="space-y-4">
@@ -166,7 +166,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
           {/* Projects */}
           {cv.projects.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4 pb-2 border-b-2 border-[#003d9b]/20">
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4 pb-2 border-b-2 border-[#1557ff]/20">
                 Dự án
               </h2>
               <div className="space-y-4">
@@ -179,7 +179,7 @@ export function ModernTemplate({ cv }: TemplateProps) {
                     {project.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {project.technologies.map((tech, j) => (
-                          <span key={j} className="px-2.5 py-0.5 bg-[#e8f0fe] text-[#003d9b] rounded-md text-[11px] font-semibold">{tech}</span>
+                          <span key={j} className="px-2.5 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded-md text-[11px] font-semibold">{tech}</span>
                         ))}
                       </div>
                     )}

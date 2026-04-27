@@ -54,14 +54,14 @@ export default function Error({
           <button
             type="button"
             onClick={() => unstable_retry()}
-            className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-white bg-[#003d9b] hover:opacity-90 transition-all"
+            className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-white bg-[#1557ff] hover:opacity-90 transition-all"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             Thử lại
           </button>
           <Link
             href="/"
-            className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#003d9b] bg-[#d4e0f8] hover:opacity-90 transition-all"
+            className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#1557ff] bg-[#d4e0f8] hover:opacity-90 transition-all"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             Về trang chủ

@@ -73,7 +73,7 @@ export default async function PublicCVPage({ params }: Props) {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <Link
             href="/"
-            className="flex items-center gap-2 text-base font-bold text-[#003d9b]"
+            className="flex items-center gap-2 text-base font-bold text-[#1557ff]"
           >
             <span style={{ fontFamily: "var(--font-headline)" }}>YourCV</span>
           </Link>
@@ -86,7 +86,7 @@ export default async function PublicCVPage({ params }: Props) {
             </Link>
             <Link
               href="/dang-ky"
-              className="rounded-xl bg-[#003d9b] px-4 py-2 font-semibold text-white hover:bg-[#002d75]"
+              className="rounded-xl bg-[#1557ff] px-4 py-2 font-semibold text-white hover:bg-[#002d75]"
             >
               Tạo CV của bạn
             </Link>
@@ -101,7 +101,7 @@ export default async function PublicCVPage({ params }: Props) {
 
         <p className="mt-6 text-center text-xs text-slate-500">
           Được tạo trên{" "}
-          <Link href="/" className="font-semibold text-[#003d9b] hover:underline">
+          <Link href="/" className="font-semibold text-[#1557ff] hover:underline">
             YourCV
           </Link>{" "}
           — Nền tảng tạo CV chuyên nghiệp.

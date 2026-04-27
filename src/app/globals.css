@@ -72,9 +72,9 @@
   --card-foreground: #121720;
   --popover: #ffffff;
   --popover-foreground: #121720;
-  --primary: #0041a8;
+  --primary: #1557ff;
   --primary-foreground: #ffffff;
-  --primary-container: #0052cc;
+  --primary-container: #3b6dff;
   --primary-fixed: #d5deff;
   --on-primary-fixed: #001848;
   --secondary: #475569;
@@ -91,7 +91,7 @@
   --destructive: #ba1a1a;
   --border: #c3c8d8;
   --input: #d5d9e2;
-  --ring: #0041a8;
+  --ring: #1557ff;
   --on-surface-variant: #3b4252;
   --outline-variant: #b8bdc8;
   --surface-container-low: #e6e9f0;
@@ -100,8 +100,8 @@
   --surface-container-highest: #c8ced8;
   --radius: 0.75rem;
 
-  --chart-1: #0041a8;
-  --chart-2: #0052cc;
+  --chart-1: #1557ff;
+  --chart-2: #3b6dff;
   --chart-3: #004e32;
   --chart-4: #475569;
   --chart-5: #d5deff;
@@ -124,7 +124,7 @@
   --popover-foreground: #f8f9fb;
   --primary: #b2c5ff;
   --primary-foreground: #001848;
-  --primary-container: #0052cc;
+  --primary-container: #3b6dff;
   --secondary: #bbc7de;
   --secondary-foreground: #101c2d;
   --secondary-container: #3b475b;
@@ -171,7 +171,7 @@
 
 /* YourCV Utilities */
 .kinetic-gradient {
-  background: linear-gradient(135deg, #0041a8 0%, #0052cc 100%);
+  background: linear-gradient(135deg, #1557ff 0%, #3b6dff 100%);
 }
 
 .glass-effect {

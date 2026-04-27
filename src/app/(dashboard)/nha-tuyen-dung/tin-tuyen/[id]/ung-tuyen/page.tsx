@@ -52,13 +52,13 @@ export default async function UngTuyenPage({
       <div>
         <Link
           href="/nha-tuyen-dung/tin-tuyen"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-[#003d9b] mb-3"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-[#1557ff] mb-3"
         >
           <ArrowLeft className="h-4 w-4" />
           Quay lại danh sách tin
         </Link>
         <h1
-          className="text-3xl font-black tracking-tight text-[#003d9b]"
+          className="text-3xl font-black tracking-tight text-[#1557ff]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           Ứng viên ứng tuyển
@@ -100,7 +100,7 @@ export default async function UngTuyenPage({
               >
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4 flex-wrap">
-                    <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-[#003d9b] to-[#0066ff] flex items-center justify-center text-white font-black text-lg overflow-hidden shrink-0">
+                    <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-[#1557ff] to-[#0066ff] flex items-center justify-center text-white font-black text-lg overflow-hidden shrink-0">
                       {candidate?.avatar_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -138,7 +138,7 @@ export default async function UngTuyenPage({
                         {cv?.id && (
                           <Link
                             href={`/cv/${cv.id}`}
-                            className="inline-flex items-center gap-1 text-sm font-bold text-[#003d9b] hover:underline"
+                            className="inline-flex items-center gap-1 text-sm font-bold text-[#1557ff] hover:underline"
                           >
                             <FileText className="h-4 w-4" />
                             Xem CV
@@ -147,7 +147,7 @@ export default async function UngTuyenPage({
                         {candidate?.slug && (
                           <Link
                             href={`/ung-vien/${candidate.slug}`}
-                            className="text-sm font-semibold text-slate-600 hover:text-[#003d9b]"
+                            className="text-sm font-semibold text-slate-600 hover:text-[#1557ff]"
                           >
                             Hồ sơ ứng viên
                           </Link>

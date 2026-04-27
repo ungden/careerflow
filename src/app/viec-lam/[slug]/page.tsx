@@ -121,7 +121,7 @@ export default async function JobDetailPage({ params }: Props) {
         <div className="max-w-5xl mx-auto px-6 pt-28 pb-16">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-[#999] mb-6">
-            <Link href="/viec-lam" className="hover:text-[#003d9b]">Việc làm</Link>
+            <Link href="/viec-lam" className="hover:text-[#1557ff]">Việc làm</Link>
             <span>/</span>
             <span className="text-[#555]">{job.title}</span>
           </div>
@@ -132,14 +132,14 @@ export default async function JobDetailPage({ params }: Props) {
               {/* Header card */}
               <div className="bg-white rounded-[24px] p-8 shadow-sm">
                 <div className="flex items-start gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-[#f3f4f6] flex items-center justify-center text-2xl font-black text-[#003d9b]/30 shrink-0">
+                  <div className="w-16 h-16 rounded-2xl bg-[#f3f4f6] flex items-center justify-center text-2xl font-black text-[#1557ff]/30 shrink-0">
                     {company?.name?.charAt(0) || "C"}
                   </div>
                   <div className="flex-1">
                     <h1 className="text-[24px] font-extrabold text-[#1a1a1a] tracking-tight" style={{ fontFamily: "var(--font-headline)" }}>
                       {job.title}
                     </h1>
-                    <p className="text-[15px] text-[#003d9b] font-semibold mt-1">{company?.name}</p>
+                    <p className="text-[15px] text-[#1557ff] font-semibold mt-1">{company?.name}</p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       <span className="px-3 py-1 bg-[#f3f4f6] text-[#555] rounded-full text-[12px] font-medium flex items-center gap-1">
                         <MapPin className="h-3 w-3" />{job.location}
@@ -147,7 +147,7 @@ export default async function JobDetailPage({ params }: Props) {
                       <span className="px-3 py-1 bg-[#f3f4f6] text-[#555] rounded-full text-[12px] font-medium">
                         {JOB_TYPE_LABELS[job.job_type] || job.job_type}
                       </span>
-                      <span className="px-3 py-1 bg-[#e8f0fe] text-[#003d9b] rounded-full text-[12px] font-semibold">
+                      <span className="px-3 py-1 bg-[#e8f0fe] text-[#1557ff] rounded-full text-[12px] font-semibold">
                         {job.industry}
                       </span>
                     </div>
@@ -190,7 +190,7 @@ export default async function JobDetailPage({ params }: Props) {
               <div className="bg-white rounded-[24px] p-8 shadow-sm space-y-5">
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-wider text-[#999] mb-1">Mức lương</p>
-                  <p className="text-[24px] font-extrabold text-[#003d9b]" style={{ fontFamily: "var(--font-headline)" }}>
+                  <p className="text-[24px] font-extrabold text-[#1557ff]" style={{ fontFamily: "var(--font-headline)" }}>
                     {formatSalary(job.salary_min, job.salary_max)}
                   </p>
                 </div>
@@ -219,9 +219,9 @@ export default async function JobDetailPage({ params }: Props) {
               {/* Company info */}
               {company && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h3 className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#003d9b] mb-4">Về công ty</h3>
+                  <h3 className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#1557ff] mb-4">Về công ty</h3>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#f3f4f6] flex items-center justify-center text-lg font-bold text-[#003d9b]/30">
+                    <div className="w-10 h-10 rounded-xl bg-[#f3f4f6] flex items-center justify-center text-lg font-bold text-[#1557ff]/30">
                       {company.name?.charAt(0)}
                     </div>
                     <div>

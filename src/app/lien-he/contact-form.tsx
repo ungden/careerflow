@@ -47,7 +47,7 @@ export function ContactForm() {
   }
 
   const inputCls =
-    "w-full px-4 py-3 rounded-[16px] border border-slate-200 bg-white text-[#191c1e] placeholder:text-slate-400 focus:outline-none focus:border-[#003d9b] focus:ring-2 focus:ring-[#003d9b]/20 transition-all";
+    "w-full px-4 py-3 rounded-[16px] border border-slate-200 bg-white text-[#191c1e] placeholder:text-slate-400 focus:outline-none focus:border-[#1557ff] focus:ring-2 focus:ring-[#1557ff]/20 transition-all";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -114,7 +114,7 @@ export function ContactForm() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
         <p className="text-xs text-slate-500">
           Bằng việc gửi, bạn đồng ý với{" "}
-          <a href="/bao-mat" className="text-[#003d9b] underline underline-offset-2">
+          <a href="/bao-mat" className="text-[#1557ff] underline underline-offset-2">
             Chính sách bảo mật
           </a>
           .
@@ -122,7 +122,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-[#003d9b] text-white px-8 py-3 rounded-[24px] font-semibold hover:bg-[#002d75] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+          className="bg-[#1557ff] text-white px-8 py-3 rounded-[24px] font-semibold hover:bg-[#002d75] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? "Đang gửi..." : "Gửi tin nhắn"}
         </button>

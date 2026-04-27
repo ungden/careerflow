@@ -24,7 +24,7 @@ export default async function TinTuyenPage() {
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
           <h1
-            className="text-3xl font-black tracking-tight text-[#003d9b]"
+            className="text-3xl font-black tracking-tight text-[#1557ff]"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             Tin tuyển dụng của bạn
@@ -46,7 +46,7 @@ export default async function TinTuyenPage() {
       {!jobs || jobs.length === 0 ? (
         <Card className="card-elevated rounded-[24px] border-0">
           <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#003d9b]/10 text-[#003d9b] mb-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1557ff]/10 text-[#1557ff] mb-4">
               <Megaphone className="h-8 w-8" />
             </div>
             <h3
@@ -106,13 +106,13 @@ export default async function TinTuyenPage() {
                   <div className="flex items-center gap-2 flex-wrap">
                     <Link
                       href={`/viec-lam/${job.slug}`}
-                      className="text-sm font-semibold text-slate-600 hover:text-[#003d9b] px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+                      className="text-sm font-semibold text-slate-600 hover:text-[#1557ff] px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
                     >
                       Chỉnh sửa
                     </Link>
                     <Link
                       href={`/nha-tuyen-dung/tin-tuyen/${job.id}/ung-tuyen`}
-                      className="text-sm font-bold text-white bg-[#003d9b] px-4 py-2 rounded-lg hover:bg-[#002d77] transition-colors"
+                      className="text-sm font-bold text-white bg-[#1557ff] px-4 py-2 rounded-lg hover:bg-[#002d77] transition-colors"
                       style={{ fontFamily: "var(--font-headline)" }}
                     >
                       Xem ứng tuyển

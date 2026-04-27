@@ -112,7 +112,7 @@ export default function ThuXinViecPage() {
         <div className="max-w-4xl mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-[#434654] mb-8">
-            <Link href="/cong-cu" className="hover:text-[#003d9b] transition-colors">
+            <Link href="/cong-cu" className="hover:text-[#1557ff] transition-colors">
               Công cụ
             </Link>
             <span>/</span>
@@ -183,7 +183,7 @@ export default function ThuXinViecPage() {
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Ví dụ: Chúng tôi đang tìm kiếm một Content Strategist với 3+ năm kinh nghiệm..."
-                className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-4 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none resize-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
+                className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-4 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none resize-none focus:ring-2 focus:ring-[#1557ff]/20 transition-all"
               />
             </div>
 
@@ -203,8 +203,8 @@ export default function ThuXinViecPage() {
                     onClick={() => setTone(t)}
                     className={`px-5 py-2.5 text-sm font-semibold rounded-2xl cursor-pointer transition-colors ${
                       tone === t
-                        ? "bg-[#003d9b] text-white"
-                        : "text-[#003d9b] bg-[#f3f4f6] hover:bg-[#003d9b]/10"
+                        ? "bg-[#1557ff] text-white"
+                        : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
                     }`}
                   >
                     {t}
@@ -252,7 +252,7 @@ export default function ThuXinViecPage() {
               {coverLetter && (
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-2 text-sm font-semibold text-[#003d9b] bg-[#003d9b]/5 px-4 py-2 rounded-xl hover:bg-[#003d9b]/10 transition-colors"
+                  className="flex items-center gap-2 text-sm font-semibold text-[#1557ff] bg-[#1557ff]/5 px-4 py-2 rounded-xl hover:bg-[#1557ff]/10 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -275,9 +275,9 @@ export default function ThuXinViecPage() {
               </div>
             ) : (
               <div className="bg-[#f3f4f6] rounded-3xl p-8 text-center space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-[#003d9b]/5 flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 rounded-2xl bg-[#1557ff]/5 flex items-center justify-center mx-auto">
                   <svg
-                    className="w-8 h-8 text-[#003d9b]/30"
+                    className="w-8 h-8 text-[#1557ff]/30"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

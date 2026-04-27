@@ -63,7 +63,7 @@ export default async function PricingPage() {
                 <span>Gói hiện tại của bạn:</span>
                 <span
                   className={`font-bold ${
-                    currentTier === "pro" ? "text-[#003d9b]" : "text-[#434654]"
+                    currentTier === "pro" ? "text-[#1557ff]" : "text-[#434654]"
                   }`}
                 >
                   {currentTier === "pro" ? "Pro" : "Free"}
@@ -98,7 +98,7 @@ export default async function PricingPage() {
                 {freeTier.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-[#434654]">
                     <svg
-                      className="w-5 h-5 text-[#003d9b] mt-0.5 shrink-0"
+                      className="w-5 h-5 text-[#1557ff] mt-0.5 shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -124,7 +124,7 @@ export default async function PricingPage() {
               ) : (
                 <Link
                   href={user ? "/cong-cu" : "/dang-ky"}
-                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#003d9b] bg-[#d4e0f8] hover:opacity-90 transition-all"
+                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#1557ff] bg-[#d4e0f8] hover:opacity-90 transition-all"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Bắt đầu miễn phí
@@ -133,7 +133,7 @@ export default async function PricingPage() {
             </div>
 
             {/* Pro Tier */}
-            <div className="bg-[#003d9b] rounded-[40px] p-10 shadow-xl flex flex-col relative overflow-hidden">
+            <div className="bg-[#1557ff] rounded-[40px] p-10 shadow-xl flex flex-col relative overflow-hidden">
               <div className="absolute top-6 right-6 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">
                 Phổ biến
               </div>

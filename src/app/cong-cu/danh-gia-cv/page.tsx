@@ -107,7 +107,7 @@ export default function DanhGiaCVPage() {
         <div className="max-w-4xl mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-[#434654] mb-8">
-            <Link href="/cong-cu" className="hover:text-[#003d9b] transition-colors">
+            <Link href="/cong-cu" className="hover:text-[#1557ff] transition-colors">
               Công cụ
             </Link>
             <span>/</span>
@@ -143,7 +143,7 @@ export default function DanhGiaCVPage() {
 
             {loadingCvs ? (
               <div className="text-center py-8">
-                <div className="w-8 h-8 border-3 border-[#003d9b] border-t-transparent rounded-full animate-spin mx-auto" />
+                <div className="w-8 h-8 border-3 border-[#1557ff] border-t-transparent rounded-full animate-spin mx-auto" />
                 <p className="text-sm text-[#434654] mt-3">Đang tải danh sách CV...</p>
               </div>
             ) : cvList.length === 0 ? (
@@ -165,8 +165,8 @@ export default function DanhGiaCVPage() {
                     key={cv.id}
                     className={`flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer transition-colors ${
                       selectedCvId === cv.id
-                        ? "bg-[#003d9b]/10 ring-2 ring-[#003d9b]/30"
-                        : "bg-[#f3f4f6] hover:bg-[#003d9b]/5"
+                        ? "bg-[#1557ff]/10 ring-2 ring-[#1557ff]/30"
+                        : "bg-[#f3f4f6] hover:bg-[#1557ff]/5"
                     }`}
                   >
                     <input
@@ -175,7 +175,7 @@ export default function DanhGiaCVPage() {
                       value={cv.id}
                       checked={selectedCvId === cv.id}
                       onChange={() => setSelectedCvId(cv.id)}
-                      className="accent-[#003d9b]"
+                      className="accent-[#1557ff]"
                     />
                     <span className="text-sm font-semibold text-[#191c1e]">
                       {cv.title || "CV không tên"}
@@ -271,7 +271,7 @@ export default function DanhGiaCVPage() {
                         key={idx}
                         className="flex gap-3 bg-[#f3f4f6] rounded-2xl px-5 py-4 text-sm text-[#434654]"
                       >
-                        <span className="shrink-0 w-6 h-6 rounded-full bg-[#003d9b]/10 text-[#003d9b] font-bold text-xs flex items-center justify-center">
+                        <span className="shrink-0 w-6 h-6 rounded-full bg-[#1557ff]/10 text-[#1557ff] font-bold text-xs flex items-center justify-center">
                           {idx + 1}
                         </span>
                         <span className="leading-relaxed">{suggestion}</span>
@@ -307,7 +307,7 @@ export default function DanhGiaCVPage() {
                 className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-4"
               >
                 <span
-                  className="text-4xl font-black text-[#003d9b]/10"
+                  className="text-4xl font-black text-[#1557ff]/10"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   {item.step}

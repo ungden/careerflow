@@ -109,17 +109,17 @@ function cx(...classes: Array<string | false | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Shell({ children }: { children: React.ReactNode }) {
+export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#f8fbff] text-[#07122f]">
-      <Header />
+      <CvaiHeader />
       {children}
       <Footer />
     </div>
   );
 }
 
-function Header() {
+export function CvaiHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">

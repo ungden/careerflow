@@ -211,7 +211,7 @@ export default function PrivacyPage() {
         <div className="max-w-3xl mx-auto">
           {/* Hero */}
           <div className="mb-14 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#003d9b]/10 text-[#003d9b] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1557ff]/10 text-[#1557ff] text-xs font-semibold uppercase tracking-wider">
               Quyền riêng tư
             </div>
             <h1
@@ -229,7 +229,7 @@ export default function PrivacyPage() {
           {/* Mục lục */}
           <nav className="card-elevated bg-white rounded-[24px] p-6 md:p-8 mb-12 border border-slate-100">
             <h2
-              className="text-sm font-bold text-[#003d9b] uppercase tracking-wider mb-4"
+              className="text-sm font-bold text-[#1557ff] uppercase tracking-wider mb-4"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Mục lục
@@ -239,7 +239,7 @@ export default function PrivacyPage() {
                 <li key={s.id}>
                   <a
                     href={`#${s.id}`}
-                    className="hover:text-[#003d9b] transition-colors"
+                    className="hover:text-[#1557ff] transition-colors"
                   >
                     {s.title}
                   </a>
@@ -258,7 +258,7 @@ export default function PrivacyPage() {
                 >
                   {s.title}
                 </h2>
-                <div className="prose prose-slate max-w-none text-[#434654] leading-relaxed [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:mb-4 [&_a]:text-[#003d9b] [&_a]:underline [&_a]:underline-offset-4 [&_strong]:text-[#191c1e]">
+                <div className="prose prose-slate max-w-none text-[#434654] leading-relaxed [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:mb-4 [&_a]:text-[#1557ff] [&_a]:underline [&_a]:underline-offset-4 [&_strong]:text-[#191c1e]">
                   {s.body}
                 </div>
               </section>
@@ -272,7 +272,7 @@ export default function PrivacyPage() {
             </p>
             <Link
               href="mailto:privacy@yourcv.net"
-              className="inline-flex items-center gap-2 bg-[#003d9b] text-white px-6 py-3 rounded-[24px] font-semibold hover:bg-[#002d75] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#1557ff] text-white px-6 py-3 rounded-[24px] font-semibold hover:bg-[#002d75] transition-colors"
             >
               Liên hệ DPO
             </Link>

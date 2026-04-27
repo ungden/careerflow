@@ -60,7 +60,7 @@ export default function FAQPage() {
         <div className="max-w-3xl mx-auto">
           {/* Hero */}
           <div className="text-center mb-14 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#003d9b]/10 text-[#003d9b] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1557ff]/10 text-[#1557ff] text-xs font-semibold uppercase tracking-wider">
               Hỗ trợ
             </div>
             <h1
@@ -84,7 +84,7 @@ export default function FAQPage() {
                 <summary className="flex items-start justify-between gap-4 p-6 md:p-7 cursor-pointer list-none">
                   <div className="flex items-start gap-4 min-w-0">
                     <span
-                      className="shrink-0 w-8 h-8 rounded-full bg-[#003d9b]/10 text-[#003d9b] flex items-center justify-center text-sm font-bold"
+                      className="shrink-0 w-8 h-8 rounded-full bg-[#1557ff]/10 text-[#1557ff] flex items-center justify-center text-sm font-bold"
                       style={{ fontFamily: "var(--font-headline)" }}
                     >
                       {idx + 1}
@@ -97,7 +97,7 @@ export default function FAQPage() {
                     </h3>
                   </div>
                   <svg
-                    className="w-6 h-6 text-[#003d9b] shrink-0 mt-0.5 transition-transform group-open:rotate-180"
+                    className="w-6 h-6 text-[#1557ff] shrink-0 mt-0.5 transition-transform group-open:rotate-180"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -118,7 +118,7 @@ export default function FAQPage() {
           </div>
 
           {/* CTA */}
-          <div className="mt-16 card-elevated bg-gradient-to-br from-[#003d9b] to-[#0056d6] rounded-[24px] p-8 md:p-10 text-center text-white">
+          <div className="mt-16 card-elevated bg-gradient-to-br from-[#1557ff] to-[#0056d6] rounded-[24px] p-8 md:p-10 text-center text-white">
             <h2
               className="text-2xl md:text-3xl font-bold mb-3"
               style={{ fontFamily: "var(--font-headline)" }}
@@ -131,7 +131,7 @@ export default function FAQPage() {
             </p>
             <Link
               href="/lien-he"
-              className="inline-flex items-center gap-2 bg-white text-[#003d9b] px-8 py-3 rounded-[24px] font-bold hover:bg-slate-100 transition-colors"
+              className="inline-flex items-center gap-2 bg-white text-[#1557ff] px-8 py-3 rounded-[24px] font-bold hover:bg-slate-100 transition-colors"
             >
               Liên hệ hỗ trợ
             </Link>

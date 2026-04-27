@@ -84,7 +84,7 @@ export default function CVEditorPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-[#f8f9fb]">
-        <div className="w-8 h-8 border-2 border-[#003d9b] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#1557ff] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -137,7 +137,7 @@ export default function CVEditorPage() {
             <select
               value={cv.template_id}
               onChange={(e) => handleTemplateChange(e.target.value)}
-              className="h-10 text-sm rounded-xl border-none bg-[#f3f4f6] px-4 focus:ring-1 focus:ring-[#003d9b] font-medium"
+              className="h-10 text-sm rounded-xl border-none bg-[#f3f4f6] px-4 focus:ring-1 focus:ring-[#1557ff] font-medium"
             >
               {Object.entries(templates).map(([id, tmpl]) => (
                 <option key={id} value={id}>
@@ -179,7 +179,7 @@ export default function CVEditorPage() {
               />
             ) : (
               <h1
-                className="text-3xl font-extrabold text-[#191c1e] tracking-tight cursor-pointer hover:text-[#003d9b] transition-colors"
+                className="text-3xl font-extrabold text-[#191c1e] tracking-tight cursor-pointer hover:text-[#1557ff] transition-colors"
                 style={{ fontFamily: "var(--font-headline)" }}
                 onClick={() => setEditingTitle(true)}
               >
@@ -197,7 +197,7 @@ export default function CVEditorPage() {
                 onClick={() => setActiveSection(section.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
                   activeSection === section.id
-                    ? "bg-white text-[#003d9b] shadow-sm"
+                    ? "bg-white text-[#1557ff] shadow-sm"
                     : "text-[#434654] hover:bg-white/50"
                 }`}
                 style={{ fontFamily: "var(--font-headline)" }}
@@ -225,14 +225,14 @@ export default function CVEditorPage() {
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl border-t border-[#c3c6d6]/10 px-8 py-3 flex justify-around items-center z-50">
         <button
           onClick={() => setMobileView("edit")}
-          className={`flex flex-col items-center gap-1 ${mobileView === "edit" ? "text-[#003d9b]" : "text-[#434654] opacity-60"}`}
+          className={`flex flex-col items-center gap-1 ${mobileView === "edit" ? "text-[#1557ff]" : "text-[#434654] opacity-60"}`}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
           <span className="text-[10px] font-bold">Chỉnh sửa</span>
         </button>
         <button
           onClick={() => setMobileView("preview")}
-          className={`flex flex-col items-center gap-1 ${mobileView === "preview" ? "text-[#003d9b]" : "text-[#434654] opacity-60"}`}
+          className={`flex flex-col items-center gap-1 ${mobileView === "preview" ? "text-[#1557ff]" : "text-[#434654] opacity-60"}`}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
           <span className="text-[10px] font-bold">Xem trước</span>

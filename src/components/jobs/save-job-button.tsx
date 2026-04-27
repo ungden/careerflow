@@ -100,8 +100,8 @@ export function SaveJobButton({ jobId }: SaveJobButtonProps) {
       aria-pressed={saved}
       className={`w-full flex items-center justify-center gap-2 font-bold text-sm py-3 rounded-full border transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
         saved
-          ? "bg-[#003d9b] text-white border-[#003d9b] hover:opacity-90"
-          : "bg-white text-[#003d9b] border-[#003d9b]/20 hover:border-[#003d9b] hover:bg-[#e8f0fe]"
+          ? "bg-[#1557ff] text-white border-[#1557ff] hover:opacity-90"
+          : "bg-white text-[#1557ff] border-[#1557ff]/20 hover:border-[#1557ff] hover:bg-[#e8f0fe]"
       }`}
       style={{ fontFamily: "var(--font-headline)" }}
     >

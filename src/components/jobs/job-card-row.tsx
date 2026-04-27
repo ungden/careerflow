@@ -49,10 +49,10 @@ export function JobCardRow({
           router.push(href);
         }
       }}
-      className="block bg-white/80 backdrop-blur-xl rounded-[40px] p-8 flex flex-col md:flex-row md:items-center gap-6 hover:shadow-lg hover:bg-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#003d9b]/40"
+      className="block bg-white/80 backdrop-blur-xl rounded-[40px] p-8 flex flex-col md:flex-row md:items-center gap-6 hover:shadow-lg hover:bg-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#1557ff]/40"
     >
       <div className="w-16 h-16 rounded-2xl bg-[#f3f4f6] flex items-center justify-center shrink-0">
-        <span className="text-2xl font-black text-[#003d9b]/30">{companyInitial}</span>
+        <span className="text-2xl font-black text-[#1557ff]/30">{companyInitial}</span>
       </div>
 
       <div className="flex-1 space-y-2">
@@ -75,7 +75,7 @@ export function JobCardRow({
             </span>
           )}
           {job.industry && (
-            <span className="px-3 py-1 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl">
+            <span className="px-3 py-1 text-xs font-medium bg-[#1557ff]/5 text-[#1557ff] rounded-xl">
               {job.industry}
             </span>
           )}
@@ -87,7 +87,7 @@ export function JobCardRow({
         onClick={(e) => e.stopPropagation()}
       >
         <span
-          className="text-lg font-black text-[#003d9b]"
+          className="text-lg font-black text-[#1557ff]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           {formatSalary(job.salary_min, job.salary_max)}

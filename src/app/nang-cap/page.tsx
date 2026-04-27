@@ -60,7 +60,7 @@ export default async function UpgradePage() {
             </p>
           </div>
 
-          <div className="bg-[#003d9b] rounded-[40px] p-10 md:p-12 shadow-xl text-white relative overflow-hidden">
+          <div className="bg-[#1557ff] rounded-[40px] p-10 md:p-12 shadow-xl text-white relative overflow-hidden">
             <div className="absolute top-6 right-6 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">
               Phổ biến
             </div>
@@ -117,7 +117,7 @@ export default async function UpgradePage() {
             ) : !user ? (
               <Link
                 href="/dang-nhap?next=/nang-cap"
-                className="block text-center py-4 px-8 rounded-xl font-bold text-sm bg-white text-[#003d9b] hover:opacity-90 transition-all"
+                className="block text-center py-4 px-8 rounded-xl font-bold text-sm bg-white text-[#1557ff] hover:opacity-90 transition-all"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
                 Đăng nhập để nâng cấp

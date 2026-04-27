@@ -88,7 +88,7 @@ export function ContactDialog({ candidateId, candidateName }: ContactDialogProps
       </DialogTrigger>
       <DialogContent className="sm:max-w-md rounded-xl">
         <DialogHeader>
-          <DialogTitle className="text-[#003d9b]">
+          <DialogTitle className="text-[#1557ff]">
             Liên hệ {candidateName}
           </DialogTitle>
           <DialogDescription>
@@ -110,7 +110,7 @@ export function ContactDialog({ candidateId, candidateName }: ContactDialogProps
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Ví dụ: Cơ hội việc làm tại công ty ABC"
-              className="w-full bg-[#f3f4f6] rounded-xl px-4 py-3 text-sm text-[#1a1a1a] placeholder:text-[#999] outline-none focus:ring-2 focus:ring-[#003d9b]/20"
+              className="w-full bg-[#f3f4f6] rounded-xl px-4 py-3 text-sm text-[#1a1a1a] placeholder:text-[#999] outline-none focus:ring-2 focus:ring-[#1557ff]/20"
               maxLength={200}
             />
           </div>
@@ -128,7 +128,7 @@ export function ContactDialog({ candidateId, candidateName }: ContactDialogProps
               onChange={(e) => setContent(e.target.value)}
               placeholder="Giới thiệu ngắn về công ty, vị trí tuyển dụng và lý do bạn muốn liên hệ với ứng viên này..."
               rows={6}
-              className="w-full bg-[#f3f4f6] rounded-xl px-4 py-3 text-sm text-[#1a1a1a] placeholder:text-[#999] outline-none resize-none focus:ring-2 focus:ring-[#003d9b]/20"
+              className="w-full bg-[#f3f4f6] rounded-xl px-4 py-3 text-sm text-[#1a1a1a] placeholder:text-[#999] outline-none resize-none focus:ring-2 focus:ring-[#1557ff]/20"
               maxLength={2000}
             />
             <p className="text-[11px] text-[#999] text-right">

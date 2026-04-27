@@ -51,13 +51,13 @@ export function CandidateCard({ c }: { c: Candidate }) {
           navigate();
         }
       }}
-      className="relative bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5 hover:shadow-lg hover:bg-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#003d9b]/40"
+      className="relative bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5 hover:shadow-lg hover:bg-white transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#1557ff]/40"
     >
       {c.subscription_tier === "pro" && (
         <span
           className="absolute top-6 right-6 px-4 py-1.5 text-xs font-bold text-white rounded-2xl"
           style={{
-            background: "linear-gradient(135deg, #003d9b 0%, #0052cc 100%)",
+            background: "linear-gradient(135deg, #1557ff 0%, #3b6dff 100%)",
           }}
         >
           Nổi bật
@@ -74,7 +74,7 @@ export function CandidateCard({ c }: { c: Candidate }) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <span className="text-2xl font-black text-[#003d9b]/30">
+          <span className="text-2xl font-black text-[#1557ff]/30">
             {getInitials(c.full_name ?? "UV")}
           </span>
         )}
@@ -94,7 +94,7 @@ export function CandidateCard({ c }: { c: Candidate }) {
           {c.experience_level && <span>{c.experience_level}</span>}
         </div>
         {c.industry && (
-          <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl">
+          <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-[#1557ff]/5 text-[#1557ff] rounded-xl">
             {c.industry}
           </span>
         )}
@@ -105,7 +105,7 @@ export function CandidateCard({ c }: { c: Candidate }) {
           {c.skills.slice(0, 6).map((skill) => (
             <span
               key={skill}
-              className="px-3 py-1.5 text-xs font-medium bg-[#003d9b]/5 text-[#003d9b] rounded-xl"
+              className="px-3 py-1.5 text-xs font-medium bg-[#1557ff]/5 text-[#1557ff] rounded-xl"
             >
               {skill}
             </span>
@@ -119,7 +119,7 @@ export function CandidateCard({ c }: { c: Candidate }) {
       >
         <Link
           href={href}
-          className="flex-1 text-center px-5 py-3 text-sm font-bold text-[#003d9b] bg-[#f3f4f6] rounded-2xl hover:bg-[#003d9b]/10 transition-colors"
+          className="flex-1 text-center px-5 py-3 text-sm font-bold text-[#1557ff] bg-[#f3f4f6] rounded-2xl hover:bg-[#1557ff]/10 transition-colors"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           Xem Profile

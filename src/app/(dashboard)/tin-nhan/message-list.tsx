@@ -80,7 +80,7 @@ export function MessageList({ messages }: { messages: Message[] }) {
           <div
             key={msg.id}
             className={`bg-white rounded-[20px] shadow-sm hover:shadow-md transition-all overflow-hidden ${
-              !msg.is_read ? "border-l-4 border-[#003d9b]" : ""
+              !msg.is_read ? "border-l-4 border-[#1557ff]" : ""
             }`}
           >
             <button
@@ -95,7 +95,7 @@ export function MessageList({ messages }: { messages: Message[] }) {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span className="text-sm font-bold text-[#003d9b]">
+                  <span className="text-sm font-bold text-[#1557ff]">
                     {initials || "?"}
                   </span>
                 )}
@@ -118,7 +118,7 @@ export function MessageList({ messages }: { messages: Message[] }) {
                     </span>
                   )}
                   {!msg.is_read && (
-                    <span className="px-2 py-0.5 bg-[#003d9b] text-white rounded-full text-[10px] font-bold uppercase tracking-wider">
+                    <span className="px-2 py-0.5 bg-[#1557ff] text-white rounded-full text-[10px] font-bold uppercase tracking-wider">
                       Mới
                     </span>
                   )}
@@ -154,7 +154,7 @@ export function MessageList({ messages }: { messages: Message[] }) {
                 {msg.is_read ? (
                   <MailOpen className="h-4 w-4" />
                 ) : (
-                  <Mail className="h-4 w-4 text-[#003d9b]" />
+                  <Mail className="h-4 w-4 text-[#1557ff]" />
                 )}
                 {isExpanded ? (
                   <ChevronUp className="h-4 w-4" />
@@ -173,7 +173,7 @@ export function MessageList({ messages }: { messages: Message[] }) {
                   {msg.from?.slug && (
                     <a
                       href={`/ung-vien/${msg.from.slug}`}
-                      className="inline-block mt-4 text-[12px] text-[#003d9b] font-semibold hover:underline"
+                      className="inline-block mt-4 text-[12px] text-[#1557ff] font-semibold hover:underline"
                     >
                       Xem hồ sơ người gửi →
                     </a>

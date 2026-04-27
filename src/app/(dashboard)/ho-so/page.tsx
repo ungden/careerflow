@@ -45,9 +45,9 @@ export default async function HoSoPage() {
           {/* Avatar Section */}
           <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 mb-8">
             <div className="flex flex-col sm:flex-row items-center gap-8">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#003d9b]/20 to-[#003d9b]/5 flex items-center justify-center shrink-0">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#1557ff]/20 to-[#1557ff]/5 flex items-center justify-center shrink-0">
                 <span
-                  className="text-3xl font-black text-[#003d9b]"
+                  className="text-3xl font-black text-[#1557ff]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   {displayName.charAt(0).toUpperCase() || "U"}
@@ -61,7 +61,7 @@ export default async function HoSoPage() {
                   {displayName || "Chưa cập nhật tên"}
                 </p>
                 <p className="text-sm text-[#434654]">{user.email}</p>
-                <button className="text-sm font-semibold text-[#003d9b] hover:underline">
+                <button className="text-sm font-semibold text-[#1557ff] hover:underline">
                   Thay đổi ảnh đại diện
                 </button>
               </div>

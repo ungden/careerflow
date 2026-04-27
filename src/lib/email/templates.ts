@@ -3,7 +3,7 @@ export interface EmailContent {
   html: string;
 }
 
-const BRAND_COLOR = "#003d9b";
+const BRAND_COLOR = "#1557ff";
 
 function wrap(title: string, body: string): string {
   return `<!DOCTYPE html>

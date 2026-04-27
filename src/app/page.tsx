@@ -16,7 +16,7 @@ export default function HomePage() {
                   <span className="text-xs font-bold uppercase tracking-widest">AI-Powered Career Platform</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-[#191c1e] mb-8 leading-[1.1]" style={{ fontFamily: "var(--font-headline)" }}>
-                  Tạo CV chuyên nghiệp, <span className="text-[#003d9b] italic">có việc ngay</span> trong 1 nốt nhạc
+                  Tạo CV chuyên nghiệp, <span className="text-[#1557ff] italic">có việc ngay</span> trong 1 nốt nhạc
                 </h1>
                 <p className="text-lg text-[#434654] mb-10 max-w-lg leading-relaxed">
                   Nền tảng kiến tạo sự nghiệp tương lai. Chúng tôi không chỉ giúp bạn tạo hồ sơ, chúng tôi mở ra cánh cửa đến với những cơ hội hàng đầu.
@@ -62,7 +62,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#003d9b]/5 rounded-full blur-3xl" />
+                <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#1557ff]/5 rounded-full blur-3xl" />
                 <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#004e32]/5 rounded-full blur-3xl" />
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function HomePage() {
                   step: "01",
                   title: "Tạo CV",
                   description: "Sử dụng kho template chuẩn Editorial để làm nổi bật kỹ năng và kinh nghiệm của bạn.",
-                  hoverBg: "hover:bg-[#003d9b]",
+                  hoverBg: "hover:bg-[#1557ff]",
                 },
                 {
                   step: "02",
@@ -105,9 +105,9 @@ export default function HomePage() {
                 <div key={item.step} className="group">
                   <div className={`bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 h-full transition-all duration-500 ${item.hoverBg} hover:-translate-y-4`}>
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform">
-                      <svg className="w-7 h-7 text-[#003d9b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                      <svg className="w-7 h-7 text-[#1557ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
-                    <span className="text-6xl font-black text-[#0041a8]/10 mb-4 block group-hover:text-white/20">{item.step}.</span>
+                    <span className="text-6xl font-black text-[#1557ff]/10 mb-4 block group-hover:text-white/20">{item.step}.</span>
                     <h3 className="text-2xl font-bold mb-4 text-[#121720] group-hover:text-white" style={{ fontFamily: "var(--font-headline)" }}>{item.title}</h3>
                     <p className="text-[#475569] group-hover:text-white/80 leading-relaxed">{item.description}</p>
                   </div>
@@ -158,7 +158,7 @@ export default function HomePage() {
                   <p className="text-white/80 mb-8 leading-relaxed">
                     Phân tích CV, dự đoán xu hướng lương và gợi ý lộ trình thăng tiến chuyên sâu.
                   </p>
-                  <Link href="/cong-cu" className="block w-full bg-white text-[#003d9b] font-bold py-4 rounded-xl hover:bg-[#dae2ff] transition-colors text-center" style={{ fontFamily: "var(--font-headline)" }}>
+                  <Link href="/cong-cu" className="block w-full bg-white text-[#1557ff] font-bold py-4 rounded-xl hover:bg-[#dae2ff] transition-colors text-center" style={{ fontFamily: "var(--font-headline)" }}>
                     Thử ngay
                   </Link>
                 </div>
@@ -168,13 +168,13 @@ export default function HomePage() {
               <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
                 <div>
                   <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-[#003d9b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                    <svg className="w-6 h-6 text-[#1557ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                   </div>
                   <h4 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)" }}>Thống kê thị trường</h4>
                   <p className="text-[#434654] text-sm">Cập nhật biến động nhân sự và lương thưởng theo thời gian thực.</p>
                 </div>
                 <div className="mt-8 h-2 bg-[#e1e2e4] rounded-full overflow-hidden">
-                  <div className="w-3/4 h-full bg-[#003d9b] rounded-full" />
+                  <div className="w-3/4 h-full bg-[#1557ff] rounded-full" />
                 </div>
               </div>
               {/* Widget 2 */}
@@ -220,14 +220,14 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                   <Link
                     href="/cv/moi"
-                    className="bg-white text-[#003d9b] px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-2xl"
+                    className="bg-white text-[#1557ff] px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-2xl"
                     style={{ fontFamily: "var(--font-headline)" }}
                   >
                     Bắt đầu miễn phí
                   </Link>
                   <Link
                     href="/viec-lam"
-                    className="bg-[#0052cc]/20 border border-white/20 backdrop-blur-md text-white px-12 py-6 rounded-2xl font-bold text-xl hover:bg-white/10 transition-colors"
+                    className="bg-[#3b6dff]/20 border border-white/20 backdrop-blur-md text-white px-12 py-6 rounded-2xl font-bold text-xl hover:bg-white/10 transition-colors"
                     style={{ fontFamily: "var(--font-headline)" }}
                   >
                     Liên hệ tư vấn

@@ -43,7 +43,7 @@ export default async function UngVienPage() {
               className="text-5xl font-extrabold tracking-tighter text-[#191c1e]"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Tìm kiếm <span className="italic text-[#003d9b]">Nhân tài</span>.
+              Tìm kiếm <span className="italic text-[#1557ff]">Nhân tài</span>.
               Kiến tạo Tương lai.
             </h1>
             <p className="text-lg text-[#434654] max-w-2xl mx-auto">
@@ -135,7 +135,7 @@ export default async function UngVienPage() {
                   {availabilityOptions.map((opt) => (
                     <span
                       key={opt}
-                      className="px-4 py-2 text-xs font-semibold text-[#003d9b] bg-[#f3f4f6] rounded-2xl cursor-pointer hover:bg-[#003d9b]/10 transition-colors"
+                      className="px-4 py-2 text-xs font-semibold text-[#1557ff] bg-[#f3f4f6] rounded-2xl cursor-pointer hover:bg-[#1557ff]/10 transition-colors"
                     >
                       {opt}
                     </span>

@@ -110,7 +110,7 @@ export function CompanyForm({ userId, initialCompany }: CompanyFormProps) {
   };
 
   const inputClass =
-    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#003d9b]/30 focus:border-[#003d9b]";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1557ff]/30 focus:border-[#1557ff]";
 
   return (
     <form

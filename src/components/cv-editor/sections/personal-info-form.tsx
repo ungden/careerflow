@@ -83,7 +83,7 @@ export function PersonalInfoForm() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <span className="text-2xl font-bold text-[#003d9b]/30">{initials}</span>
+              <span className="text-2xl font-bold text-[#1557ff]/30">{initials}</span>
             )}
           </div>
           {/* Hover overlay */}
@@ -125,7 +125,7 @@ export function PersonalInfoForm() {
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="text-xs font-bold text-[#003d9b] hover:underline disabled:opacity-50"
+            className="text-xs font-bold text-[#1557ff] hover:underline disabled:opacity-50"
           >
             {uploading ? "Đang tải lên..." : info.photo_url ? "Thay đổi ảnh" : "Tải ảnh lên"}
           </button>

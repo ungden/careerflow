@@ -79,7 +79,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full bg-[#e8f0fe] flex items-center justify-center text-[32px] font-bold text-[#003d9b]">
+                    <div className="w-full h-full bg-[#e8f0fe] flex items-center justify-center text-[32px] font-bold text-[#1557ff]">
                       {initials}
                     </div>
                   )}
@@ -99,13 +99,13 @@ export default async function CandidateProfilePage({ params }: Props) {
                 {profile.full_name}
               </h1>
               {profile.headline && (
-                <p className="text-[15px] text-[#003d9b] font-semibold mt-1">
+                <p className="text-[15px] text-[#1557ff] font-semibold mt-1">
                   {profile.headline}
                 </p>
               )}
               <div className="flex flex-wrap gap-2 mt-4">
                 {profile.industry && (
-                  <span className="px-3 py-1 bg-[#e8f0fe] text-[#003d9b] rounded-full text-[12px] font-semibold">
+                  <span className="px-3 py-1 bg-[#e8f0fe] text-[#1557ff] rounded-full text-[12px] font-semibold">
                     {profile.industry}
                   </span>
                 )}
@@ -134,23 +134,23 @@ export default async function CandidateProfilePage({ params }: Props) {
             <div className="lg:col-span-2 space-y-6">
               {info.summary && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">Giới thiệu</h2>
+                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Giới thiệu</h2>
                   <p className="text-[14px] text-[#444] leading-[1.8] whitespace-pre-line">{info.summary}</p>
                 </div>
               )}
 
               {experiences.length > 0 && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-6">Kinh nghiệm làm việc</h2>
+                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-6">Kinh nghiệm làm việc</h2>
                   <div className="space-y-6">
                     {experiences.map((exp: any, i: number) => (
                       <div key={i} className="relative pl-6 border-l-2 border-[#e8f0fe]">
-                        <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-[#003d9b]" />
+                        <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-[#1557ff]" />
                         <div className="flex justify-between items-start">
                           <h3 className="text-[15px] font-bold text-[#1a1a1a]">{exp.position}</h3>
                           <span className="text-[12px] text-[#999] shrink-0 ml-3">{exp.start_date} — {exp.is_current ? "Hiện tại" : exp.end_date}</span>
                         </div>
-                        <p className="text-[13px] text-[#003d9b] font-semibold mt-0.5">{exp.company}</p>
+                        <p className="text-[13px] text-[#1557ff] font-semibold mt-0.5">{exp.company}</p>
                         {exp.description && <p className="text-[13px] text-[#555] mt-2 leading-[1.7] whitespace-pre-line">{exp.description}</p>}
                       </div>
                     ))}
@@ -160,7 +160,7 @@ export default async function CandidateProfilePage({ params }: Props) {
 
               {education.length > 0 && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-5">Học vấn</h2>
+                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-5">Học vấn</h2>
                   <div className="space-y-4">
                     {education.map((edu: any, i: number) => (
                       <div key={i}>
@@ -177,7 +177,7 @@ export default async function CandidateProfilePage({ params }: Props) {
 
               {projects.length > 0 && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-5">Dự án</h2>
+                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-5">Dự án</h2>
                   <div className="space-y-5">
                     {projects.map((p: any, i: number) => (
                       <div key={i}>
@@ -186,7 +186,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                         {p.technologies?.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mt-2">
                             {p.technologies.map((t: string, j: number) => (
-                              <span key={j} className="px-2.5 py-0.5 bg-[#e8f0fe] text-[#003d9b] rounded-md text-[11px] font-semibold">{t}</span>
+                              <span key={j} className="px-2.5 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded-md text-[11px] font-semibold">{t}</span>
                             ))}
                           </div>
                         )}
@@ -200,22 +200,22 @@ export default async function CandidateProfilePage({ params }: Props) {
             {/* Sidebar */}
             <div className="space-y-6">
               <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">Liên hệ</h2>
+                <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Liên hệ</h2>
                 <div className="space-y-3 text-[13px] text-[#555]">
-                  {info.email && <div className="flex items-center gap-2.5"><Mail className="h-4 w-4 text-[#003d9b]/50" />{info.email}</div>}
-                  {info.address && <div className="flex items-center gap-2.5"><MapPin className="h-4 w-4 text-[#003d9b]/50" />{info.address}</div>}
-                  {info.website && <div className="flex items-center gap-2.5"><Globe className="h-4 w-4 text-[#003d9b]/50" /><a href={info.website} className="text-[#003d9b] hover:underline">{info.website}</a></div>}
-                  {info.linkedin && <div className="flex items-center gap-2.5"><Link2 className="h-4 w-4 text-[#003d9b]/50" />{info.linkedin}</div>}
-                  {info.github && <div className="flex items-center gap-2.5"><ExternalLink className="h-4 w-4 text-[#003d9b]/50" />{info.github}</div>}
+                  {info.email && <div className="flex items-center gap-2.5"><Mail className="h-4 w-4 text-[#1557ff]/50" />{info.email}</div>}
+                  {info.address && <div className="flex items-center gap-2.5"><MapPin className="h-4 w-4 text-[#1557ff]/50" />{info.address}</div>}
+                  {info.website && <div className="flex items-center gap-2.5"><Globe className="h-4 w-4 text-[#1557ff]/50" /><a href={info.website} className="text-[#1557ff] hover:underline">{info.website}</a></div>}
+                  {info.linkedin && <div className="flex items-center gap-2.5"><Link2 className="h-4 w-4 text-[#1557ff]/50" />{info.linkedin}</div>}
+                  {info.github && <div className="flex items-center gap-2.5"><ExternalLink className="h-4 w-4 text-[#1557ff]/50" />{info.github}</div>}
                 </div>
               </div>
 
               {skills.length > 0 && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">Kỹ năng</h2>
+                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Kỹ năng</h2>
                   <div className="flex flex-wrap gap-2">
                     {skills.map((s: any, i: number) => (
-                      <span key={i} className="px-3 py-1.5 bg-[#e8f0fe] text-[#003d9b] rounded-full text-[12px] font-semibold">{s.name}</span>
+                      <span key={i} className="px-3 py-1.5 bg-[#e8f0fe] text-[#1557ff] rounded-full text-[12px] font-semibold">{s.name}</span>
                     ))}
                   </div>
                 </div>
@@ -223,7 +223,7 @@ export default async function CandidateProfilePage({ params }: Props) {
 
               {languages.length > 0 && (
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
-                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">Ngoại ngữ</h2>
+                  <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Ngoại ngữ</h2>
                   <div className="space-y-2">
                     {languages.map((l: any, i: number) => (
                       <div key={i} className="flex justify-between text-[13px]">

@@ -30,7 +30,7 @@ export default async function MessagesPage() {
     <div className="space-y-8">
       <div>
         <h1
-          className="text-3xl font-black tracking-tight text-[#003d9b]"
+          className="text-3xl font-black tracking-tight text-[#1557ff]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           Tin nhắn
@@ -47,7 +47,7 @@ export default async function MessagesPage() {
       {validMessages.length === 0 ? (
         <div className="bg-white rounded-[24px] p-12 shadow-sm flex flex-col items-center text-center">
           <div className="w-16 h-16 rounded-full bg-[#e8f0fe] flex items-center justify-center mb-4">
-            <Inbox className="h-7 w-7 text-[#003d9b]" />
+            <Inbox className="h-7 w-7 text-[#1557ff]" />
           </div>
           <h3
             className="text-lg font-bold text-[#1a1a1a]"

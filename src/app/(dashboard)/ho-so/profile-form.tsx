@@ -94,7 +94,7 @@ export function ProfileForm({
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Nhập họ và tên"
-            className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
+            className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#1557ff]/20 transition-all"
           />
         </div>
 
@@ -130,7 +130,7 @@ export function ProfileForm({
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="Nhập số điện thoại"
-            className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
+            className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#1557ff]/20 transition-all"
           />
         </div>
 
@@ -151,7 +151,7 @@ export function ProfileForm({
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               placeholder="ten-cua-ban"
-              className="flex-1 bg-[#f3f4f6] rounded-r-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
+              className="flex-1 bg-[#f3f4f6] rounded-r-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#1557ff]/20 transition-all"
             />
           </div>
           <p className="text-xs text-[#434654]/60">

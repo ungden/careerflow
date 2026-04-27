@@ -24,7 +24,7 @@ export default async function DangTinPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1
-          className="text-3xl font-black tracking-tight text-[#003d9b]"
+          className="text-3xl font-black tracking-tight text-[#1557ff]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           Đăng tin tuyển dụng

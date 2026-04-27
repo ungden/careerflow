@@ -86,7 +86,7 @@ export default function PhongVanPage() {
         <div className="max-w-4xl mx-auto px-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-[#434654] mb-8">
-            <Link href="/cong-cu" className="hover:text-[#003d9b] transition-colors">
+            <Link href="/cong-cu" className="hover:text-[#1557ff] transition-colors">
               Công cụ
             </Link>
             <span>/</span>
@@ -135,8 +135,8 @@ export default function PhongVanPage() {
                     onClick={() => setIndustry(ind)}
                     className={`px-5 py-2.5 text-sm font-semibold rounded-2xl cursor-pointer transition-colors ${
                       industry === ind
-                        ? "bg-[#003d9b] text-white"
-                        : "text-[#003d9b] bg-[#f3f4f6] hover:bg-[#003d9b]/10"
+                        ? "bg-[#1557ff] text-white"
+                        : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
                     }`}
                   >
                     {ind}
@@ -158,7 +158,7 @@ export default function PhongVanPage() {
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
                 placeholder="Ví dụ: Frontend Developer, Marketing Manager..."
-                className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#003d9b]/20 transition-all"
+                className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#1557ff]/20 transition-all"
                 list="position-suggestions"
               />
               <datalist id="position-suggestions">
@@ -184,8 +184,8 @@ export default function PhongVanPage() {
                     onClick={() => setLevel(lv)}
                     className={`px-5 py-2.5 text-sm font-semibold rounded-2xl cursor-pointer transition-colors ${
                       level === lv
-                        ? "bg-[#003d9b] text-white"
-                        : "text-[#003d9b] bg-[#f3f4f6] hover:bg-[#003d9b]/10"
+                        ? "bg-[#1557ff] text-white"
+                        : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
                     }`}
                   >
                     {lv}
@@ -240,7 +240,7 @@ export default function PhongVanPage() {
                     onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
                     className="w-full text-left px-8 py-6 flex items-start gap-4"
                   >
-                    <span className="shrink-0 w-8 h-8 rounded-full bg-[#003d9b]/10 text-[#003d9b] font-bold text-sm flex items-center justify-center mt-0.5">
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-[#1557ff]/10 text-[#1557ff] font-bold text-sm flex items-center justify-center mt-0.5">
                       {idx + 1}
                     </span>
                     <span className="flex-1 text-[15px] font-semibold text-[#191c1e] leading-relaxed">
@@ -260,7 +260,7 @@ export default function PhongVanPage() {
                   {expandedIdx === idx && (
                     <div className="px-8 pb-6 pl-20">
                       <div className="bg-[#f0f9ff] rounded-2xl px-6 py-5">
-                        <p className="text-xs font-bold text-[#003d9b] uppercase tracking-wide mb-2">
+                        <p className="text-xs font-bold text-[#1557ff] uppercase tracking-wide mb-2">
                           Gợi ý trả lời
                         </p>
                         <p className="text-sm text-[#434654] leading-relaxed whitespace-pre-wrap">

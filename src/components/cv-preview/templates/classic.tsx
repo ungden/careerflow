@@ -79,7 +79,7 @@ export function ClassicTemplate({ cv }: TemplateProps) {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-[14px] font-bold text-[#1a1a1a]">{exp.position || "Vị trí"}</h3>
-                      <p className="text-[13px] text-[#003d9b] font-semibold mt-0.5">
+                      <p className="text-[13px] text-[#1557ff] font-semibold mt-0.5">
                         {exp.company}{exp.location && ` — ${exp.location}`}
                       </p>
                     </div>
@@ -187,7 +187,7 @@ export function ClassicTemplate({ cv }: TemplateProps) {
                 <div key={i}>
                   <div className="flex justify-between items-baseline">
                     <h3 className="text-[14px] font-bold text-[#1a1a1a]">{project.name || "Tên dự án"}</h3>
-                    {project.url && <span className="text-[11px] text-[#003d9b]">{project.url}</span>}
+                    {project.url && <span className="text-[11px] text-[#1557ff]">{project.url}</span>}
                   </div>
                   {project.description && (
                     <p className="text-[12.5px] text-[#444] mt-1.5 leading-[1.6] whitespace-pre-line">{project.description}</p>
@@ -195,7 +195,7 @@ export function ClassicTemplate({ cv }: TemplateProps) {
                   {project.technologies.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       {project.technologies.map((tech, j) => (
-                        <span key={j} className="px-2 py-0.5 bg-[#e8f0fe] text-[#003d9b] rounded text-[11px] font-medium">{tech}</span>
+                        <span key={j} className="px-2 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded text-[11px] font-medium">{tech}</span>
                       ))}
                     </div>
                   )}

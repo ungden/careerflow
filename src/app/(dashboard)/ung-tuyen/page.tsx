@@ -79,7 +79,7 @@ export default async function UngTuyenPage() {
               >
                 {/* Company initial */}
                 <div className="w-12 h-12 rounded-2xl bg-[#f3f4f6] flex items-center justify-center shrink-0">
-                  <span className="text-lg font-black text-[#003d9b]/30">
+                  <span className="text-lg font-black text-[#1557ff]/30">
                     {companyName.charAt(0)}
                   </span>
                 </div>
@@ -88,7 +88,7 @@ export default async function UngTuyenPage() {
                 <div className="flex-1 min-w-0">
                   <Link
                     href={`/viec-lam/${job?.slug || ""}`}
-                    className="text-base font-bold text-[#1a1a1a] hover:text-[#003d9b] transition-colors"
+                    className="text-base font-bold text-[#1a1a1a] hover:text-[#1557ff] transition-colors"
                     style={{ fontFamily: "var(--font-headline)" }}
                   >
                     {job?.title || "Vị trí không xác định"}

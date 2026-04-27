@@ -107,14 +107,14 @@ export default async function PaymentSuccessPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/dashboard"
-              className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-white bg-[#003d9b] hover:opacity-90 transition-all"
+              className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-white bg-[#1557ff] hover:opacity-90 transition-all"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Vào dashboard
             </Link>
             <Link
               href="/cong-cu"
-              className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#003d9b] bg-[#d4e0f8] hover:opacity-90 transition-all"
+              className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#1557ff] bg-[#d4e0f8] hover:opacity-90 transition-all"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Khám phá công cụ AI

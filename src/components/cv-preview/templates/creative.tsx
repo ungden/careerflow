@@ -13,14 +13,14 @@ export function CreativeTemplate({ cv }: TemplateProps) {
   return (
     <div className="bg-white text-[#2d2d2d] min-h-[297mm] w-[210mm] mx-auto" style={{ fontFamily: "'Inter', sans-serif" }}>
       {/* Hero Header */}
-      <div className="bg-[#003d9b] px-10 pt-10 pb-14 relative">
+      <div className="bg-[#1557ff] px-10 pt-10 pb-14 relative">
         <h1 className="text-[32px] font-extrabold text-white tracking-tight">
           {info.full_name || "Họ và tên"}
         </h1>
         {info.title && (
           <p className="text-[15px] text-blue-200 mt-1.5 font-semibold tracking-wider uppercase">{info.title}</p>
         )}
-        <div className="absolute -bottom-10 right-10 w-20 h-20 rounded-full bg-[#e8f0fe] border-4 border-white flex items-center justify-center text-[24px] font-bold text-[#003d9b] overflow-hidden">
+        <div className="absolute -bottom-10 right-10 w-20 h-20 rounded-full bg-[#e8f0fe] border-4 border-white flex items-center justify-center text-[24px] font-bold text-[#1557ff] overflow-hidden">
           {info.photo_url ? (
             <img src={info.photo_url} alt="" className="w-full h-full object-cover" />
           ) : (
@@ -33,22 +33,22 @@ export function CreativeTemplate({ cv }: TemplateProps) {
         {/* Sidebar */}
         <div className="w-[34%] bg-[#f0f4f8] px-7 pt-8 pb-10 space-y-7">
           <section>
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#003d9b] mb-4">Liên hệ</h2>
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1557ff] mb-4">Liên hệ</h2>
             <div className="space-y-2.5 text-[12px] text-[#555]">
-              {info.phone && <div className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-[#003d9b]" />{info.phone}</div>}
-              {info.email && <div className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-[#003d9b]" />{info.email}</div>}
-              {info.address && <div className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-[#003d9b]" />{info.address}</div>}
-              {info.linkedin && <div className="flex items-center gap-2"><Link2 className="h-3.5 w-3.5 text-[#003d9b]" />{info.linkedin}</div>}
-              {info.github && <div className="flex items-center gap-2"><ExternalLink className="h-3.5 w-3.5 text-[#003d9b]" />{info.github}</div>}
+              {info.phone && <div className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-[#1557ff]" />{info.phone}</div>}
+              {info.email && <div className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-[#1557ff]" />{info.email}</div>}
+              {info.address && <div className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-[#1557ff]" />{info.address}</div>}
+              {info.linkedin && <div className="flex items-center gap-2"><Link2 className="h-3.5 w-3.5 text-[#1557ff]" />{info.linkedin}</div>}
+              {info.github && <div className="flex items-center gap-2"><ExternalLink className="h-3.5 w-3.5 text-[#1557ff]" />{info.github}</div>}
             </div>
           </section>
 
           {cv.skills.length > 0 && (
             <section>
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#003d9b] mb-4">Kỹ năng</h2>
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1557ff] mb-4">Kỹ năng</h2>
               <div className="flex flex-wrap gap-1.5">
                 {cv.skills.map((skill, i) => (
-                  <span key={i} className="px-3 py-1 bg-white text-[#003d9b] rounded-full text-[11px] font-semibold shadow-sm">{skill.name}</span>
+                  <span key={i} className="px-3 py-1 bg-white text-[#1557ff] rounded-full text-[11px] font-semibold shadow-sm">{skill.name}</span>
                 ))}
               </div>
             </section>
@@ -56,7 +56,7 @@ export function CreativeTemplate({ cv }: TemplateProps) {
 
           {cv.languages.length > 0 && (
             <section>
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#003d9b] mb-4">Ngoại ngữ</h2>
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1557ff] mb-4">Ngoại ngữ</h2>
               <div className="space-y-2">
                 {cv.languages.map((lang, i) => (
                   <div key={i} className="flex justify-between text-[12px]">
@@ -70,7 +70,7 @@ export function CreativeTemplate({ cv }: TemplateProps) {
 
           {cv.certifications.length > 0 && (
             <section>
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#003d9b] mb-4">Chứng chỉ</h2>
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1557ff] mb-4">Chứng chỉ</h2>
               <div className="space-y-2.5">
                 {cv.certifications.map((cert, i) => (
                   <div key={i}>
@@ -87,26 +87,26 @@ export function CreativeTemplate({ cv }: TemplateProps) {
         <div className="flex-1 px-8 pt-8 pb-10 space-y-7">
           {info.summary && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-3">Giới thiệu</h2>
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-3">Giới thiệu</h2>
               <p className="text-[13px] text-[#444] leading-[1.8] whitespace-pre-line">{info.summary}</p>
             </section>
           )}
 
           {cv.experiences.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-5">Kinh nghiệm</h2>
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-5">Kinh nghiệm</h2>
               <div className="space-y-5">
                 {cv.experiences.map((exp, i) => (
                   <div key={i} className="relative pl-5">
-                    <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full bg-[#003d9b]/15" />
-                    <div className="absolute left-[-3px] top-1.5 h-[9px] w-[9px] rounded-full bg-[#003d9b]" />
+                    <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full bg-[#1557ff]/15" />
+                    <div className="absolute left-[-3px] top-1.5 h-[9px] w-[9px] rounded-full bg-[#1557ff]" />
                     <div className="flex justify-between items-start">
                       <h3 className="text-[14px] font-bold text-[#1a1a1a]">{exp.position || "Vị trí"}</h3>
                       <span className="text-[11px] text-[#999] shrink-0 ml-3 bg-[#f5f5f5] px-2 py-0.5 rounded">
                         {exp.start_date} — {exp.is_current ? "Hiện tại" : exp.end_date}
                       </span>
                     </div>
-                    <p className="text-[12px] text-[#003d9b] font-semibold mt-0.5">{exp.company}</p>
+                    <p className="text-[12px] text-[#1557ff] font-semibold mt-0.5">{exp.company}</p>
                     {exp.description && (
                       <p className="text-[12px] text-[#555] mt-2 leading-[1.7] whitespace-pre-line">{exp.description}</p>
                     )}
@@ -118,7 +118,7 @@ export function CreativeTemplate({ cv }: TemplateProps) {
 
           {cv.education.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">Học vấn</h2>
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Học vấn</h2>
               <div className="space-y-4">
                 {cv.education.map((edu, i) => (
                   <div key={i}>
@@ -135,7 +135,7 @@ export function CreativeTemplate({ cv }: TemplateProps) {
 
           {cv.projects.length > 0 && (
             <section>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#003d9b] mb-4">Dự án</h2>
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Dự án</h2>
               <div className="space-y-4">
                 {cv.projects.map((project, i) => (
                   <div key={i}>
@@ -146,7 +146,7 @@ export function CreativeTemplate({ cv }: TemplateProps) {
                     {project.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {project.technologies.map((tech, j) => (
-                          <span key={j} className="px-2 py-0.5 bg-[#e8f0fe] text-[#003d9b] rounded text-[10px] font-semibold">{tech}</span>
+                          <span key={j} className="px-2 py-0.5 bg-[#e8f0fe] text-[#1557ff] rounded text-[10px] font-semibold">{tech}</span>
                         ))}
                       </div>
                     )}
