@@ -1,80 +1,121 @@
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { FileText, Plus, Pencil, Trash2 } from "lucide-react";
+import { redirect } from "next/navigation";
+import { FileText, Plus, Star, Pencil } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
-export default async function CVListPage() {
+export const dynamic = "force-dynamic";
+
+export default async function CvLibraryPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  if (!user) redirect("/dang-nhap");
+  if (!user) redirect("/dang-nhap?next=/cv");
 
   const { data: cvs } = await supabase
     .from("cvs")
-    .select("id, title, template_id, is_primary, updated_at, created_at")
+    .select("id, title, template_id, is_primary, created_at, updated_at")
     .eq("user_id", user.id)
+    .order("is_primary", { ascending: false })
     .order("updated_at", { ascending: false });
 
-  return (
-    <div className="max-w-4xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">CV của tôi</h1>
-          <p className="text-muted-foreground text-sm">
-            Quản lý tất cả CV của bạn
-          </p>
-        </div>
-        <Link href="/cv/moi" className={buttonVariants()}>
-            <Plus className="h-4 w-4 mr-1" />
-            Tạo CV mới
-        </Link>
-      </div>
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("slug, is_published")
+    .eq("id", user.id)
+    .maybeSingle();
 
-      {cvs && cvs.length > 0 ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {cvs.map((cv) => (
-            <Card key={cv.id} className="group hover:shadow-md transition-shadow">
-              <CardHeader className="pb-2">
-                <div className="aspect-[210/297] bg-muted rounded-md mb-2 flex items-center justify-center">
-                  <FileText className="h-10 w-10 text-muted-foreground/30" />
-                </div>
-                <CardTitle className="text-base">{cv.title}</CardTitle>
-                <CardDescription className="text-xs">
-                  Template: {cv.template_id}
-                  {cv.is_primary && " • CV chính"}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex gap-2">
-                  <Link href={`/cv/${cv.id}`} className={cn(buttonVariants({ variant: "outline", size: "sm" }), "flex-1")}>
-                      <Pencil className="h-3.5 w-3.5 mr-1" />
-                      Chỉnh sửa
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-16">
-            <FileText className="h-16 w-16 text-muted-foreground/30 mb-4" />
-            <h3 className="font-semibold text-lg mb-1">Bắt đầu tạo CV</h3>
-            <p className="text-sm text-muted-foreground mb-6 text-center max-w-sm">
-              Tạo CV chuyên nghiệp đầu tiên của bạn chỉ trong vài phút
-            </p>
-            <Link href="/cv/moi" className={buttonVariants({ size: "lg" })}>
-                <Plus className="h-4 w-4 mr-2" />
-                Tạo CV mới
+  return (
+    <>
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+                CV Library
+              </p>
+              <h1
+                className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
+                style={{ fontFamily: "var(--font-headline)" }}
+              >
+                Kho CV của bạn
+              </h1>
+              <p className="mt-2 max-w-2xl text-base leading-7 text-slate-600">
+                Quản lý nhiều CV, đặt 1 cái làm primary để tự ứng tuyển 1-click.
+              </p>
+            </div>
+            <Link
+              href="/cv/moi"
+              className="inline-flex h-11 items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+            >
+              <Plus size={18} /> Tạo CV mới
             </Link>
-          </CardContent>
-        </Card>
-      )}
-    </div>
+          </div>
+
+          {(!cvs || cvs.length === 0) ? (
+            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+              <FileText size={36} className="mx-auto text-slate-300" />
+              <p className="mt-4 text-base font-bold text-slate-700">
+                Bạn chưa có CV nào.
+              </p>
+              <Link
+                href="/cv/moi"
+                className="mt-5 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white"
+              >
+                <Plus size={16} /> Bắt đầu CV đầu tiên
+              </Link>
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {cvs.map((cv) => (
+                <div
+                  key={cv.id}
+                  className="group flex flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]">
+                      <FileText size={20} />
+                    </div>
+                    {cv.is_primary && (
+                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
+                        <Star size={12} fill="currentColor" /> Primary
+                      </span>
+                    )}
+                  </div>
+                  <h3
+                    className="mt-4 text-lg font-black text-[#07122f] group-hover:text-[#1557ff]"
+                    style={{ fontFamily: "var(--font-headline)" }}
+                  >
+                    {cv.title || "CV chưa đặt tên"}
+                  </h3>
+                  <p className="mt-1 text-xs font-bold uppercase text-slate-500">
+                    Template {cv.template_id}
+                  </p>
+                  <p className="mt-3 text-xs text-slate-400">
+                    Cập nhật {new Date(cv.updated_at).toLocaleDateString("vi-VN")}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <Link
+                      href={`/cv/${cv.id}`}
+                      className="inline-flex h-9 items-center gap-1 rounded-md bg-[#1557ff] px-3 text-xs font-bold text-white"
+                    >
+                      <Pencil size={12} /> Chỉnh sửa
+                    </Link>
+                    {cv.is_primary && profile?.is_published && profile.slug && (
+                      <Link
+                        href={`/cv/p/${profile.slug}`}
+                        className="inline-flex h-9 items-center gap-1 rounded-md border border-slate-200 px-3 text-xs font-bold text-slate-700 hover:border-[#1557ff] hover:text-[#1557ff]"
+                      >
+                        Public link
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </>
   );
 }

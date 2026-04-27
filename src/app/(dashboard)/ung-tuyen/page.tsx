@@ -1,19 +1,15 @@
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import Link from "next/link";
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 
-export const metadata: Metadata = {
-  title: "Đơn ứng tuyển của tôi",
-  description: "Theo dõi trạng thái các đơn ứng tuyển của bạn trên YourCV",
-};
+export const dynamic = "force-dynamic";
 
-const STATUS_CONFIG: Record<string, { label: string; bg: string; text: string }> = {
-  pending: { label: "Chờ xử lý", bg: "bg-yellow-100", text: "text-yellow-800" },
-  viewed: { label: "Đã xem", bg: "bg-blue-100", text: "text-blue-800" },
-  shortlisted: { label: "Vào vòng chọn", bg: "bg-green-100", text: "text-green-800" },
-  rejected: { label: "Từ chối", bg: "bg-red-100", text: "text-red-800" },
-  hired: { label: "Trúng tuyển", bg: "bg-green-100", text: "text-green-800" },
+const STATUS_LABELS: Record<string, { label: string; tone: string }> = {
+  pending: { label: "Đang chờ", tone: "bg-slate-100 text-slate-600" },
+  viewed: { label: "Đã xem", tone: "bg-blue-50 text-[#1557ff]" },
+  shortlisted: { label: "Shortlist", tone: "bg-emerald-50 text-emerald-700" },
+  rejected: { label: "Từ chối", tone: "bg-red-50 text-red-600" },
+  hired: { label: "Trúng tuyển", tone: "bg-amber-50 text-amber-700" },
 };
 
 export default async function UngTuyenPage() {
@@ -21,97 +17,111 @@ export default async function UngTuyenPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  if (!user) redirect("/dang-nhap?next=/ung-tuyen");
 
-  if (!user) {
-    redirect("/dang-nhap");
-  }
-
-  const { data: applications } = await supabase
+  const { data: apps } = await supabase
     .from("applications")
-    .select("*, job:jobs(*, company:companies(name))")
+    .select(
+      "id, status, created_at, cover_letter, job:jobs(id, slug, title, location, job_type, salary_min, salary_max, company:companies(name))"
+    )
     .eq("candidate_id", user.id)
     .order("created_at", { ascending: false });
 
+  const counts = (apps ?? []).reduce<Record<string, number>>((acc, a) => {
+    acc[a.status] = (acc[a.status] ?? 0) + 1;
+    return acc;
+  }, {});
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1
-        className="text-3xl font-extrabold tracking-tight text-[#1a1a1a] mb-8"
-        style={{ fontFamily: "var(--font-headline)" }}
-      >
-        Đơn ứng tuyển của tôi
-      </h1>
+    <>
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <header className="mb-8">
+            <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+              My applications
+            </p>
+            <h1
+              className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              Đơn ứng tuyển của bạn
+            </h1>
+          </header>
 
-      {!applications || applications.length === 0 ? (
-        <div className="bg-white rounded-[24px] p-12 text-center space-y-4 shadow-sm">
-          <p
-            className="text-xl font-extrabold text-[#191c1e]"
-            style={{ fontFamily: "var(--font-headline)" }}
-          >
-            Chưa có đơn ứng tuyển nào
-          </p>
-          <p className="text-sm text-[#434654]">
-            Bạn chưa ứng tuyển vị trí nào. Hãy khám phá các cơ hội việc làm ngay!
-          </p>
-          <Link
-            href="/viec-lam"
-            className="inline-block kinetic-gradient text-white font-bold text-sm px-8 py-3.5 rounded-2xl shadow-lg hover:opacity-90 transition-all mt-2"
-            style={{ fontFamily: "var(--font-headline)" }}
-          >
-            Tìm việc làm
-          </Link>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {applications.map((app) => {
-            const job = app.job as any;
-            const companyName = job?.company?.name ?? "Công ty";
-            const status = STATUS_CONFIG[app.status] || STATUS_CONFIG.pending;
-            const appliedDate = new Date(app.created_at).toLocaleDateString("vi-VN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            });
-
-            return (
+          <div className="mb-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {(["pending", "viewed", "shortlisted", "hired", "rejected"] as const).map((s) => (
               <div
-                key={app.id}
-                className="bg-white rounded-[24px] p-6 shadow-sm flex flex-col md:flex-row md:items-center gap-4"
+                key={s}
+                className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
               >
-                {/* Company initial */}
-                <div className="w-12 h-12 rounded-2xl bg-[#f3f4f6] flex items-center justify-center shrink-0">
-                  <span className="text-lg font-black text-[#1557ff]/30">
-                    {companyName.charAt(0)}
-                  </span>
-                </div>
-
-                {/* Job info */}
-                <div className="flex-1 min-w-0">
-                  <Link
-                    href={`/viec-lam/${job?.slug || ""}`}
-                    className="text-base font-bold text-[#1a1a1a] hover:text-[#1557ff] transition-colors"
-                    style={{ fontFamily: "var(--font-headline)" }}
-                  >
-                    {job?.title || "Vị trí không xác định"}
-                  </Link>
-                  <p className="text-sm text-[#434654] mt-0.5">{companyName}</p>
-                </div>
-
-                {/* Date */}
-                <div className="text-sm text-[#999] shrink-0">
-                  Ngày ứng tuyển: {appliedDate}
-                </div>
-
-                {/* Status badge */}
-                <span
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold shrink-0 ${status.bg} ${status.text}`}
-                >
-                  {status.label}
-                </span>
+                <p className="text-xs font-black uppercase text-slate-500">
+                  {STATUS_LABELS[s].label}
+                </p>
+                <p className="mt-1 text-2xl font-black text-[#1557ff]">
+                  {counts[s] ?? 0}
+                </p>
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          <div className="rounded-lg border border-slate-200 bg-white shadow-sm">
+            {(!apps || apps.length === 0) ? (
+              <div className="p-10 text-center">
+                <p className="text-base font-bold text-slate-700">
+                  Bạn chưa ứng tuyển vị trí nào.
+                </p>
+                <Link
+                  href="/viec-lam"
+                  className="mt-4 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+                >
+                  Xem việc làm
+                </Link>
+              </div>
+            ) : (
+              <ul className="divide-y divide-slate-100">
+                {apps.map((a) => {
+                  const job = a.job as unknown as {
+                    id: string;
+                    slug: string;
+                    title: string;
+                    location?: string;
+                    company?: { name?: string } | null;
+                  } | null;
+                  const meta = STATUS_LABELS[a.status] ?? STATUS_LABELS.pending;
+                  if (!job) return null;
+                  return (
+                    <li
+                      key={a.id}
+                      className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <Link
+                          href={`/viec-lam/${job.slug}`}
+                          className="text-base font-black hover:text-[#1557ff]"
+                        >
+                          {job.title}
+                        </Link>
+                        <p className="mt-1 text-sm font-bold text-slate-600">
+                          {job.company?.name}
+                          {job.location ? ` · ${job.location}` : null}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">
+                          Ứng tuyển {new Date(a.created_at).toLocaleDateString("vi-VN")}
+                        </p>
+                      </div>
+                      <span
+                        className={`rounded-md px-3 py-1 text-xs font-black ${meta.tone}`}
+                      >
+                        {meta.label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         </div>
-      )}
-    </div>
+      </main>
+    </>
   );
 }

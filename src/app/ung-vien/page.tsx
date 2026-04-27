@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Search, MapPin } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
@@ -8,155 +9,174 @@ import { CandidateCard } from "@/components/candidates/candidate-card";
 export const metadata: Metadata = {
   title: "Ứng viên",
   description:
-    "Tìm kiếm và kết nối với những ứng viên xuất sắc nhất. Khám phá hồ sơ ứng viên phù hợp cho đội ngũ của bạn.",
+    "Khám phá ứng viên đã publish hồ sơ trên YourCV — kỹ năng, kinh nghiệm, mức lương kỳ vọng.",
 };
 
-const skillFilters = [
-  "Content Strategy",
-  "SEO",
-  "UX Writing",
-  "Copywriting",
-  "Editorial",
-  "Marketing",
+export const dynamic = "force-dynamic";
+
+const INDUSTRIES = [
+  "Công nghệ thông tin",
+  "Marketing - Truyền thông",
+  "Tài chính - Ngân hàng",
+  "Thiết kế - Sáng tạo",
 ];
 
-const experienceLevels = ["1-2 năm", "3-5 năm", "5-10 năm", "10+ năm"];
+function buildFilterUrl(
+  current: { q?: string; industry?: string; location?: string },
+  overrides: Partial<{ q?: string; industry?: string; location?: string }>
+) {
+  const merged = { ...current, ...overrides };
+  const params = new URLSearchParams();
+  if (merged.q) params.set("q", merged.q);
+  if (merged.industry) params.set("industry", merged.industry);
+  if (merged.location) params.set("location", merged.location);
+  const qs = params.toString();
+  return qs ? `/ung-vien?${qs}` : "/ung-vien";
+}
 
-const availabilityOptions = ["Sẵn sàng ngay", "2 tuần", "1 tháng", "Đang làm việc"];
-
-export default async function UngVienPage() {
+export default async function UngVienPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; industry?: string; location?: string }>;
+}) {
+  const params = await searchParams;
   const supabase = await createClient();
-  const { data: candidates } = await supabase
+
+  let query = supabase
     .from("profiles")
     .select("*")
-    .eq("is_published", true)
-    .order("published_at", { ascending: false });
+    .eq("is_published", true);
+  if (params.q) {
+    query = query.or(
+      `full_name.ilike.%${params.q}%,headline.ilike.%${params.q}%`
+    );
+  }
+  if (params.industry) query = query.eq("industry", params.industry);
+  if (params.location) query = query.eq("location", params.location);
+
+  const { data: candidates } = await query.order("published_at", {
+    ascending: false,
+  });
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#f8f9fb]">
-        {/* Hero */}
-        <section className="pt-32 pb-16 px-6">
-          <div className="max-w-5xl mx-auto text-center space-y-8">
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <header className="mb-8">
+            <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+              Talent Pool
+            </p>
             <h1
-              className="text-5xl font-extrabold tracking-tighter text-[#191c1e]"
+              className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Tìm kiếm <span className="italic text-[#1557ff]">Nhân tài</span>.
-              Kiến tạo Tương lai.
+              Tìm kiếm ứng viên Việt
             </h1>
-            <p className="text-lg text-[#434654] max-w-2xl mx-auto">
-              Khám phá những ứng viên xuất sắc nhất cho đội ngũ của bạn
+            <p className="mt-2 max-w-2xl text-base leading-7 text-slate-600">
+              {candidates?.length ?? 0} ứng viên đã public hồ sơ. Tìm theo
+              ngành, kỹ năng, địa điểm.
             </p>
+          </header>
 
-            {/* Search Bar */}
-            <div className="bg-white/60 backdrop-blur-2xl rounded-2xl p-4 flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
+          {/* Search */}
+          <form
+            action="/ung-vien"
+            method="GET"
+            className="mb-8 flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-center"
+          >
+            <div className="flex flex-1 items-center gap-2 rounded-md border border-slate-200 px-3">
+              <Search size={18} className="text-slate-400" />
               <input
-                type="text"
-                placeholder="Kỹ năng, vị trí..."
-                className="flex-1 bg-[#f3f4f6] rounded-xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/60 outline-none"
+                name="q"
+                defaultValue={params.q ?? ""}
+                placeholder="Tên, vị trí, kỹ năng..."
+                className="h-11 flex-1 bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-slate-400"
               />
-              <input
-                type="text"
-                placeholder="Địa điểm"
-                className="md:w-48 bg-[#f3f4f6] rounded-xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/60 outline-none"
-              />
-              <button
-                className="kinetic-gradient text-white font-bold text-sm px-8 py-3.5 rounded-2xl shadow-lg"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Tìm kiếm
-              </button>
             </div>
-          </div>
-        </section>
+            <div className="flex items-center gap-2 rounded-md border border-slate-200 px-3 md:w-56">
+              <MapPin size={18} className="text-slate-400" />
+              <input
+                name="location"
+                defaultValue={params.location ?? ""}
+                placeholder="Địa điểm"
+                className="h-11 flex-1 bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-slate-400"
+              />
+            </div>
+            {params.industry && (
+              <input type="hidden" name="industry" value={params.industry} />
+            )}
+            <button
+              type="submit"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-6 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+            >
+              Tìm
+            </button>
+          </form>
 
-        {/* Content */}
-        <section className="max-w-7xl mx-auto px-6 pb-20">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Sidebar Filters */}
-            <aside className="lg:w-72 shrink-0 space-y-8">
-              {/* Skills */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5">
-                <h3
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Kỹ năng
-                </h3>
-                <div className="space-y-3">
-                  {skillFilters.map((skill) => (
-                    <label
-                      key={skill}
-                      className="flex items-center gap-3 text-sm text-[#434654] cursor-pointer"
-                    >
-                      <span className="w-5 h-5 rounded-lg bg-[#f3f4f6] flex items-center justify-center shrink-0">
-                        <span className="w-2.5 h-2.5 rounded-sm bg-transparent" />
-                      </span>
-                      {skill}
-                    </label>
-                  ))}
-                </div>
+          <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
+            <aside className="space-y-4">
+              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                <p className="text-sm font-black uppercase tracking-wider text-slate-700">
+                  Ngành nghề
+                </p>
+                <ul className="mt-3 space-y-1.5">
+                  {INDUSTRIES.map((ind) => {
+                    const active = params.industry === ind;
+                    const href = buildFilterUrl(params, {
+                      industry: active ? undefined : ind,
+                    });
+                    return (
+                      <li key={ind}>
+                        <Link
+                          href={href}
+                          className={`flex items-center gap-2 rounded-md px-2 py-2 text-sm font-bold ${
+                            active
+                              ? "bg-blue-50 text-[#1557ff]"
+                              : "text-slate-600 hover:bg-slate-50"
+                          }`}
+                        >
+                          <span
+                            className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                              active ? "bg-[#1557ff]" : "bg-slate-300"
+                            }`}
+                          />
+                          {ind}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-
-              {/* Experience */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5">
-                <h3
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Kinh nghiệm
-                </h3>
-                <div className="space-y-3">
-                  {experienceLevels.map((level) => (
-                    <label
-                      key={level}
-                      className="flex items-center gap-3 text-sm text-[#434654] cursor-pointer"
-                    >
-                      <span className="w-5 h-5 rounded-lg bg-[#f3f4f6] flex items-center justify-center shrink-0">
-                        <span className="w-2.5 h-2.5 rounded-sm bg-transparent" />
-                      </span>
-                      {level}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Availability Chips */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5">
-                <h3
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Khả dụng
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {availabilityOptions.map((opt) => (
-                    <span
-                      key={opt}
-                      className="px-4 py-2 text-xs font-semibold text-[#1557ff] bg-[#f3f4f6] rounded-2xl cursor-pointer hover:bg-[#1557ff]/10 transition-colors"
-                    >
-                      {opt}
-                    </span>
-                  ))}
-                </div>
+              <div className="rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm">
+                <p className="text-xs font-black uppercase text-[#1557ff]">
+                  HR Tip
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  Vào{" "}
+                  <Link
+                    href="/nha-tuyen-dung/pipeline"
+                    className="font-black text-[#1557ff] hover:underline"
+                  >
+                    Recruitment Pipeline
+                  </Link>{" "}
+                  để quản lý ứng viên đã apply vào job của bạn.
+                </p>
               </div>
             </aside>
 
-            {/* Candidate Grid */}
-            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid gap-4 sm:grid-cols-2">
               {(!candidates || candidates.length === 0) ? (
-                <div className="md:col-span-2 bg-white/80 backdrop-blur-xl rounded-[40px] p-12 text-center space-y-4">
-                  <p
-                    className="text-xl font-extrabold text-[#191c1e]"
-                    style={{ fontFamily: "var(--font-headline)" }}
+                <div className="sm:col-span-2 rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+                  <p className="text-base font-bold text-slate-700">
+                    Chưa có ứng viên nào public.
+                  </p>
+                  <Link
+                    href="/cv/moi"
+                    className="mt-4 inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white"
                   >
-                    Chưa có ứng viên nào publish
-                  </p>
-                  <p className="text-sm text-[#434654]">
-                    Hãy là người đầu tiên!
-                  </p>
+                    Hãy là người đầu tiên
+                  </Link>
                 </div>
               ) : (
                 candidates.map((c) => <CandidateCard key={c.id} c={c} />)

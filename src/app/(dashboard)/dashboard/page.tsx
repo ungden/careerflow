@@ -9,8 +9,6 @@ import {
   Target,
   Users,
 } from "lucide-react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
 import { isPro as isProTier } from "@/lib/subscription";
 
@@ -55,7 +53,6 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <Header />
       <main className="bg-[#f8fbff] text-[#07122f]">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <header className="mb-8">
@@ -197,7 +194,6 @@ export default async function DashboardPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

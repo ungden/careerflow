@@ -1,202 +1,222 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Check, Sparkles } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
+import { isPro as isProTier } from "@/lib/subscription";
 
 export const metadata: Metadata = {
   title: "Bảng giá",
   description:
-    "So sánh các gói dịch vụ YourCV. Bắt đầu miễn phí hoặc nâng cấp Pro để sử dụng toàn bộ tính năng.",
+    "Free dùng thử AI CV review + JD match + cover letter. Pro 99K/tháng dùng không giới hạn, 10 templates, không watermark.",
 };
 
-const freeTier = [
-  "2 template cơ bản (Classic, Modern)",
-  "Export PDF có watermark",
-  "1 AI CV Review/tháng",
-  "3 AI Cover Letter/tháng",
-  "5 AI Interview/tháng",
-  "5 AI Salary/tháng",
+export const dynamic = "force-dynamic";
+
+const FREE = [
+  "2 templates miễn phí (Classic, Modern)",
+  "1 lượt AI CV review / tháng",
+  "3 lượt JD Match / tháng",
+  "3 lượt AI Cover Letter / tháng",
+  "5 lượt AI Phỏng vấn / tháng",
+  "5 lượt AI Lương thị trường / tháng",
+  "Apply 1-click vào job phù hợp",
+  "Hồ sơ public chia sẻ link",
 ];
 
-const proTier = [
-  "Tất cả 10 templates",
-  "Không watermark",
-  "AI không giới hạn",
-  "Ưu tiên hỗ trợ",
+const PRO = [
+  "Tất cả 10 templates Premium",
+  "AI không giới hạn (cả 5 công cụ)",
+  "Export PDF không watermark",
+  "Ưu tiên hiển thị với nhà tuyển dụng",
+  "Hỗ trợ ưu tiên qua email",
+  "Áp dụng ngay sau khi thanh toán Sepay",
 ];
 
-export default async function PricingPage() {
+export default async function BangGiaPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  let currentTier: "free" | "pro" | null = null;
+  let isPro = false;
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("subscription_tier")
+      .select("subscription_tier, subscription_expires_at")
       .eq("id", user.id)
-      .single();
-    currentTier = (profile?.subscription_tier as "free" | "pro") ?? "free";
+      .maybeSingle();
+    isPro = isProTier(profile);
   }
 
   return (
     <>
       <Header />
-      <main className="flex-1 bg-[#f8f9fb] pt-32 pb-20 px-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16 space-y-4">
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+          <div className="mb-12 text-center">
+            <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+              Pricing
+            </p>
             <h1
-              className="text-4xl md:text-5xl font-extrabold text-[#191c1e] tracking-tight"
+              className="mt-3 text-4xl font-black tracking-normal sm:text-5xl"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Chọn gói phù hợp với bạn
+              Bắt đầu miễn phí. Nâng cấp khi bạn cần thêm.
             </h1>
-            <p className="text-[#434654] text-lg max-w-2xl mx-auto">
-              Bắt đầu miễn phí, nâng cấp khi bạn cần nhiều hơn.
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">
+              Free đủ dùng cho 1-2 vị trí ứng tuyển/tháng. Pro cho người
+              nghiêm túc tìm việc — AI không giới hạn, templates đẹp, không
+              watermark.
             </p>
-            {currentTier && (
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-[#434654]">
-                <span>Gói hiện tại của bạn:</span>
-                <span
-                  className={`font-bold ${
-                    currentTier === "pro" ? "text-[#1557ff]" : "text-[#434654]"
-                  }`}
-                >
-                  {currentTier === "pro" ? "Pro" : "Free"}
+            {user && (
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-sm">
+                Gói hiện tại:{" "}
+                <span className={`font-black ${isPro ? "text-[#1557ff]" : "text-slate-700"}`}>
+                  {isPro ? "Pro" : "Free"}
                 </span>
               </div>
             )}
           </div>
 
-          {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            {/* Free Tier */}
-            <div className="bg-white rounded-[40px] p-10 shadow-sm border border-slate-100 flex flex-col">
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Free */}
+            <div className="flex flex-col rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
+              <p className="text-xs font-black uppercase text-slate-500">Free</p>
               <h2
-                className="text-2xl font-bold text-[#191c1e] mb-2"
+                className="mt-2 text-2xl font-black"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
-                Free
-              </h2>
-              <p className="text-[#434654] text-sm mb-6">
                 Hoàn hảo để bắt đầu
-              </p>
-              <div className="mb-8">
+              </h2>
+              <p className="mt-4 flex items-baseline gap-1">
                 <span
-                  className="text-4xl font-extrabold text-[#191c1e]"
+                  className="text-5xl font-black"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   0đ
                 </span>
-                <span className="text-[#434654] text-sm ml-1">/tháng</span>
-              </div>
-              <ul className="space-y-4 mb-10 flex-1">
-                {freeTier.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-[#434654]">
-                    <svg
-                      className="w-5 h-5 text-[#1557ff] mt-0.5 shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="text-sm">{item}</span>
+                <span className="text-sm font-bold text-slate-500">/tháng</span>
+              </p>
+              <ul className="mt-6 flex-1 space-y-3">
+                {FREE.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-slate-700">
+                    <Check className="mt-0.5 shrink-0 text-emerald-600" size={18} />
+                    {item}
                   </li>
                 ))}
               </ul>
-              {currentTier === "free" ? (
-                <div
-                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#434654] bg-slate-100"
-                  style={{ fontFamily: "var(--font-headline)" }}
+              {!user ? (
+                <Link
+                  href="/dang-ky"
+                  className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md border border-[#1557ff] bg-white text-base font-bold text-[#1557ff] hover:bg-blue-50"
                 >
+                  Bắt đầu miễn phí
+                </Link>
+              ) : !isPro ? (
+                <div className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md bg-slate-100 text-base font-bold text-slate-600">
                   Đang sử dụng
                 </div>
               ) : (
                 <Link
-                  href={user ? "/cong-cu" : "/dang-ky"}
-                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-[#1557ff] bg-[#d4e0f8] hover:opacity-90 transition-all"
-                  style={{ fontFamily: "var(--font-headline)" }}
+                  href="/cv/moi"
+                  className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md border border-slate-200 bg-white text-base font-bold text-slate-700"
                 >
-                  Bắt đầu miễn phí
+                  Tạo CV mới
                 </Link>
               )}
             </div>
 
-            {/* Pro Tier */}
-            <div className="bg-[#1557ff] rounded-[40px] p-10 shadow-xl flex flex-col relative overflow-hidden">
-              <div className="absolute top-6 right-6 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">
-                Phổ biến
+            {/* Pro */}
+            <div className="relative flex flex-col rounded-lg border-2 border-[#1557ff] bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-8 shadow-md">
+              <div className="absolute right-6 top-6 inline-flex items-center gap-1 rounded-md bg-emerald-500 px-2 py-1 text-xs font-black text-white">
+                <Sparkles size={12} /> Phổ biến
               </div>
+              <p className="text-xs font-black uppercase text-[#1557ff]">YourCV Pro</p>
               <h2
-                className="text-2xl font-bold text-white mb-2"
+                className="mt-2 text-2xl font-black"
                 style={{ fontFamily: "var(--font-headline)" }}
               >
-                Pro
-              </h2>
-              <p className="text-blue-200 text-sm mb-6">
                 Cho người nghiêm túc với sự nghiệp
-              </p>
-              <div className="mb-8">
+              </h2>
+              <p className="mt-4 flex items-baseline gap-1">
                 <span
-                  className="text-4xl font-extrabold text-white"
+                  className="text-5xl font-black text-[#1557ff]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   99,000đ
                 </span>
-                <span className="text-blue-200 text-sm ml-1">/tháng</span>
-              </div>
-              <ul className="space-y-4 mb-10 flex-1">
-                {proTier.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-blue-100">
-                    <svg
-                      className="w-5 h-5 text-white mt-0.5 shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="text-sm">{item}</span>
+                <span className="text-sm font-bold text-slate-500">/tháng</span>
+              </p>
+              <p className="mt-1 text-xs font-bold text-emerald-600">
+                Huỷ bất cứ lúc nào.
+              </p>
+              <ul className="mt-6 flex-1 space-y-3">
+                {PRO.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-slate-700">
+                    <Check className="mt-0.5 shrink-0 text-emerald-600" size={18} />
+                    <span className="font-bold">{item}</span>
                   </li>
                 ))}
               </ul>
-              {currentTier === "pro" ? (
-                <div
-                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm text-white bg-white/20"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Đang sử dụng
+              {isPro ? (
+                <div className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-md bg-[#1557ff]/15 text-base font-bold text-[#1557ff]">
+                  Bạn đang dùng Pro
                 </div>
               ) : (
                 <Link
-                  href="/nang-cap"
-                  className="block text-center py-4 px-8 rounded-xl font-bold text-sm kinetic-gradient text-white shadow-lg hover:opacity-90 transition-all"
-                  style={{ fontFamily: "var(--font-headline)" }}
+                  href={user ? "/nang-cap" : "/dang-nhap?next=/nang-cap"}
+                  className="mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#1557ff] text-base font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0e3fd5]"
                 >
                   Nâng cấp Pro
                 </Link>
               )}
-              <p className="text-blue-200/80 text-xs text-center mt-3">
+              <p className="mt-3 text-center text-xs text-slate-500">
                 Thanh toán bằng chuyển khoản ngân hàng (Sepay)
               </p>
             </div>
           </div>
-        </div>
+
+          {/* Compare table - quick */}
+          <div className="mt-16">
+            <h2
+              className="text-2xl font-black"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              So sánh chi tiết
+            </h2>
+            <div className="mt-6 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 text-left">
+                  <tr>
+                    <th className="p-4 font-black uppercase text-slate-500">Tính năng</th>
+                    <th className="p-4 font-black uppercase text-slate-500">Free</th>
+                    <th className="p-4 font-black uppercase text-[#1557ff]">Pro</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {[
+                    ["Số templates", "2", "10"],
+                    ["AI CV Review", "1/tháng", "Không giới hạn"],
+                    ["JD Match", "3/tháng", "Không giới hạn"],
+                    ["AI Cover Letter", "3/tháng", "Không giới hạn"],
+                    ["AI Phỏng vấn", "5/tháng", "Không giới hạn"],
+                    ["AI Lương thị trường", "5/tháng", "Không giới hạn"],
+                    ["Watermark khi export", "Có", "Không"],
+                    ["Hồ sơ public chia sẻ", "Có", "Có"],
+                    ["Apply 1-click", "Có", "Có"],
+                  ].map(([feat, free, pro]) => (
+                    <tr key={feat}>
+                      <td className="p-4 font-bold">{feat}</td>
+                      <td className="p-4 text-slate-600">{free}</td>
+                      <td className="p-4 font-bold text-[#1557ff]">{pro}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

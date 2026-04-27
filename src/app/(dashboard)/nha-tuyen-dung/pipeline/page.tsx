@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
 import { PipelineBoard } from "@/components/employer/pipeline-board";
 
@@ -21,22 +19,18 @@ export default async function CompanyPipelinePage() {
     .maybeSingle();
   if (!company) {
     return (
-      <>
-        <Header />
-        <main className="bg-[#f8fbff]">
-          <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-black">Chưa có hồ sơ công ty</h1>
-            <p className="mt-3 text-slate-600">Tạo hồ sơ công ty trước khi quản lý ứng viên.</p>
-            <Link
-              href="/nha-tuyen-dung/cong-ty"
-              className="mt-6 inline-flex h-11 items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25"
-            >
-              Tạo hồ sơ công ty
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </>
+      <main className="bg-[#f8fbff]">
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-black">Chưa có hồ sơ công ty</h1>
+          <p className="mt-3 text-slate-600">Tạo hồ sơ công ty trước khi quản lý ứng viên.</p>
+          <Link
+            href="/nha-tuyen-dung/cong-ty"
+            className="mt-6 inline-flex h-11 items-center gap-2 rounded-md bg-[#1557ff] px-5 text-sm font-bold text-white shadow-sm shadow-blue-500/25"
+          >
+            Tạo hồ sơ công ty
+          </Link>
+        </div>
+      </main>
     );
   }
 
@@ -58,7 +52,6 @@ export default async function CompanyPipelinePage() {
 
   return (
     <>
-      <Header />
       <main className="bg-[#f8fbff] text-[#07122f]">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <header className="mb-8">
@@ -106,7 +99,6 @@ export default async function CompanyPipelinePage() {
           )}
         </div>
       </main>
-      <Footer />
     </>
   );
 }
