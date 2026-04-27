@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const nav = [
   { href: "/cong-cu", label: "Tính năng" },
   { href: "/viec-lam", label: "Việc làm" },
-  { href: "/nha-tuyen-dung/cong-ty", label: "Cho công ty" },
+  { href: "/cho-cong-ty", label: "Cho công ty" },
   { href: "/bang-gia", label: "Bảng giá" },
   { href: "/dang-nhap", label: "Đăng nhập" },
 ];

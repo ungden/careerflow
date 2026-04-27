@@ -86,22 +86,48 @@ export async function POST(request: NextRequest) {
   }
 
   const result = await chatJSON<{
-    score: number;
+    overall_score: number;
+    ats_score: number;
+    keyword_score: number;
+    experience_score: number;
+    achievement_score: number;
+    structure_score: number;
+    professionalism_score: number;
     summary: string;
+    strengths: string[];
+    weaknesses: string[];
+    critical_errors: string[];
     suggestions: string[];
+    quick_wins: string[];
   }>({
     apiKey: env.OPENAI_API_KEY,
-    maxTokens: 1500,
+    maxTokens: 2500,
     messages: [
       {
         role: "system",
         content:
-          "Bạn là chuyên gia tuyển dụng Việt Nam. Hãy đánh giá CV sau và cho điểm 1-100, cùng gợi ý cải thiện cụ thể bằng tiếng Việt.",
+          "Bạn là chuyên gia tuyển dụng Việt Nam. Hãy phân tích CV theo 7 trục độc lập và đưa ra báo cáo chi tiết bằng tiếng Việt. Mỗi trục cho điểm 0-100.",
       },
       {
         role: "user",
-        content: `Hãy đánh giá CV sau đây và trả về JSON với format:
-{ "score": <number 1-100>, "summary": "<tóm tắt>", "suggestions": ["<gợi ý 1>", ...] }
+        content: `Hãy chấm điểm CV theo 7 trục: Overall (tổng), ATS (machine-readable), Keyword (từ khoá ngành), Experience (kinh nghiệm), Achievement (số liệu thành tích), Structure (cấu trúc), Professionalism (chuyên nghiệp).
+
+Trả về JSON đúng format:
+{
+  "overall_score": <0-100>,
+  "ats_score": <0-100>,
+  "keyword_score": <0-100>,
+  "experience_score": <0-100>,
+  "achievement_score": <0-100>,
+  "structure_score": <0-100>,
+  "professionalism_score": <0-100>,
+  "summary": "<tóm tắt 2-3 câu>",
+  "strengths": ["<điểm mạnh 1>", "<điểm mạnh 2>", ...],
+  "weaknesses": ["<điểm yếu 1>", "<điểm yếu 2>", ...],
+  "critical_errors": ["<lỗi nghiêm trọng 1>", ...],
+  "suggestions": ["<gợi ý dài hạn 1>", ...],
+  "quick_wins": ["<sửa ngay 1>", "<sửa ngay 2>", ...]
+}
 
 Dữ liệu CV:
 ${cvJson}`,
@@ -120,9 +146,5 @@ ${cvJson}`,
     );
   }
 
-  return NextResponse.json({
-    score: result.data.score,
-    summary: result.data.summary,
-    suggestions: result.data.suggestions,
-  });
+  return NextResponse.json(result.data);
 }

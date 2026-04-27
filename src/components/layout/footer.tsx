@@ -17,7 +17,7 @@ const links = [
     items: [
       { href: "/viec-lam", label: "Việc làm" },
       { href: "/ung-vien", label: "Ứng viên" },
-      { href: "/nha-tuyen-dung/cong-ty", label: "Đăng tuyển" },
+      { href: "/cho-cong-ty", label: "Cho công ty" },
       { href: "/cau-hoi", label: "Câu hỏi thường gặp" },
     ],
   },
