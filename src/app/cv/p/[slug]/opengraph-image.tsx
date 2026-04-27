@@ -56,9 +56,10 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             <span>YourCV</span>
           </div>
 
-          <div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <div
               style={{
+                display: "flex",
                 fontSize: 18,
                 fontWeight: 800,
                 opacity: 0.85,
@@ -70,6 +71,7 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             </div>
             <div
               style={{
+                display: "flex",
                 fontSize: 64,
                 fontWeight: 900,
                 lineHeight: 1.05,
@@ -81,6 +83,7 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             </div>
             <div
               style={{
+                display: "flex",
                 fontSize: 28,
                 fontWeight: 700,
                 marginTop: 14,
@@ -98,7 +101,7 @@ export default async function OG({ params }: { params: Promise<{ slug: string }>
             </div>
           </div>
 
-          <div style={{ fontSize: 20, opacity: 0.9, fontWeight: 700 }}>
+          <div style={{ display: "flex", fontSize: 20, opacity: 0.9, fontWeight: 700 }}>
             yourcv.net/cv/p/{slug}
           </div>
         </div>
