@@ -32,7 +32,13 @@ const schema = z.object({
     .string()
     .default("YourCV <no-reply@yourcv.net>"),
 
+  AI_PROVIDER: z
+    .enum(["openai", "deepseek"])
+    .default("openai"),
   OPENAI_API_KEY: z.string().optional(),
+  OPENAI_MODEL: z.string().default("gpt-4o-mini"),
+  DEEPSEEK_API_KEY: z.string().optional(),
+  DEEPSEEK_MODEL: z.string().default("deepseek-v4-flash"),
 
   CRON_SECRET: required("CRON_SECRET missing — cron endpoints are open"),
 

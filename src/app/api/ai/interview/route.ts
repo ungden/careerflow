@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { isPro as isProTier } from "@/lib/subscription";
-import { chatJSON } from "@/lib/openai";
+import { chatJSON, isAiConfigured } from "@/lib/openai";
 import { rateLimit } from "@/lib/rate-limit";
-import { env } from "@/lib/env";
 
 const TOOL = "interview";
 const FREE_LIMIT = 5;
@@ -66,7 +65,7 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  if (!env.OPENAI_API_KEY) {
+  if (!isAiConfigured()) {
     return NextResponse.json(
       { error: "AI tạm chưa khả dụng." },
       { status: 503 }
@@ -86,7 +85,6 @@ export async function POST(request: NextRequest) {
   const result = await chatJSON<{
     questions: Array<{ question: string; suggested_answer: string }>;
   }>({
-    apiKey: env.OPENAI_API_KEY,
     maxTokens: 2500,
     messages: [
       {
