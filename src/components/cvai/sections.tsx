@@ -133,7 +133,7 @@ export function CvaiHeader() {
             </Link>
           ))}
         </nav>
-        <Link href="/cv/moi" className="inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25">
+        <Link href="/cv/moi" className="inline-flex h-10 items-center gap-2 rounded-2xl bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25">
           Review CV miễn phí
         </Link>
       </div>
@@ -157,10 +157,10 @@ export function HomePage() {
               AI phân tích CV, chấm điểm mức độ phù hợp với vị trí ứng tuyển, chỉ ra lỗi yếu và đề xuất cách sửa để tăng cơ hội.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link href="/cv/moi" className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-6 text-base font-bold text-white shadow-lg shadow-blue-500/25">
+              <Link href="/cv/moi" className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#1557ff] px-6 text-base font-bold text-white shadow-lg shadow-blue-500/25">
                 <CloudUpload size={19} /> Tải CV lên ngay
               </Link>
-              <Link href="/cong-cu/jd-match" className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-[#1557ff] bg-white px-6 text-base font-bold text-[#1557ff]">
+              <Link href="/cong-cu/jd-match" className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-[#1557ff] bg-white px-6 text-base font-bold text-[#1557ff]">
                 <FileText size={19} /> Dán Job Description
               </Link>
             </div>
@@ -171,16 +171,16 @@ export function HomePage() {
                 ["1.800+", "công ty"],
                 ["87%", "CV cải thiện sau lần đầu"],
               ].map(([value, label]) => (
-                <div key={label} className="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                <div key={label} className="rounded-3xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
                   <p className="text-xl font-black text-[#1557ff]">{value}</p>
                   <p className="mt-1 text-xs font-bold leading-5 text-slate-500">{label}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-lg border border-blue-100 bg-white p-2 shadow-2xl shadow-blue-200/60">
-            <Image src="/assets/cvai-product-visual.png" alt="CVAI dashboard visual" width={1400} height={788} priority className="h-full w-full rounded-md object-cover" />
-            <div className="absolute bottom-5 left-5 right-5 grid gap-3 rounded-lg border border-white/70 bg-white/92 p-4 shadow-lg backdrop-blur md:grid-cols-3">
+          <div className="relative overflow-hidden rounded-3xl border border-blue-100 bg-white p-2 shadow-2xl shadow-blue-200/60">
+            <Image src="/assets/cvai-product-visual.png" alt="CVAI dashboard visual" width={1400} height={788} priority className="h-full w-full rounded-2xl object-cover" />
+            <div className="absolute bottom-5 left-5 right-5 grid gap-3 rounded-3xl border border-white/70 bg-white/92 p-4 shadow-lg backdrop-blur md:grid-cols-3">
               {[
                 ["CV Score", "78/100", "Khá tốt"],
                 ["ATS Match", "84%", "Vượt qua lọc hồ sơ"],
@@ -240,9 +240,9 @@ export function HomeQuickActions() {
         {actions.map((action) => {
           const Icon = action.icon;
           return (
-            <Link key={action.title} href={action.href} className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
+            <Link key={action.title} href={action.href} className="group rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-[#1557ff] group-hover:bg-[#1557ff] group-hover:text-white">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-[#1557ff] group-hover:bg-[#1557ff] group-hover:text-white">
                   <Icon size={24} />
                 </div>
                 <div>
@@ -279,30 +279,30 @@ export function AppPage({ route }: { route: string }) {
 function PageHero({ page }: { page: Page }) {
   const Icon = page.icon;
   return (
-    <section className="grid gap-6 rounded-lg border border-slate-200 bg-white p-6 shadow-sm lg:grid-cols-[1fr_340px]">
+    <section className="grid gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:grid-cols-[1fr_340px]">
       <div>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="rounded-md bg-blue-50 px-3 py-2 text-sm font-black text-[#1557ff]">#{page.number} · {page.group}</span>
-          <span className="rounded-md bg-emerald-50 px-3 py-2 text-sm font-black text-emerald-700">{page.eyebrow}</span>
+          <span className="rounded-2xl bg-blue-50 px-3 py-2 text-sm font-black text-[#1557ff]">#{page.number} · {page.group}</span>
+          <span className="rounded-2xl bg-emerald-50 px-3 py-2 text-sm font-black text-emerald-700">{page.eyebrow}</span>
         </div>
         <h1 className="mt-5 text-4xl font-black tracking-normal sm:text-5xl">{page.title}</h1>
         <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">{page.description}</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <button className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-5 font-bold text-white">
+          <button className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl bg-[#1557ff] px-5 font-bold text-white">
             <Icon size={18} /> {page.ctas[0]}
           </button>
-          <button className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-slate-200 bg-white px-5 font-bold text-slate-700">
+          <button className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 font-bold text-slate-700">
             <Sparkles size={18} /> {page.ctas[1]}
           </button>
         </div>
       </div>
-      <div className="rounded-lg border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5">
-        <div className="flex h-14 w-14 items-center justify-center rounded-md bg-[#1557ff] text-white">
+      <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1557ff] text-white">
           <Icon size={28} />
         </div>
         <div className="mt-5 grid gap-3">
           {["AI insight sẵn sàng", "Dữ liệu demo đầy đủ", "Responsive layout", "24 màn hình chính"].map((item) => (
-            <div key={item} className="flex items-center gap-3 rounded-md bg-white px-3 py-3 text-sm font-bold text-slate-700 shadow-sm">
+            <div key={item} className="flex items-center gap-3 rounded-2xl bg-white px-3 py-3 text-sm font-bold text-slate-700 shadow-sm">
               <Check size={17} className="text-emerald-600" /> {item}
             </div>
           ))}
@@ -342,13 +342,13 @@ function PageBody({ page }: { page: Page }) {
 
 export function UploadBox() {
   return (
-    <div className="mt-8 max-w-xl rounded-lg border border-dashed border-blue-300 bg-white p-6 text-center shadow-sm">
+    <div className="mt-8 max-w-xl rounded-3xl border border-dashed border-blue-300 bg-white p-6 text-center shadow-sm">
       <CloudUpload className="mx-auto text-[#1557ff]" size={40} />
       <p className="mt-3 text-base font-extrabold">Kéo & thả CV của bạn</p>
       <p className="mt-1 text-sm text-slate-500">hoặc chọn tệp từ thiết bị</p>
       <div className="mt-4 flex justify-center gap-3">
         {["PDF", "DOCX", "PNG"].map((format) => (
-          <span key={format} className="rounded-md bg-slate-100 px-5 py-2 text-xs font-bold text-slate-600">{format}</span>
+          <span key={format} className="rounded-2xl bg-slate-100 px-5 py-2 text-xs font-bold text-slate-600">{format}</span>
         ))}
       </div>
     </div>
@@ -358,7 +358,7 @@ export function UploadBox() {
 export function LogoStrip() {
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-[1fr_1.8fr]">
+      <div className="grid gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-[1fr_1.8fr]">
         <p className="text-sm font-semibold text-slate-500">Được tin dùng bởi ứng viên và đội ngũ tuyển dụng tăng trưởng nhanh</p>
         <div className="flex flex-wrap items-center justify-between gap-5 text-sm font-black uppercase tracking-wide text-slate-500">
           {["Viettel", "FPT", "VNG", "Samsung", "MB", "Techcombank"].map((logo) => <span key={logo}>{logo}</span>)}
@@ -383,8 +383,8 @@ export function FeatureGrid() {
       <h2 className="text-center text-2xl font-black">Công cụ giúp ứng viên và doanh nghiệp tuyển dụng nhanh hơn</h2>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         {features.map(([title, body, Icon]) => (
-          <Link key={title} href="/cong-cu/danh-gia-cv" className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
-            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-[#1557ff] text-white"><Icon size={22} /></div>
+          <Link key={title} href="/cong-cu/danh-gia-cv" className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
+            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1557ff] text-white"><Icon size={22} /></div>
             <h3 className="font-black">{title}</h3>
             <p className="mt-3 min-h-12 text-sm leading-6 text-slate-500">{body}</p>
             <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#1557ff]">Tìm hiểu thêm <ArrowRight size={15} /></span>
@@ -407,7 +407,7 @@ export function HowItWorks() {
       <h2 className="text-center text-2xl font-black">Cách hoạt động</h2>
       <div className="mt-7 grid gap-5 md:grid-cols-4">
         {steps.map(([title, body], index) => (
-          <div key={title} className="relative rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm">
+          <div key={title} className="relative rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm">
             <span className="absolute left-5 top-5 flex h-7 w-7 items-center justify-center rounded-full bg-[#1557ff] text-sm font-black text-white">{index + 1}</span>
             <FileText className="mx-auto mt-5 text-[#1557ff]" size={34} />
             <h3 className="mt-5 font-black">{title}</h3>
@@ -428,7 +428,7 @@ export function HomeReport() {
         <div className="mt-6 grid gap-4">
           {["Phát hiện lỗi ATS", "Tìm keyword còn thiếu", "Gợi ý viết lại từng mục", "Tạo phiên bản CV tối ưu theo từng job"].map((title) => (
             <div key={title} className="flex gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]"><BadgeCheck size={22} /></div>
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-[#1557ff]"><BadgeCheck size={22} /></div>
               <div>
                 <h3 className="font-black">{title}</h3>
                 <p className="mt-1 text-sm leading-6 text-slate-500">AI đọc CV và JD để chỉ ra vấn đề cụ thể, sau đó đề xuất cách sửa có thể dùng ngay.</p>
@@ -443,10 +443,10 @@ export function HomeReport() {
 
 function Panel({ title, children, action }: { title: string; children: React.ReactNode; action?: string }) {
   return (
-    <section className="mt-6 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <h2 className="text-xl font-black">{title}</h2>
-        {action && <button className="inline-flex h-10 items-center gap-2 rounded-md border border-slate-200 px-4 text-sm font-bold"><Filter size={16} /> {action}</button>}
+        {action && <button className="inline-flex h-10 items-center gap-2 rounded-2xl border border-slate-200 px-4 text-sm font-bold"><Filter size={16} /> {action}</button>}
       </div>
       {children}
     </section>
@@ -463,10 +463,10 @@ export function ScorePanel() {
     ["Chuyên nghiệp", 80, "bg-emerald-500"],
   ] as const;
   return (
-    <div className="rounded-lg border border-blue-200 bg-white p-6 shadow-sm">
+    <div className="rounded-3xl border border-blue-200 bg-white p-6 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div><h3 className="text-xl font-black">CV Review Report</h3><p className="text-sm font-semibold text-slate-500">Báo cáo phân tích chi tiết</p></div>
-        <div className="rounded-md bg-orange-50 px-4 py-3 text-sm font-black text-orange-600">CV thiếu số liệu thành tích</div>
+        <div className="rounded-2xl bg-orange-50 px-4 py-3 text-sm font-black text-orange-600">CV thiếu số liệu thành tích</div>
       </div>
       <div className="mt-6 grid gap-5 md:grid-cols-[160px_1fr]">
         <div className="flex aspect-square items-center justify-center rounded-full border-[14px] border-blue-600 bg-white text-center">
@@ -474,7 +474,7 @@ export function ScorePanel() {
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {metrics.map(([label, value, color]) => (
-            <div key={label} className="rounded-md border border-slate-200 p-4">
+            <div key={label} className="rounded-2xl border border-slate-200 p-4">
               <div className="flex justify-between text-sm font-black"><span>{label}</span><span>{value}/100</span></div>
               <div className="mt-3 h-2 rounded-full bg-slate-100"><div className={cx("h-2 rounded-full", color)} style={{ width: `${value}%` }} /></div>
             </div>
@@ -489,9 +489,9 @@ export function JobCards() {
   return (
     <div className="mt-5 grid gap-4 lg:grid-cols-4">
       {jobs.map(([title, company, salary, place, mode, match]) => (
-        <Link key={title} href="/viec-lam/performance-marketing-executive" className="rounded-lg border border-slate-200 p-4 transition hover:border-blue-200 hover:shadow-md">
+        <Link key={title} href="/viec-lam/performance-marketing-executive" className="rounded-3xl border border-slate-200 p-4 transition hover:border-blue-200 hover:shadow-md">
           <div className="flex items-start gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-md bg-[#0d2d6b] text-lg font-black text-white">{company.slice(0, 1)}</div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0d2d6b] text-lg font-black text-white">{company.slice(0, 1)}</div>
             <div className="min-w-0 flex-1">
               <h3 className="truncate font-black">{title}</h3>
               <p className="mt-1 text-sm font-bold text-[#1557ff]">{company}</p>
@@ -499,7 +499,7 @@ export function JobCards() {
               <p className="mt-1 text-xs text-slate-500">{place} · {mode}</p>
             </div>
           </div>
-          <div className="mt-4 inline-flex rounded-md bg-emerald-50 px-3 py-2 text-sm font-black text-emerald-700">Match {match}%</div>
+          <div className="mt-4 inline-flex rounded-2xl bg-emerald-50 px-3 py-2 text-sm font-black text-emerald-700">Match {match}%</div>
         </Link>
       ))}
     </div>
@@ -509,11 +509,11 @@ export function JobCards() {
 export function JobsPreview() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <h2 className="text-2xl font-black">Tìm việc phù hợp với CV của bạn</h2>
           <div className="flex flex-wrap gap-2">
-            {["Remote", "Marketing", "Hồ Chí Minh", "2-3 năm kinh nghiệm"].map((chip) => <span key={chip} className="rounded-md border border-blue-100 bg-blue-50 px-3 py-2 text-sm font-bold text-[#1557ff]">{chip}</span>)}
+            {["Remote", "Marketing", "Hồ Chí Minh", "2-3 năm kinh nghiệm"].map((chip) => <span key={chip} className="rounded-2xl border border-blue-100 bg-blue-50 px-3 py-2 text-sm font-bold text-[#1557ff]">{chip}</span>)}
           </div>
         </div>
         <JobCards />
@@ -526,9 +526,9 @@ function JobsBoard() {
   return (
     <Panel title="Job board có filter đầy đủ" action="Bộ lọc">
       <div className="grid gap-4 lg:grid-cols-[260px_1fr]">
-        <div className="grid gap-3 rounded-lg bg-slate-50 p-4">
+        <div className="grid gap-3 rounded-3xl bg-slate-50 p-4">
           {["Vị trí", "Ngành nghề", "Địa điểm", "Remote / Hybrid / Onsite", "Mức lương", "Kinh nghiệm", "Công ty", "Độ phù hợp với CV của tôi"].map((filter) => (
-            <div key={filter} className="flex h-11 items-center justify-between rounded-md border border-slate-200 bg-white px-3 text-sm font-bold">{filter} <ChevronDown size={16} /></div>
+            <div key={filter} className="flex h-11 items-center justify-between rounded-2xl border border-slate-200 bg-white px-3 text-sm font-bold">{filter} <ChevronDown size={16} /></div>
           ))}
         </div>
         <JobCards />
@@ -541,7 +541,7 @@ function JobDetail() {
   return (
     <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]">
       <Panel title="Mô tả công việc"><ContentList items={["Quản lý chiến dịch Meta Ads, Google Ads và tracking hiệu quả theo kênh.", "Tối ưu CPA, ROAS, conversion rate và báo cáo performance hằng tuần.", "Phối hợp content, design, sales để cải thiện funnel chuyển đổi."]} /></Panel>
-      <Panel title="CV match"><BigScore value={76} label="CV phù hợp với job này" /><div className="mt-5 rounded-md bg-orange-50 p-4 text-sm font-bold text-orange-700">Thiếu: SQL, CRM, Performance Marketing</div></Panel>
+      <Panel title="CV match"><BigScore value={76} label="CV phù hợp với job này" /><div className="mt-5 rounded-2xl bg-orange-50 p-4 text-sm font-bold text-orange-700">Thiếu: SQL, CRM, Performance Marketing</div></Panel>
       <Panel title="Yêu cầu và quyền lợi"><ContentList items={["2-3 năm kinh nghiệm performance marketing.", "Có số liệu tăng trưởng rõ trong CV.", "Lương 12 - 18 triệu, hybrid, review 2 lần/năm."]} /></Panel>
     </div>
   );
@@ -552,7 +552,7 @@ function CompaniesLanding() {
     <Panel title="Bộ công cụ tuyển dụng AI cho HR">
       <div className="grid gap-4 md:grid-cols-3">
         {["Đăng job nhanh", "AI phân tích JD", "AI chấm CV", "Tự động shortlist", "So sánh ứng viên", "Quản lý pipeline"].map((item) => (
-          <div key={item} className="rounded-lg border border-slate-200 p-5">
+          <div key={item} className="rounded-3xl border border-slate-200 p-5">
             <ShieldCheck className="text-[#1557ff]" />
             <h3 className="mt-4 font-black">{item}</h3>
             <p className="mt-2 text-sm leading-6 text-slate-500">Tối ưu quy trình tuyển dụng với dữ liệu rõ ràng và AI insight theo từng job.</p>
@@ -570,7 +570,7 @@ export function CompanyPreview() {
       <div className="flex flex-col justify-center">
         <h2 className="text-3xl font-black">Đăng job, nhận CV, để AI xếp hạng ứng viên phù hợp nhất.</h2>
         <ContentList items={["Đăng job nhanh chóng, tiếp cận đúng ứng viên.", "AI sàng lọc và xếp hạng ứng viên theo độ phù hợp.", "Quản lý pipeline tuyển dụng khoa học.", "Tiết kiệm thời gian và tối ưu chất lượng tuyển dụng."]} />
-        <Link href="/dashboard" className="mt-7 inline-flex h-12 w-fit items-center gap-2 rounded-md bg-[#1557ff] px-6 font-bold text-white">Tạo tài khoản công ty <ArrowRight size={18} /></Link>
+        <Link href="/dashboard" className="mt-7 inline-flex h-12 w-fit items-center gap-2 rounded-2xl bg-[#1557ff] px-6 font-bold text-white">Tạo tài khoản công ty <ArrowRight size={18} /></Link>
       </div>
     </section>
   );
@@ -589,11 +589,11 @@ export function PricingCards() {
     <Panel title="Pricing cho ứng viên và công ty">
       <div className="grid gap-4 md:grid-cols-3">
         {plans.map(([name, price, ...features], index) => (
-          <div key={name} className={cx("rounded-lg border p-5", index === 1 ? "border-[#1557ff] bg-blue-50" : "border-slate-200 bg-white")}>
-            <div className="flex items-start justify-between gap-3"><h3 className="text-xl font-black">{name}</h3>{index === 1 && <span className="rounded-md bg-[#1557ff] px-2 py-1 text-xs font-black text-white">Phổ biến</span>}</div>
+          <div key={name} className={cx("rounded-3xl border p-5", index === 1 ? "border-[#1557ff] bg-blue-50" : "border-slate-200 bg-white")}>
+            <div className="flex items-start justify-between gap-3"><h3 className="text-xl font-black">{name}</h3>{index === 1 && <span className="rounded-2xl bg-[#1557ff] px-2 py-1 text-xs font-black text-white">Phổ biến</span>}</div>
             <p className="mt-4 text-3xl font-black text-[#1557ff]">{price}</p>
             <ul className="mt-5 grid gap-3 text-sm font-semibold text-slate-600">{features.map((feature) => <li key={feature} className="flex gap-2"><Check size={17} className="text-emerald-600" /> {feature}</li>)}</ul>
-            <button className="mt-6 h-10 w-full rounded-md border border-[#1557ff] font-bold text-[#1557ff]">Chọn gói</button>
+            <button className="mt-6 h-10 w-full rounded-2xl border border-[#1557ff] font-bold text-[#1557ff]">Chọn gói</button>
           </div>
         ))}
       </div>
@@ -605,7 +605,7 @@ function CandidateDashboard() {
   const stats = [["CV hiện tại", "72/100", Gauge], ["Job phù hợp", "12", Target], ["Đã ứng tuyển", "3", ClipboardCheck], ["Lỗi cần sửa", "5", Lightbulb]] as const;
   return (
     <>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{stats.map(([label, value, Icon]) => <div key={label} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"><Icon className="text-[#1557ff]" size={24} /><p className="mt-4 text-sm font-bold text-slate-500">{label}</p><p className="mt-1 text-3xl font-black">{value}</p></div>)}</div>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{stats.map(([label, value, Icon]) => <div key={label} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><Icon className="text-[#1557ff]" size={24} /><p className="mt-4 text-sm font-bold text-slate-500">{label}</p><p className="mt-1 text-3xl font-black">{value}</p></div>)}</div>
       <Panel title="Gợi ý cần sửa"><ContentList items={["Thêm số liệu thành tích trong 2 kinh nghiệm gần nhất.", "Bổ sung keyword CRM và Performance Marketing.", "Rút gọn summary xuống 3 dòng rõ vai trò, ngành, kết quả."]} /></Panel>
       <JobsPreview />
     </>
@@ -617,7 +617,7 @@ function UploadCvPage() {
     <Panel title="Upload và parse CV">
       <div className="grid gap-6 lg:grid-cols-2">
         <UploadBox />
-        <div className="grid gap-3">{["Thông tin cá nhân", "Kinh nghiệm", "Học vấn", "Kỹ năng", "Dự án", "Chứng chỉ"].map((item) => <div key={item} className="rounded-md border border-slate-200 p-4 font-bold">{item}</div>)}</div>
+        <div className="grid gap-3">{["Thông tin cá nhân", "Kinh nghiệm", "Học vấn", "Kỹ năng", "Dự án", "Chứng chỉ"].map((item) => <div key={item} className="rounded-2xl border border-slate-200 p-4 font-bold">{item}</div>)}</div>
       </div>
     </Panel>
   );
@@ -628,10 +628,10 @@ function CvLibrary() {
     <Panel title="Kho CV nhiều phiên bản">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {["CV Marketing tiếng Việt", "CV Marketing tiếng Anh", "CV Sales Manager", "CV Apply Shopee", "CV Apply Agency"].map((cv, index) => (
-          <div key={cv} className="rounded-lg border border-slate-200 p-5">
+          <div key={cv} className="rounded-3xl border border-slate-200 p-5">
             <h3 className="font-black">{cv}</h3>
             <p className="mt-2 text-sm text-slate-500">Score {72 + index * 3}/100 · Cập nhật 2 ngày trước · Đã dùng {index + 1} lần</p>
-            <div className="mt-4 flex gap-2"><button className="rounded-md bg-[#1557ff] px-3 py-2 text-sm font-bold text-white">Review lại</button><button className="rounded-md border border-slate-200 px-3 py-2 text-sm font-bold">Tối ưu theo job</button></div>
+            <div className="mt-4 flex gap-2"><button className="rounded-2xl bg-[#1557ff] px-3 py-2 text-sm font-bold text-white">Review lại</button><button className="rounded-2xl border border-slate-200 px-3 py-2 text-sm font-bold">Tối ưu theo job</button></div>
           </div>
         ))}
       </div>
@@ -677,7 +677,7 @@ function RewriteStudio() {
         <EditorPane title="CV gốc" text="Quản lý quảng cáo Facebook và Google cho nhiều chiến dịch marketing. Theo dõi chi phí, báo cáo hiệu quả và phối hợp team content." />
         <EditorPane title="Bản AI đề xuất" text="Quản lý ngân sách quảng cáo 300 triệu/tháng trên Meta Ads và Google Ads, tối ưu CPA giảm 18% trong 8 tuần và tăng ROAS từ 2.1 lên 3.4 cho chiến dịch ecommerce." highlighted />
       </div>
-      <div className="mt-5 flex flex-wrap gap-2">{["Viết lại summary", "Thêm số liệu thành tích", "Dịch sang tiếng Anh", "Làm chuyên nghiệp hơn", "Tối ưu ATS"].map((tool) => <button key={tool} className="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-sm font-bold text-[#1557ff]">{tool}</button>)}</div>
+      <div className="mt-5 flex flex-wrap gap-2">{["Viết lại summary", "Thêm số liệu thành tích", "Dịch sang tiếng Anh", "Làm chuyên nghiệp hơn", "Tối ưu ATS"].map((tool) => <button key={tool} className="rounded-2xl border border-blue-200 bg-blue-50 px-3 py-2 text-sm font-bold text-[#1557ff]">{tool}</button>)}</div>
     </Panel>
   );
 }
@@ -685,7 +685,7 @@ function RewriteStudio() {
 function ApplicationsPage() {
   return (
     <Panel title="Trạng thái ứng tuyển">
-      <div className="grid gap-4 md:grid-cols-3">{["Đã ứng tuyển", "Công ty đã xem", "Được shortlist", "Mời phỏng vấn", "Từ chối", "Đã nhận offer"].map((stage, index) => <div key={stage} className="rounded-lg border border-slate-200 p-5"><p className="text-sm font-bold text-slate-500">Stage {index + 1}</p><h3 className="mt-2 font-black">{stage}</h3><p className="mt-2 text-sm text-slate-500">{index + 1} job trong trạng thái này</p></div>)}</div>
+      <div className="grid gap-4 md:grid-cols-3">{["Đã ứng tuyển", "Công ty đã xem", "Được shortlist", "Mời phỏng vấn", "Từ chối", "Đã nhận offer"].map((stage, index) => <div key={stage} className="rounded-3xl border border-slate-200 p-5"><p className="text-sm font-bold text-slate-500">Stage {index + 1}</p><h3 className="mt-2 font-black">{stage}</h3><p className="mt-2 text-sm text-slate-500">{index + 1} job trong trạng thái này</p></div>)}</div>
     </Panel>
   );
 }
@@ -698,7 +698,7 @@ function CompanyDashboard() {
   const stats = [["Job đang mở", "12"], ["CV nhận được", "248"], ["AI Shortlisted", "37"], ["Đang phỏng vấn", "14"]];
   return (
     <>
-      <div className="mt-6 grid gap-4 md:grid-cols-4">{stats.map(([label, value]) => <div key={label} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm font-bold text-slate-500">{label}</p><p className="mt-2 text-3xl font-black">{value}</p></div>)}</div>
+      <div className="mt-6 grid gap-4 md:grid-cols-4">{stats.map(([label, value]) => <div key={label} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm font-bold text-slate-500">{label}</p><p className="mt-2 text-3xl font-black">{value}</p></div>)}</div>
       <Panel title="Job cần chú ý"><ContentList items={["Account Manager đang thiếu ứng viên chất lượng.", "Growth Marketing Lead có 9 ứng viên match trên 85%.", "Sales Executive cần tối ưu JD để tăng apply rate."]} /></Panel>
     </>
   );
@@ -720,7 +720,7 @@ function CreateJobPage() {
   return (
     <Panel title="Form tạo / chỉnh sửa job có AI">
       <FormGrid fields={["Tên vị trí", "Phòng ban", "Địa điểm", "Remote / hybrid / onsite", "Mức lương", "Loại hình", "Mô tả công việc", "Yêu cầu", "Quyền lợi", "Câu hỏi sàng lọc", "Hạn ứng tuyển"]} />
-      <div className="mt-5 flex flex-wrap gap-2">{["AI viết JD", "Làm JD chuyên nghiệp hơn", "Tách required skills", "Tạo screening questions", "Dự đoán độ hấp dẫn"].map((item) => <button key={item} className="rounded-md bg-blue-50 px-3 py-2 text-sm font-bold text-[#1557ff]">{item}</button>)}</div>
+      <div className="mt-5 flex flex-wrap gap-2">{["AI viết JD", "Làm JD chuyên nghiệp hơn", "Tách required skills", "Tạo screening questions", "Dự đoán độ hấp dẫn"].map((item) => <button key={item} className="rounded-2xl bg-blue-50 px-3 py-2 text-sm font-bold text-[#1557ff]">{item}</button>)}</div>
     </Panel>
   );
 }
@@ -731,11 +731,11 @@ function PipelineBoard({ compact = false }: { compact?: boolean }) {
     <Panel title="Candidate Pipeline">
       <div className={cx("grid gap-4", compact ? "md:grid-cols-4" : "md:grid-cols-3 xl:grid-cols-7")}>
         {stages.slice(0, compact ? 4 : stages.length).map((stage, index) => (
-          <div key={stage} className="min-h-44 rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div key={stage} className="min-h-44 rounded-3xl border border-slate-200 bg-slate-50 p-3">
             <h3 className="font-black">{stage}</h3>
             <div className="mt-3 grid gap-3">
               {candidates.slice(0, compact ? 2 : 3).map(([name, role, match]) => (
-                <div key={`${stage}-${name}`} className="rounded-md bg-white p-3 shadow-sm">
+                <div key={`${stage}-${name}`} className="rounded-2xl bg-white p-3 shadow-sm">
                   <p className="text-sm font-black">{name}</p>
                   <p className="mt-1 text-xs text-slate-500">{role}</p>
                   <p className="mt-2 text-xs font-black text-emerald-700">Match {match - index}%</p>
@@ -766,7 +766,7 @@ function ShortlistPage() {
 function InterviewKit() {
   return (
     <Panel title="AI tạo bộ câu hỏi phỏng vấn">
-      <div className="grid gap-4 md:grid-cols-2">{["Câu hỏi xác minh kinh nghiệm", "Câu hỏi kỹ thuật", "Câu hỏi tình huống", "Câu hỏi về điểm yếu trong CV", "Scorecard đánh giá", "Ghi chú phỏng vấn"].map((item) => <div key={item} className="rounded-lg border border-slate-200 p-5"><h3 className="font-black">{item}</h3><p className="mt-3 text-sm leading-6 text-slate-500">AI tạo câu hỏi bám theo JD và CV để HR đánh giá công bằng, có cấu trúc.</p></div>)}</div>
+      <div className="grid gap-4 md:grid-cols-2">{["Câu hỏi xác minh kinh nghiệm", "Câu hỏi kỹ thuật", "Câu hỏi tình huống", "Câu hỏi về điểm yếu trong CV", "Scorecard đánh giá", "Ghi chú phỏng vấn"].map((item) => <div key={item} className="rounded-3xl border border-slate-200 p-5"><h3 className="font-black">{item}</h3><p className="mt-3 text-sm leading-6 text-slate-500">AI tạo câu hỏi bám theo JD và CV để HR đánh giá công bằng, có cấu trúc.</p></div>)}</div>
     </Panel>
   );
 }
@@ -776,7 +776,7 @@ function LoginPage() {
     <Panel title="Đăng nhập / đăng ký">
       <div className="grid gap-6 lg:grid-cols-2">
         <FormGrid fields={["Email", "Password"]} />
-        <div className="grid gap-3">{["Candidate", "Company", "Dùng cả hai vai trò"].map((role) => <button key={role} className="h-14 rounded-md border border-slate-200 bg-white px-4 text-left font-black">{role}</button>)}</div>
+        <div className="grid gap-3">{["Candidate", "Company", "Dùng cả hai vai trò"].map((role) => <button key={role} className="h-14 rounded-2xl border border-slate-200 bg-white px-4 text-left font-black">{role}</button>)}</div>
       </div>
     </Panel>
   );
@@ -797,7 +797,7 @@ function BillingPage() {
 
 function BigScore({ value, label }: { value: number; label: string }) {
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-5 text-center">
+    <div className="rounded-3xl border border-slate-200 bg-white p-5 text-center">
       <div className="mx-auto flex h-40 w-40 items-center justify-center rounded-full border-[14px] border-[#1557ff]">
         <div><p className="text-4xl font-black">{value}%</p><p className="mt-1 text-sm font-bold text-slate-500">{label}</p></div>
       </div>
@@ -808,16 +808,16 @@ function BigScore({ value, label }: { value: number; label: string }) {
 function InsightCard({ title, items, tone }: { title: string; items: string[]; tone: "good" | "warn" | "bad" }) {
   const toneClass = tone === "good" ? "text-emerald-700 bg-emerald-50" : tone === "warn" ? "text-orange-700 bg-orange-50" : "text-red-700 bg-red-50";
   return (
-    <div className="rounded-lg border border-slate-200 p-5">
+    <div className="rounded-3xl border border-slate-200 p-5">
       <h3 className="font-black">{title}</h3>
-      <ul className="mt-4 grid gap-3">{items.map((item) => <li key={item} className={cx("rounded-md px-3 py-2 text-sm font-bold", toneClass)}>{item}</li>)}</ul>
+      <ul className="mt-4 grid gap-3">{items.map((item) => <li key={item} className={cx("rounded-2xl px-3 py-2 text-sm font-bold", toneClass)}>{item}</li>)}</ul>
     </div>
   );
 }
 
 function EditorPane({ title, text, highlighted }: { title: string; text: string; highlighted?: boolean }) {
   return (
-    <div className={cx("min-h-72 rounded-lg border p-5", highlighted ? "border-blue-200 bg-blue-50" : "border-slate-200 bg-white")}>
+    <div className={cx("min-h-72 rounded-3xl border p-5", highlighted ? "border-blue-200 bg-blue-50" : "border-slate-200 bg-white")}>
       <h3 className="font-black">{title}</h3>
       <p className="mt-5 leading-8 text-slate-700">{text}</p>
     </div>
@@ -827,7 +827,7 @@ function EditorPane({ title, text, highlighted }: { title: string; text: string;
 function ContentList({ items }: { items: string[] }) {
   return (
     <ul className="mt-5 grid gap-3">
-      {items.map((item) => <li key={item} className="flex gap-3 rounded-md border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-600"><Check size={18} className="shrink-0 text-emerald-600" /> {item}</li>)}
+      {items.map((item) => <li key={item} className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-600"><Check size={18} className="shrink-0 text-emerald-600" /> {item}</li>)}
     </ul>
   );
 }
@@ -838,7 +838,7 @@ function FormGrid({ fields }: { fields: string[] }) {
       {fields.map((field) => (
         <label key={field} className={cx("grid gap-2 text-sm font-black", field.includes("Mô tả") || field.includes("Yêu cầu") || field.includes("Giới thiệu") ? "md:col-span-2" : "")}>
           {field}
-          <div className="flex min-h-11 items-center rounded-md border border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-400">Nhập {field.toLowerCase()}</div>
+          <div className="flex min-h-11 items-center rounded-2xl border border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-400">Nhập {field.toLowerCase()}</div>
         </label>
       ))}
     </div>
@@ -847,7 +847,7 @@ function FormGrid({ fields }: { fields: string[] }) {
 
 function ResponsiveTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-slate-200">
+    <div className="overflow-x-auto rounded-3xl border border-slate-200">
       <table className="w-full min-w-[760px] text-left text-sm">
         <thead className="bg-slate-50 text-slate-500"><tr>{headers.map((h) => <th key={h} className="p-4 font-black">{h}</th>)}</tr></thead>
         <tbody>{rows.map((row) => <tr key={row.join("-")} className="border-t border-slate-200">{row.map((cell, index) => <td key={`${cell}-${index}`} className={cx("p-4", index === 0 || index === 1 ? "font-black" : "", cell.endsWith("%") ? "font-black text-emerald-700" : "")}>{cell}</td>)}</tr>)}</tbody>
@@ -859,7 +859,7 @@ function ResponsiveTable({ headers, rows }: { headers: string[]; rows: string[][
 function RouteIndex({ activeRoute }: { activeRoute: string }) {
   const groups: Group[] = ["Public", "Candidate", "Company", "Account"];
   return (
-    <section className="mt-8 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-xl font-black">24 màn hình đã dựng</h2>
       <div className="mt-5 grid gap-5 lg:grid-cols-4">
         {groups.map((group) => (
@@ -867,7 +867,7 @@ function RouteIndex({ activeRoute }: { activeRoute: string }) {
             <h3 className="mb-3 font-black text-[#1557ff]">{group}</h3>
             <div className="grid gap-2">
               {pages.filter((item) => item.group === group).map((item) => (
-                <Link key={item.route} href={`/${item.route}`} className={cx("rounded-md border px-3 py-2 text-sm font-bold", item.route === activeRoute ? "border-[#1557ff] bg-blue-50 text-[#1557ff]" : "border-slate-200 text-slate-600")}>
+                <Link key={item.route} href={`/${item.route}`} className={cx("rounded-2xl border px-3 py-2 text-sm font-bold", item.route === activeRoute ? "border-[#1557ff] bg-blue-50 text-[#1557ff]" : "border-slate-200 text-slate-600")}>
                   #{item.number} {item.title}
                 </Link>
               ))}
@@ -882,14 +882,14 @@ function RouteIndex({ activeRoute }: { activeRoute: string }) {
 function Testimonials() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="rounded-lg border border-blue-200 bg-white p-6 shadow-sm">
+      <div className="rounded-3xl border border-blue-200 bg-white p-6 shadow-sm">
         <h2 className="text-center text-2xl font-black">Người dùng nói gì về CVAI</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {[
             ["Nguyễn Hà My", "CVAI giúp mình biết chính xác điểm yếu trong CV và cách viết lại cho hấp dẫn hơn. Sau khi chỉnh sửa theo gợi ý, mình đã nhận được 3 lời mời phỏng vấn."],
             ["Trần Quốc Hưng", "AI Shortlist giúp đội HR lọc ứng viên nhanh hơn rất nhiều. Tiết kiệm hơn 70% thời gian sàng lọc hồ sơ."],
           ].map(([name, quote]) => (
-            <div key={name} className="rounded-lg border border-slate-200 p-5">
+            <div key={name} className="rounded-3xl border border-slate-200 p-5">
               <div className="flex items-center gap-3"><div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-emerald-400" /><div><p className="font-black">{name}</p><p className="text-sm text-slate-500">Verified user</p></div></div>
               <p className="mt-4 text-sm leading-7 text-slate-600">“{quote}”</p>
             </div>
