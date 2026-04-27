@@ -1,65 +1,76 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { Search, MapPin, Briefcase, Filter } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
-import { JobCardRow } from "@/components/jobs/job-card-row";
+import { OneClickApplyButton } from "@/components/jobs/one-click-apply-button";
 
 export const metadata: Metadata = {
   title: "Việc làm",
   description:
-    "Khám phá hàng ngàn cơ hội việc làm từ các công ty hàng đầu Việt Nam. Tìm kiếm việc làm phù hợp với kỹ năng và kinh nghiệm của bạn.",
+    "Khám phá hàng ngàn cơ hội việc làm từ các công ty hàng đầu Việt Nam, lọc theo địa điểm, ngành nghề, mức lương và độ phù hợp với CV.",
 };
 
-const industries = [
-  "Công nghệ",
-  "Truyền thông",
-  "Marketing",
-  "Giáo dục",
-  "Tài chính",
+const INDUSTRIES = [
+  "Công nghệ thông tin",
+  "Marketing - Truyền thông",
+  "Tài chính - Ngân hàng",
+  "Thiết kế - Sáng tạo",
+  "Bán hàng - Kinh doanh",
+  "Giáo dục - Đào tạo",
 ];
 
-const jobTypes = [
-  { value: "full-time", label: "Full-time" },
-  { value: "part-time", label: "Part-time" },
-  { value: "remote", label: "Remote" },
-  { value: "contract", label: "Freelance" },
-];
+function formatSalary(min?: number | null, max?: number | null) {
+  if (min && max) return `${(min / 1_000_000).toFixed(0)} - ${(max / 1_000_000).toFixed(0)} triệu`;
+  if (min) return `Từ ${(min / 1_000_000).toFixed(0)} triệu`;
+  if (max) return `Đến ${(max / 1_000_000).toFixed(0)} triệu`;
+  return "Thỏa thuận";
+}
+
+const JOB_TYPE_LABELS: Record<string, string> = {
+  "full-time": "Toàn thời gian",
+  "part-time": "Bán thời gian",
+  contract: "Hợp đồng",
+  internship: "Thực tập",
+  remote: "Remote",
+};
+
+function buildFilterUrl(
+  current: { q?: string; industry?: string; location?: string },
+  overrides: Partial<{ q?: string; industry?: string; location?: string }>
+) {
+  const merged = { ...current, ...overrides };
+  const params = new URLSearchParams();
+  if (merged.q) params.set("q", merged.q);
+  if (merged.industry) params.set("industry", merged.industry);
+  if (merged.location) params.set("location", merged.location);
+  const qs = params.toString();
+  return qs ? `/viec-lam?${qs}` : "/viec-lam";
+}
 
 export default async function ViecLamPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; industry?: string; type?: string; location?: string }>;
+  searchParams: Promise<{ q?: string; industry?: string; location?: string }>;
 }) {
   const params = await searchParams;
-  const { q, industry, type, location } = params;
-
   const supabase = await createClient();
+
   let query = supabase
     .from("jobs")
-    .select("*, company:companies(*)")
+    .select(
+      "id, slug, title, location, job_type, industry, salary_min, salary_max, is_featured, created_at, company:companies(name, logo_url)"
+    )
     .eq("is_active", true);
+  if (params.q) query = query.ilike("title", `%${params.q}%`);
+  if (params.industry) query = query.eq("industry", params.industry);
+  if (params.location) query = query.eq("location", params.location);
 
-  if (q) {
-    query = query.or(`title.ilike.%${q}%,description.ilike.%${q}%`);
-  }
-  if (industry) {
-    query = query.eq("industry", industry);
-  }
-  if (type) {
-    query = query.eq("job_type", type);
-  }
-  if (location) {
-    query = query.eq("location", location);
-  }
+  const { data: jobs } = await query
+    .order("is_featured", { ascending: false })
+    .order("created_at", { ascending: false });
 
-  const { data: jobs } = await query.order("created_at", { ascending: false });
-
-  const jobCount = jobs?.length ?? 0;
-  const hasFilters = q || industry || type || location;
-
-  // Pre-load viewer's primary CV + already-applied set so each card can
-  // render a real 1-click apply button instead of a generic CTA.
   const {
     data: { user: viewer },
   } = await supabase.auth.getUser();
@@ -89,213 +100,190 @@ export default async function ViecLamPage({
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#f8f9fb]">
-        {/* Hero */}
-        <section className="pt-32 pb-16 px-6">
-          <div className="max-w-5xl mx-auto text-center space-y-8">
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <header className="mb-8">
+            <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+              Job Board
+            </p>
             <h1
-              className="text-5xl font-extrabold tracking-tighter text-[#191c1e]"
+              className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Kiến tạo sự nghiệp{" "}
-              <span className="italic text-[#1557ff]">Editorial</span> của bạn.
+              Tìm việc phù hợp với CV của bạn
             </h1>
-            <p className="text-lg text-[#434654] max-w-2xl mx-auto">
-              Khám phá hàng ngàn cơ hội việc làm từ các công ty hàng đầu Việt Nam
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              {jobs?.length ?? 0} vị trí đang tuyển. Lọc theo địa điểm, ngành,
+              mức lương — và xem AI đánh giá độ phù hợp.
             </p>
+          </header>
 
-            {/* Search Bar */}
-            <form
-              method="GET"
-              action="/viec-lam"
-              className="bg-white/60 backdrop-blur-2xl rounded-2xl p-4 flex flex-col md:flex-row gap-4 max-w-3xl mx-auto"
-            >
+          {/* Filter bar */}
+          <form
+            action="/viec-lam"
+            method="GET"
+            className="mb-8 flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm md:flex-row md:items-center"
+          >
+            <div className="flex flex-1 items-center gap-2 rounded-md border border-slate-200 px-3">
+              <Search size={18} className="text-slate-400" />
               <input
-                type="text"
                 name="q"
-                defaultValue={q || ""}
-                placeholder="Vị trí, từ khóa..."
-                className="flex-1 bg-[#f3f4f6] rounded-xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/60 outline-none"
+                defaultValue={params.q ?? ""}
+                placeholder="Vị trí, công ty, kỹ năng..."
+                className="h-11 flex-1 bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-slate-400"
               />
+            </div>
+            <div className="flex items-center gap-2 rounded-md border border-slate-200 px-3 md:w-56">
+              <MapPin size={18} className="text-slate-400" />
               <input
-                type="text"
                 name="location"
-                defaultValue={location || ""}
+                defaultValue={params.location ?? ""}
                 placeholder="Địa điểm"
-                className="md:w-48 bg-[#f3f4f6] rounded-xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/60 outline-none"
+                className="h-11 flex-1 bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-slate-400"
               />
-              {/* Preserve existing filters */}
-              {industry && <input type="hidden" name="industry" value={industry} />}
-              {type && <input type="hidden" name="type" value={type} />}
-              <button
-                type="submit"
-                className="kinetic-gradient text-white font-bold text-sm px-8 py-3.5 rounded-2xl shadow-lg"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Tìm kiếm
-              </button>
-            </form>
-          </div>
-        </section>
+            </div>
+            {params.industry && (
+              <input type="hidden" name="industry" value={params.industry} />
+            )}
+            <button
+              type="submit"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-6 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
+            >
+              <Filter size={16} /> Lọc
+            </button>
+          </form>
 
-        {/* Content */}
-        <section className="max-w-7xl mx-auto px-6 pb-20">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Sidebar Filters */}
-            <aside className="lg:w-72 shrink-0 space-y-8">
-              {/* Industry */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5">
-                <h3
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
+          <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
+            {/* Sidebar */}
+            <aside className="space-y-4">
+              <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                <p className="text-sm font-black uppercase tracking-wider text-slate-700">
                   Ngành nghề
-                </h3>
-                <div className="space-y-3">
-                  {industries.map((ind) => {
-                    const isActive = industry === ind;
-                    const href = isActive
-                      ? buildFilterUrl(params, { industry: undefined })
-                      : buildFilterUrl(params, { industry: ind });
-
+                </p>
+                <ul className="mt-3 space-y-1.5">
+                  {INDUSTRIES.map((ind) => {
+                    const active = params.industry === ind;
+                    const href = buildFilterUrl(params, {
+                      industry: active ? undefined : ind,
+                    });
                     return (
-                      <Link
-                        key={ind}
-                        href={href}
-                        className="flex items-center gap-3 text-sm text-[#434654] cursor-pointer hover:text-[#1557ff] transition-colors"
-                      >
-                        <span
-                          className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 ${
-                            isActive ? "bg-[#1557ff]" : "bg-[#f3f4f6]"
+                      <li key={ind}>
+                        <Link
+                          href={href}
+                          className={`flex items-center gap-2 rounded-md px-2 py-2 text-sm font-bold ${
+                            active
+                              ? "bg-blue-50 text-[#1557ff]"
+                              : "text-slate-600 hover:bg-slate-50"
                           }`}
                         >
                           <span
-                            className={`w-2.5 h-2.5 rounded-sm ${
-                              isActive ? "bg-white" : "bg-transparent"
+                            className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                              active ? "bg-[#1557ff]" : "bg-slate-300"
                             }`}
                           />
-                        </span>
-                        <span className={isActive ? "font-semibold text-[#1557ff]" : ""}>
                           {ind}
-                        </span>
-                      </Link>
+                        </Link>
+                      </li>
                     );
                   })}
-                </div>
+                </ul>
               </div>
 
-              {/* Salary Range */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5">
-                <h3
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Mức lương
-                </h3>
-                <div className="space-y-2">
-                  <div className="h-2 bg-[#f3f4f6] rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: "60%",
-                        background:
-                          "linear-gradient(135deg, #1557ff 0%, #3b6dff 100%)",
-                      }}
-                    />
-                  </div>
-                  <div className="flex justify-between text-xs text-[#434654]">
-                    <span>5 triệu</span>
-                    <span>100 triệu+</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Job Type Chips */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-5">
-                <h3
-                  className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  Hình thức
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {jobTypes.map((jt) => {
-                    const isActive = type === jt.value;
-                    const href = isActive
-                      ? buildFilterUrl(params, { type: undefined })
-                      : buildFilterUrl(params, { type: jt.value });
-
-                    return (
-                      <Link
-                        key={jt.value}
-                        href={href}
-                        className={`px-4 py-2 text-xs font-semibold rounded-2xl transition-colors ${
-                          isActive
-                            ? "bg-[#1557ff] text-white"
-                            : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
-                        }`}
-                      >
-                        {jt.label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Clear filters */}
-              {hasFilters && (
-                <Link
-                  href="/viec-lam"
-                  className="block text-center text-sm text-[#1557ff] font-semibold hover:underline"
-                >
-                  Xoá bộ lọc
-                </Link>
-              )}
-            </aside>
-
-            {/* Job Cards */}
-            <div className="flex-1 space-y-6">
-              {/* Result count */}
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-[#434654]">
-                  <span className="font-bold text-[#1a1a1a]">{jobCount}</span> việc làm
-                  {hasFilters ? " phù hợp" : ""}
+              <div className="rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm">
+                <p className="text-xs font-black uppercase text-[#1557ff]">
+                  Tip
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  Dán JD vào <Link href="/cong-cu/jd-match" className="font-black text-[#1557ff] hover:underline">JD Match</Link> để xem CV của bạn match bao nhiêu % trước khi apply.
                 </p>
               </div>
+            </aside>
 
+            {/* List */}
+            <div className="space-y-4">
               {(!jobs || jobs.length === 0) ? (
-                <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-12 text-center space-y-4">
-                  <p
-                    className="text-xl font-extrabold text-[#191c1e]"
-                    style={{ fontFamily: "var(--font-headline)" }}
-                  >
-                    {hasFilters ? "Không tìm thấy việc làm phù hợp" : "Chưa có việc làm nào"}
-                  </p>
-                  <p className="text-sm text-[#434654]">
-                    {hasFilters
-                      ? "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm."
-                      : "Hiện tại chưa có vị trí nào đang tuyển dụng. Hãy quay lại sau nhé!"}
-                  </p>
-                  {hasFilters && (
-                    <Link
-                      href="/viec-lam"
-                      className="inline-block kinetic-gradient text-white font-bold text-sm px-8 py-3.5 rounded-2xl shadow-lg hover:opacity-90 transition-all mt-2"
-                      style={{ fontFamily: "var(--font-headline)" }}
-                    >
-                      Xem tất cả việc làm
-                    </Link>
-                  )}
+                <div className="rounded-lg border border-slate-200 bg-white p-10 text-center text-slate-500">
+                  Chưa có vị trí phù hợp. Thử bỏ bớt filter.
                 </div>
               ) : (
-                jobs.map((job) => (
-                  <JobCardRow
-                    key={job.id}
-                    job={job}
-                    showApply={Boolean(viewer)}
-                    primaryCvId={primaryCvId}
-                    alreadyApplied={appliedSet.has(job.id)}
-                  />
-                ))
+                jobs.map((job) => {
+                  const company = (job.company as { name?: string; logo_url?: string } | null) || {};
+                  return (
+                    <Link
+                      key={job.id}
+                      href={`/viec-lam/${job.slug}`}
+                      className="group flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:flex-row sm:items-center"
+                    >
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-blue-50 text-xl font-black text-[#1557ff]">
+                        {company.name?.[0] ?? "C"}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <h3
+                              className="text-lg font-black text-[#07122f] group-hover:text-[#1557ff]"
+                              style={{ fontFamily: "var(--font-headline)" }}
+                            >
+                              {job.title}
+                            </h3>
+                            <p className="text-sm font-bold text-slate-600">
+                              {company.name ?? "Công ty"}
+                            </p>
+                          </div>
+                          {job.is_featured && (
+                            <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs font-black text-emerald-700">
+                              Featured
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500">
+                          {job.location && (
+                            <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
+                              <MapPin size={12} />
+                              {job.location}
+                            </span>
+                          )}
+                          {job.job_type && (
+                            <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
+                              <Briefcase size={12} />
+                              {JOB_TYPE_LABELS[job.job_type] ?? job.job_type}
+                            </span>
+                          )}
+                          {job.industry && (
+                            <span className="rounded-md bg-blue-50 px-2 py-1 text-[#1557ff]">
+                              {job.industry}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        className="flex flex-col items-end gap-3 text-right"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <div>
+                          <p className="text-base font-black text-[#1557ff]">
+                            {formatSalary(job.salary_min, job.salary_max)}
+                          </p>
+                          <p className="mt-1 text-xs font-bold text-slate-400">
+                            {new Date(job.created_at).toLocaleDateString("vi-VN")}
+                          </p>
+                        </div>
+                        {viewer && primaryCvId ? (
+                          <OneClickApplyButton
+                            jobId={job.id}
+                            cvId={primaryCvId}
+                            alreadyApplied={appliedSet.has(job.id)}
+                            className="inline-flex h-9 items-center justify-center gap-1 rounded-md bg-[#1557ff] px-3 text-xs font-bold text-white shadow-sm shadow-blue-500/25"
+                          />
+                        ) : (
+                          <span className="inline-flex h-9 items-center justify-center gap-1 rounded-md bg-[#1557ff] px-3 text-xs font-bold text-white shadow-sm shadow-blue-500/25">
+                            Xem chi tiết
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })
               )}
             </div>
           </div>
@@ -304,18 +292,4 @@ export default async function ViecLamPage({
       <Footer />
     </>
   );
-}
-
-function buildFilterUrl(
-  current: { q?: string; industry?: string; type?: string; location?: string },
-  overrides: Partial<{ q?: string; industry?: string; type?: string; location?: string }>
-) {
-  const merged = { ...current, ...overrides };
-  const params = new URLSearchParams();
-  if (merged.q) params.set("q", merged.q);
-  if (merged.industry) params.set("industry", merged.industry);
-  if (merged.type) params.set("type", merged.type);
-  if (merged.location) params.set("location", merged.location);
-  const qs = params.toString();
-  return qs ? `/viec-lam?${qs}` : "/viec-lam";
 }

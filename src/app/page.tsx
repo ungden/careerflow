@@ -1,242 +1,359 @@
 import Link from "next/link";
+import {
+  Sparkles,
+  CloudUpload,
+  FileText,
+  Target,
+  WandSparkles,
+  Gauge,
+  BriefcaseBusiness,
+  Building2,
+  ArrowRight,
+  Check,
+  Lightbulb,
+  ShieldCheck,
+} from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { createClient } from "@/lib/supabase/server";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+async function getStats() {
+  const supabase = await createClient();
+  const [{ count: jobsCount }, { count: cvCount }, { count: companiesCount }] =
+    await Promise.all([
+      supabase
+        .from("jobs")
+        .select("id", { count: "exact", head: true })
+        .eq("is_active", true),
+      supabase.from("cvs").select("id", { count: "exact", head: true }),
+      supabase.from("companies").select("id", { count: "exact", head: true }),
+    ]);
+  return {
+    jobs: jobsCount ?? 0,
+    cvs: cvCount ?? 0,
+    companies: companiesCount ?? 0,
+  };
+}
+
+export default async function HomePage() {
+  const stats = await getStats();
+
   return (
     <>
       <Header />
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden pt-24 pb-32 section-white">
-          <div className="max-w-7xl mx-auto px-8 relative z-10">
-            <div className="flex flex-col md:flex-row items-center gap-16">
-              <div className="w-full md:w-1/2">
-                <div className="inline-flex items-center gap-2 bg-[#dae2ff] text-[#001848] px-4 py-2 rounded-full mb-8">
-                  <span className="text-xs font-bold uppercase tracking-widest">AI-Powered Career Platform</span>
-                </div>
-                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-[#191c1e] mb-8 leading-[1.1]" style={{ fontFamily: "var(--font-headline)" }}>
-                  Tạo CV chuyên nghiệp, <span className="text-[#1557ff] italic">có việc ngay</span> trong 1 nốt nhạc
-                </h1>
-                <p className="text-lg text-[#434654] mb-10 max-w-lg leading-relaxed">
-                  Nền tảng kiến tạo sự nghiệp tương lai. Chúng tôi không chỉ giúp bạn tạo hồ sơ, chúng tôi mở ra cánh cửa đến với những cơ hội hàng đầu.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="/cv/moi"
-                    className="kinetic-gradient text-white px-10 py-5 rounded-xl font-extrabold text-lg flex items-center justify-center gap-3 shadow-2xl hover:scale-[1.02] transition-transform"
-                    style={{ fontFamily: "var(--font-headline)" }}
-                  >
-                    Tạo CV miễn phí
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                  </Link>
-                  <Link
-                    href="/viec-lam"
-                    className="bg-white border-2 border-[#c3c6d6]/20 px-10 py-5 rounded-xl font-bold text-lg text-[#191c1e] hover:bg-[#f3f4f6] transition-colors text-center"
-                    style={{ fontFamily: "var(--font-headline)" }}
-                  >
-                    Khám phá việc làm
-                  </Link>
-                </div>
-                <div className="mt-12 flex items-center gap-4">
-                  <div className="flex -space-x-3">
-                    <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-100" />
-                    <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-200" />
-                    <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-300" />
-                  </div>
-                  <p className="text-sm text-[#434654] font-medium">+10,000 ứng viên đã thành công</p>
-                </div>
-              </div>
-              <div className="w-full md:w-1/2 relative">
-                <div className="relative z-10 bg-white rounded-[32px] p-4 shadow-[0_8px_32px_rgba(11,22,40,0.12),0_2px_8px_rgba(11,22,40,0.06)] border border-[#dde3ed]">
-                  <div className="rounded-[24px] w-full aspect-[4/3] bg-gradient-to-br from-[#d0daff] to-[#e8ecf2] flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-32 h-40 bg-white rounded-lg shadow-lg mx-auto mb-4 flex flex-col p-3 gap-1">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 mx-auto" />
-                        <div className="w-full h-1.5 bg-slate-200 rounded mt-2" />
-                        <div className="w-3/4 h-1.5 bg-slate-100 rounded" />
-                        <div className="w-full h-6 bg-slate-50 rounded mt-2" />
-                        <div className="w-full h-6 bg-slate-50 rounded" />
-                      </div>
-                      <p className="text-sm font-semibold text-[#434654]">CV Builder Preview</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#1557ff]/5 rounded-full blur-3xl" />
-                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#004e32]/5 rounded-full blur-3xl" />
-              </div>
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        {/* Hero */}
+        <section className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-20">
+          <div className="flex flex-col justify-center">
+            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1 text-sm font-bold text-[#1557ff]">
+              <Sparkles size={16} /> AI CV Review + AI Recruiting
             </div>
-          </div>
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-[#e4e9f2] -skew-x-12 origin-top-right -z-0" />
-        </section>
+            <h1
+              className="max-w-3xl text-4xl font-black leading-tight tracking-normal sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              CV của bạn đã đủ mạnh để được gọi phỏng vấn chưa?
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+              YourCV phân tích CV bằng AI, chấm điểm độ phù hợp với JD, chỉ ra
+              lỗi yếu và đề xuất cách sửa cụ thể để tăng cơ hội được mời phỏng
+              vấn.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/cv/moi"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#1557ff] px-6 text-base font-bold text-white shadow-lg shadow-blue-500/25 hover:bg-[#0e3fd5]"
+              >
+                <CloudUpload size={19} /> Tạo CV miễn phí
+              </Link>
+              <Link
+                href="/cong-cu/jd-match"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-[#1557ff] bg-white px-6 text-base font-bold text-[#1557ff] hover:bg-blue-50"
+              >
+                <Target size={19} /> Đo match với JD
+              </Link>
+            </div>
 
-        {/* Process Section: 3 Steps */}
-        <section className="py-32 section-dark">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6 text-white" style={{ fontFamily: "var(--font-headline)" }}>
-                Hành trình 3 bước đến thành công
-              </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-                Quy trình tối giản giúp bạn tiết kiệm thời gian và tập trung vào những gì quan trọng nhất.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="mt-8 grid max-w-xl gap-3 sm:grid-cols-3">
               {[
-                {
-                  step: "01",
-                  title: "Tạo CV",
-                  description: "Sử dụng kho template chuẩn Editorial để làm nổi bật kỹ năng và kinh nghiệm của bạn.",
-                  hoverBg: "hover:bg-[#1557ff]",
-                },
-                {
-                  step: "02",
-                  title: "Publish Profile",
-                  description: "Công khai hồ sơ chuyên nghiệp của bạn lên hệ thống để tiếp cận hàng nghìn nhà tuyển dụng.",
-                  hoverBg: "hover:bg-[#004e32]",
-                },
-                {
-                  step: "03",
-                  title: "Nhận lời mời",
-                  description: "Các cơ hội việc làm mơ ước sẽ chủ động tìm đến bạn dựa trên sự tương thích cao nhất.",
-                  hoverBg: "hover:bg-[#535f73]",
-                },
-              ].map((item) => (
-                <div key={item.step} className="group">
-                  <div className={`bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 h-full transition-all duration-500 ${item.hoverBg} hover:-translate-y-4`}>
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform">
-                      <svg className="w-7 h-7 text-[#1557ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    </div>
-                    <span className="text-6xl font-black text-[#1557ff]/10 mb-4 block group-hover:text-white/20">{item.step}.</span>
-                    <h3 className="text-2xl font-bold mb-4 text-[#121720] group-hover:text-white" style={{ fontFamily: "var(--font-headline)" }}>{item.title}</h3>
-                    <p className="text-[#475569] group-hover:text-white/80 leading-relaxed">{item.description}</p>
-                  </div>
+                [stats.jobs.toLocaleString("vi-VN") + "+", "Việc đang tuyển"],
+                [stats.cvs.toLocaleString("vi-VN") + "+", "CV đã tạo"],
+                [stats.companies.toLocaleString("vi-VN") + "+", "Công ty"],
+              ].map(([value, label]) => (
+                <div
+                  key={label}
+                  className="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm"
+                >
+                  <p className="text-xl font-black text-[#1557ff]">{value}</p>
+                  <p className="mt-1 text-xs font-bold leading-5 text-slate-500">
+                    {label}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
-        </section>
 
-        {/* Marketplace & Tools: Bento Grid */}
-        <section className="py-32 section-white overflow-hidden">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-              <div className="max-w-xl">
-                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-6" style={{ fontFamily: "var(--font-headline)" }}>
-                  Đặc quyền dành cho sự nghiệp của bạn
-                </h2>
-                <p className="text-[#434654] text-lg">
-                  Không chỉ là CV, chúng tôi xây dựng một hệ sinh thái toàn diện để bạn phát triển không giới hạn.
+          <div className="relative overflow-hidden rounded-lg border border-blue-100 bg-white p-2 shadow-2xl shadow-blue-200/60">
+            <div className="grid gap-3 p-6">
+              <div className="flex items-center justify-between rounded-md bg-gradient-to-br from-blue-600 to-emerald-500 p-5 text-white shadow-md">
+                <div>
+                  <p className="text-xs font-black uppercase opacity-80">
+                    CV Score
+                  </p>
+                  <p className="mt-1 text-4xl font-black">
+                    82<span className="text-2xl opacity-70">/100</span>
+                  </p>
+                  <p className="mt-1 text-xs font-bold opacity-90">
+                    Khá tốt — còn 12 gợi ý
+                  </p>
+                </div>
+                <Gauge size={56} className="opacity-30" />
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-md border border-slate-200 p-4">
+                  <p className="text-xs font-black uppercase text-slate-500">
+                    ATS Match
+                  </p>
+                  <p className="mt-1 text-2xl font-black text-[#1557ff]">84%</p>
+                  <p className="mt-1 text-xs font-bold text-emerald-600">
+                    Vượt qua lọc hồ sơ
+                  </p>
+                </div>
+                <div className="rounded-md border border-slate-200 p-4">
+                  <p className="text-xs font-black uppercase text-slate-500">
+                    JD Match
+                  </p>
+                  <p className="mt-1 text-2xl font-black text-[#1557ff]">72%</p>
+                  <p className="mt-1 text-xs font-bold text-amber-600">
+                    12 từ khoá thiếu
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-md border border-slate-200 p-4">
+                <p className="text-xs font-black uppercase text-slate-500">
+                  Top suggestion
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  Thêm số liệu cụ thể vào bullet kinh nghiệm — ví dụ:
+                  <span className="font-bold">
+                    {" "}
+                    &ldquo;Tăng conversion +24% sau 3 tháng&rdquo;
+                  </span>
                 </p>
               </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              {/* Job Marketplace */}
-              <div className="md:col-span-8 bg-white rounded-[40px] p-12 relative overflow-hidden card-elevated">
-                <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 bg-[#82f9be] text-[#005235] px-4 py-2 rounded-full mb-8">
-                    <span className="text-xs font-bold uppercase tracking-widest">Job Marketplace</span>
-                  </div>
-                  <h3 className="text-3xl font-extrabold mb-4 max-w-sm leading-tight" style={{ fontFamily: "var(--font-headline)" }}>
-                    Kết nối với +2,000 doanh nghiệp hàng đầu
-                  </h3>
-                  <p className="text-[#434654] mb-12 max-w-sm">
-                    Hàng ngàn tin tuyển dụng được xác thực mỗi ngày, lọc theo AI phù hợp với năng lực của bạn.
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {["Software Engineer", "Product Designer", "Data Analyst", "+12 ngành nghề"].map((tag) => (
-                      <span key={tag} className="bg-[#f3f4f6] px-5 py-3 rounded-full text-sm font-semibold text-[#191c1e]">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              {/* AI Tools */}
-              <div className="md:col-span-4 kinetic-gradient rounded-[40px] p-12 text-white relative overflow-hidden shadow-2xl">
-                <div className="relative z-10">
-                  <svg className="w-12 h-12 mb-8 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" /></svg>
-                  <h3 className="text-3xl font-extrabold mb-4" style={{ fontFamily: "var(--font-headline)" }}>AI Career Tools</h3>
-                  <p className="text-white/80 mb-8 leading-relaxed">
-                    Phân tích CV, dự đoán xu hướng lương và gợi ý lộ trình thăng tiến chuyên sâu.
-                  </p>
-                  <Link href="/cong-cu" className="block w-full bg-white text-[#1557ff] font-bold py-4 rounded-xl hover:bg-[#dae2ff] transition-colors text-center" style={{ fontFamily: "var(--font-headline)" }}>
-                    Thử ngay
-                  </Link>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
-              </div>
-              {/* Widget 1 */}
-              <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
-                <div>
-                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-[#1557ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                  </div>
-                  <h4 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)" }}>Thống kê thị trường</h4>
-                  <p className="text-[#434654] text-sm">Cập nhật biến động nhân sự và lương thưởng theo thời gian thực.</p>
-                </div>
-                <div className="mt-8 h-2 bg-[#e1e2e4] rounded-full overflow-hidden">
-                  <div className="w-3/4 h-full bg-[#1557ff] rounded-full" />
-                </div>
-              </div>
-              {/* Widget 2 */}
-              <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
-                <div>
-                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-[#004e32]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
-                  </div>
-                  <h4 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)" }}>Chứng chỉ nghề nghiệp</h4>
-                  <p className="text-[#434654] text-sm">Khóa học ngắn hạn được công nhận bởi các đối tác chiến lược.</p>
-                </div>
-              </div>
-              {/* Widget 3 */}
-              <div className="md:col-span-4 bg-white rounded-[40px] shadow-[0_1px_3px_rgba(11,22,40,0.06),0_8px_24px_rgba(11,22,40,0.04)] p-10 flex flex-col justify-between">
-                <div>
-                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-[#535f73]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" /></svg>
-                  </div>
-                  <h4 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)" }}>Cộng đồng Mentor</h4>
-                  <p className="text-[#434654] text-sm">Kết nối trực tiếp với các chuyên gia trong ngành để được tư vấn 1-1.</p>
-                </div>
-                <div className="mt-8 flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 border-2 border-white" />
-                  <div className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white" />
-                  <div className="w-8 h-8 rounded-full bg-[#dae2ff] border-2 border-white flex items-center justify-center text-[10px] font-bold text-[#001848]">+50</div>
-                </div>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {["Node.js", "PostgreSQL", "AWS"].map((kw) => (
+                  <span
+                    key={kw}
+                    className="rounded-md bg-emerald-50 px-2 py-1 text-center text-xs font-black text-emerald-700"
+                  >
+                    ✓ {kw}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* CTA Final */}
-        <section className="py-24">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="kinetic-gradient rounded-[48px] p-16 md:p-24 text-center text-white relative overflow-hidden">
-              <div className="relative z-10">
-                <h2 className="text-4xl md:text-6xl font-black mb-8 max-w-4xl mx-auto tracking-tighter" style={{ fontFamily: "var(--font-headline)" }}>
-                  Sẵn sàng để bắt đầu hành trình sự nghiệp mới?
-                </h2>
-                <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-                  Tham gia cùng hàng nghìn chuyên gia đã thay đổi cuộc đời với YourCV.
+        {/* Quick actions */}
+        <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+          <div className="grid gap-4 lg:grid-cols-3">
+            {[
+              {
+                icon: CloudUpload,
+                title: "Ứng viên upload CV",
+                body: "Tải CV lên, nhận điểm ATS, từ khoá thiếu và gợi ý sửa cụ thể trong 1 dashboard.",
+                href: "/cong-cu/danh-gia-cv",
+                cta: "Review CV miễn phí",
+              },
+              {
+                icon: Target,
+                title: "Tìm việc match với CV",
+                body: "Xem job phù hợp với CV, biết match bao nhiêu % và tối ưu CV trước khi apply.",
+                href: "/viec-lam",
+                cta: "Khám phá việc làm",
+              },
+              {
+                icon: Building2,
+                title: "Công ty lọc CV bằng AI",
+                body: "Đăng job, nhận CV, để AI xếp hạng và gợi ý shortlist ứng viên phù hợp nhất.",
+                href: "/nha-tuyen-dung/cong-ty",
+                cta: "Dành cho HR",
+              },
+            ].map((a) => {
+              const Icon = a.icon;
+              return (
+                <Link
+                  key={a.title}
+                  href={a.href}
+                  className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]">
+                    <Icon size={22} />
+                  </div>
+                  <h3
+                    className="mt-4 text-lg font-black text-[#07122f] group-hover:text-[#1557ff]"
+                    style={{ fontFamily: "var(--font-headline)" }}
+                  >
+                    {a.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">
+                    {a.body}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-black text-[#1557ff]">
+                    {a.cta} <ArrowRight size={16} />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Feature grid */}
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-3xl">
+            <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+              AI Toolkit
+            </p>
+            <h2
+              className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              Mọi thứ ứng viên Việt cần để chiến thắng phỏng vấn
+            </h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Gauge,
+                title: "AI CV Review",
+                body: "Chấm CV theo 6 trục: thành tích, kinh nghiệm, ATS, keyword, format và độ rõ ràng.",
+                href: "/cong-cu/danh-gia-cv",
+              },
+              {
+                icon: Target,
+                title: "JD Match",
+                body: "So khớp CV với JD cụ thể, tính match % và liệt kê từ khoá thiếu cần thêm.",
+                href: "/cong-cu/jd-match",
+              },
+              {
+                icon: WandSparkles,
+                title: "AI Cover Letter",
+                body: "Sinh thư xin việc cá nhân hoá theo JD, giọng văn chuyên nghiệp/thân thiện/tự tin.",
+                href: "/cong-cu/thu-xin-viec",
+              },
+              {
+                icon: Lightbulb,
+                title: "AI Phỏng vấn",
+                body: "10 câu hỏi phỏng vấn thực tế cho vị trí của bạn + gợi ý cách trả lời hay.",
+                href: "/cong-cu/phong-van",
+              },
+              {
+                icon: BriefcaseBusiness,
+                title: "AI Lương thị trường",
+                body: "Ước tính mức lương phù hợp theo ngành, vị trí, kinh nghiệm và khu vực Việt Nam.",
+                href: "/cong-cu/luong",
+              },
+              {
+                icon: FileText,
+                title: "10 CV Templates",
+                body: "Classic, Modern, Tokyo, Berlin, Dubai, Seoul... Editor real-time, không watermark khi Pro.",
+                href: "/cv/moi",
+              },
+            ].map((f) => {
+              const Icon = f.icon;
+              return (
+                <Link
+                  key={f.title}
+                  href={f.href}
+                  className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-200 hover:shadow-md"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-md bg-blue-50 text-[#1557ff]">
+                    <Icon size={20} />
+                  </div>
+                  <h3
+                    className="mt-4 text-base font-black text-[#07122f] group-hover:text-[#1557ff]"
+                    style={{ fontFamily: "var(--font-headline)" }}
+                  >
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">
+                    {f.body}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-3xl">
+            <p className="text-sm font-black uppercase tracking-wider text-emerald-600">
+              How it works
+            </p>
+            <h2
+              className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              3 bước để có việc làm phù hợp
+            </h2>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-3">
+            {[
+              {
+                n: "01",
+                title: "Tạo CV / Tải CV cũ lên",
+                body: "Editor real-time, 10 templates, parse từ LinkedIn URL hoặc PDF.",
+              },
+              {
+                n: "02",
+                title: "Để AI review + match",
+                body: "Chấm điểm tổng thể, ATS score, JD match — chỉ ra lỗi và sửa.",
+              },
+              {
+                n: "03",
+                title: "Apply 1-click vào job phù hợp",
+                body: "Sàng lọc job theo match %, ứng tuyển không cần upload lại.",
+              },
+            ].map((s) => (
+              <div
+                key={s.n}
+                className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <p
+                  className="text-3xl font-black text-[#1557ff]"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  {s.n}
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                  <Link
-                    href="/cv/moi"
-                    className="bg-white text-[#1557ff] px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-2xl"
-                    style={{ fontFamily: "var(--font-headline)" }}
-                  >
-                    Bắt đầu miễn phí
-                  </Link>
-                  <Link
-                    href="/viec-lam"
-                    className="bg-[#3b6dff]/20 border border-white/20 backdrop-blur-md text-white px-12 py-6 rounded-2xl font-bold text-xl hover:bg-white/10 transition-colors"
-                    style={{ fontFamily: "var(--font-headline)" }}
-                  >
-                    Liên hệ tư vấn
-                  </Link>
-                </div>
+                <h3 className="mt-3 text-lg font-black">{s.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">{s.body}</p>
               </div>
-              <div className="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-              <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-black/10 rounded-full blur-3xl" />
-            </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Trust */}
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="grid gap-4 rounded-lg border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-6 sm:grid-cols-3 sm:p-8">
+            {[
+              { icon: ShieldCheck, label: "Bảo mật dữ liệu CV theo chuẩn Việt Nam" },
+              { icon: Check, label: "Free 1 lượt review/tháng — không cần thẻ" },
+              { icon: Sparkles, label: "Pro chỉ 99K/tháng, AI không giới hạn" },
+            ].map((t) => {
+              const Icon = t.icon;
+              return (
+                <div key={t.label} className="flex items-start gap-3">
+                  <Icon className="mt-0.5 shrink-0 text-emerald-600" size={20} />
+                  <p className="text-sm font-bold leading-6 text-slate-700">
+                    {t.label}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </section>
       </main>

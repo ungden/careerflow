@@ -3,114 +3,106 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
-const navItems = [
-  { href: "/cv/moi", label: "Tạo CV" },
+const nav = [
   { href: "/viec-lam", label: "Việc làm" },
   { href: "/ung-vien", label: "Ứng viên" },
-  { href: "/cong-cu", label: "Tools" },
+  { href: "/cong-cu", label: "AI Tools" },
+  { href: "/bang-gia", label: "Bảng giá" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-
-  const isActive = (href: string) => pathname.startsWith(href.split("/").slice(0, 2).join("/"));
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(11,22,40,0.08),0_8px_24px_rgba(11,22,40,0.04)]">
-      <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-8">
-        {/* Logo */}
-        <Link href="/" className="text-2xl font-black tracking-tighter text-blue-800 font-[var(--font-headline)]" style={{ fontFamily: "var(--font-headline)" }}>
-          YourCV
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          className="text-3xl font-black tracking-normal text-[#1557ff]"
+          style={{ fontFamily: "var(--font-headline)" }}
+        >
+          Your<span className="text-emerald-600">CV</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+        <nav className="hidden items-center gap-8 text-sm font-bold text-slate-700 md:flex">
+          {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-semibold tracking-tight transition-colors",
-                isActive(item.href)
-                  ? "text-blue-700 font-bold border-b-2 border-blue-700 pb-1"
-                  : "text-slate-600 hover:text-blue-600"
+                "hover:text-[#1557ff]",
+                isActive(item.href) && "text-[#1557ff]"
               )}
-              style={{ fontFamily: "var(--font-headline)" }}
             >
               {item.label}
             </Link>
           ))}
-        </div>
+        </nav>
 
-        {/* Desktop Auth */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
           <Link
             href="/dang-nhap"
-            className="text-sm font-semibold text-blue-700 px-6 py-2 hover:bg-slate-50 rounded-lg transition-all"
-            style={{ fontFamily: "var(--font-headline)" }}
+            className="text-sm font-bold text-slate-700 hover:text-[#1557ff]"
           >
             Đăng nhập
           </Link>
           <Link
-            href="/dang-ky"
-            className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg hover:opacity-90 transition-all"
-            style={{ fontFamily: "var(--font-headline)" }}
+            href="/cv/moi"
+            className="inline-flex h-10 items-center gap-2 rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25 hover:bg-[#0e3fd5]"
           >
-            Bắt đầu ngay
+            Tạo CV miễn phí
           </Link>
         </div>
 
-        {/* Mobile Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger className="md:hidden p-2 rounded-lg hover:bg-slate-50 transition-colors">
+          <SheetTrigger className="md:hidden p-2 rounded-lg hover:bg-slate-100">
             <Menu className="h-5 w-5 text-slate-700" />
             <span className="sr-only">Menu</span>
           </SheetTrigger>
           <SheetContent side="right" className="w-72">
             <SheetTitle className="sr-only">Menu điều hướng</SheetTitle>
-            <div className="flex flex-col gap-4 mt-8">
-              {navItems.map((item) => (
+            <div className="mt-8 flex flex-col gap-2">
+              {nav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "px-4 py-3 text-base font-semibold rounded-xl transition-colors",
+                    "rounded-md px-4 py-3 text-base font-bold",
                     isActive(item.href)
-                      ? "text-blue-700 bg-blue-50"
-                      : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"
+                      ? "bg-blue-50 text-[#1557ff]"
+                      : "text-slate-700 hover:bg-slate-50"
                   )}
-                  style={{ fontFamily: "var(--font-headline)" }}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className="border-t pt-4 flex flex-col gap-2">
+              <div className="mt-4 border-t border-slate-200 pt-4 space-y-2">
                 <Link
                   href="/dang-nhap"
                   onClick={() => setOpen(false)}
-                  className={cn(buttonVariants({ variant: "outline" }), "w-full justify-center")}
+                  className="block rounded-md border border-slate-200 px-4 py-3 text-center text-sm font-bold text-slate-700"
                 >
                   Đăng nhập
                 </Link>
                 <Link
-                  href="/dang-ky"
+                  href="/cv/moi"
                   onClick={() => setOpen(false)}
-                  className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-xl text-center"
+                  className="block rounded-md bg-[#1557ff] px-4 py-3 text-center text-sm font-bold text-white shadow-sm shadow-blue-500/25"
                 >
-                  Bắt đầu miễn phí
+                  Tạo CV miễn phí
                 </Link>
               </div>
             </div>
           </SheetContent>
         </Sheet>
-      </nav>
+      </div>
     </header>
   );
 }

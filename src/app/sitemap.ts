@@ -3,13 +3,19 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
     process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const now = new Date();
   return [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
-    { url: `${baseUrl}/viec-lam`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${baseUrl}/ung-vien`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
-    { url: `${baseUrl}/cong-cu`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${baseUrl}/bang-gia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/dieu-khoan`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/bao-mat`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: baseUrl, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${baseUrl}/viec-lam`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${baseUrl}/ung-vien`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
+    { url: `${baseUrl}/cong-cu`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/cong-cu/danh-gia-cv`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/cong-cu/jd-match`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/cong-cu/thu-xin-viec`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/cong-cu/phong-van`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${baseUrl}/cong-cu/luong`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${baseUrl}/bang-gia`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/dieu-khoan`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/bao-mat`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 }
