@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+  <defs>
+    <linearGradient id="markG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1557ff"/>
+      <stop offset="100%" stop-color="#20b26b"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="14" width="52" height="52" rx="12" fill="url(#markG)"/>
+  <path d="M19 28 H32 L40 36 V52 a2.5 2.5 0 0 1 -2.5 2.5 H21.5 a2.5 2.5 0 0 1 -2.5 -2.5 Z" fill="white" opacity="0.95"/>
+  <path d="M32 28 V36 H40" stroke="#0e3fd5" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
+  <path d="M23 44 l3.2 3.2 l6.5 -8" stroke="#20b26b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="76" y="55" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="900" letter-spacing="-1.5">
+    <tspan fill="#1557ff">Your</tspan><tspan fill="#20b26b">CV</tspan>
+  </text>
+</svg>

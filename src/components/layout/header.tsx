@@ -25,9 +25,17 @@ export function Header() {
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="text-2xl font-black tracking-tight text-[#1557ff]"
+          className="flex items-center gap-2 text-2xl font-black tracking-tight text-[#1557ff]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/branding/logo-mark.svg"
+            alt="YourCV"
+            width={32}
+            height={32}
+            className="h-8 w-8"
+          />
           Your<span className="text-emerald-500">CV</span>
         </Link>
 
