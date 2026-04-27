@@ -26,6 +26,7 @@ const links = [
     items: [
       { href: "/dieu-khoan", label: "Điều khoản" },
       { href: "/bao-mat", label: "Bảo mật" },
+      { href: "/hoan-tien", label: "Hoàn tiền" },
       { href: "/lien-he", label: "Liên hệ" },
     ],
   },

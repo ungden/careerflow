@@ -17,5 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/bang-gia`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/dieu-khoan`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/bao-mat`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/hoan-tien`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 }
