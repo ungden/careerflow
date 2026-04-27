@@ -256,10 +256,7 @@ export default async function ViecLamPage({
                           )}
                         </div>
                       </div>
-                      <div
-                        className="flex flex-col items-end gap-3 text-right"
-                        onClick={(e) => e.preventDefault()}
-                      >
+                      <div className="flex flex-col items-end gap-3 text-right">
                         <div>
                           <p className="text-base font-black text-[#1557ff]">
                             {formatSalary(job.salary_min, job.salary_max)}
