@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { JobAiHelper } from "@/components/employer/job-ai-helper";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
@@ -111,6 +112,17 @@ export function JobForm({ userId, companyId }: JobFormProps) {
           required
         />
       </div>
+
+      <JobAiHelper
+        title={title}
+        industry={industry}
+        description={description}
+        requirements={requirements}
+        benefits={benefits}
+        setDescription={setDescription}
+        setRequirements={setRequirements}
+        setBenefits={setBenefits}
+      />
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>

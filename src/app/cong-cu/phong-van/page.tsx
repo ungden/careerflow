@@ -1,79 +1,80 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import {
+  Loader2,
+  MessageSquareText,
+  ChevronDown,
+  ChevronUp,
+  Lightbulb,
+  Sparkles,
+} from "lucide-react";
+import { toast } from "sonner";
 
 interface QA {
   question: string;
   suggested_answer: string;
 }
 
+const INDUSTRIES = [
+  "Công nghệ thông tin",
+  "Truyền thông & Marketing",
+  "Tài chính & Ngân hàng",
+  "Giáo dục & Đào tạo",
+  "Thiết kế & Sáng tạo",
+  "Bán hàng & Kinh doanh",
+];
+
+const POSITIONS = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Product Manager",
+  "Marketing Specialist",
+  "Data Analyst",
+  "Business Analyst",
+];
+
+const LEVELS = [
+  "Intern",
+  "Junior",
+  "Mid-level",
+  "Senior",
+  "Lead",
+  "Manager",
+];
+
 export default function PhongVanPage() {
-  const industries = [
-    "Công nghệ thông tin",
-    "Truyền thông & Marketing",
-    "Tài chính & Ngân hàng",
-    "Giáo dục & Đào tạo",
-    "Thiết kế & Sáng tạo",
-    "Bán hàng & Kinh doanh",
-  ];
-
-  const positions = [
-    "Frontend Developer",
-    "Backend Developer",
-    "Product Manager",
-    "Marketing Specialist",
-    "Data Analyst",
-    "Business Analyst",
-  ];
-
-  const levels = [
-    "Intern / Thực tập sinh",
-    "Junior / Nhân viên mới",
-    "Mid-level / Chuyên viên",
-    "Senior / Chuyên gia",
-    "Lead / Trưởng nhóm",
-    "Manager / Quản lý",
-  ];
-
   const [industry, setIndustry] = useState("");
   const [position, setPosition] = useState("");
   const [level, setLevel] = useState("");
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QA[]>([]);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
-  const [error, setError] = useState("");
 
-  async function handleGenerate() {
+  async function run() {
     if (!industry || !position) {
-      setError("Vui lòng chọn ngành nghề và vị trí.");
+      toast.error("Vui lòng chọn ngành và vị trí");
       return;
     }
-
     setLoading(true);
-    setError("");
     setQuestions([]);
-    setExpandedIdx(null);
-
     try {
       const res = await fetch("/api/ai/interview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ industry, position, level }),
       });
-
       const data = await res.json();
-
       if (!res.ok) {
-        setError(data.error || "Đã xảy ra lỗi.");
+        toast.error(data.message || data.error || "Lỗi khi gọi AI");
+        setLoading(false);
         return;
       }
-
       setQuestions(data.questions || []);
     } catch {
-      setError("Không thể kết nối đến server. Vui lòng thử lại.");
+      toast.error("Lỗi kết nối");
     } finally {
       setLoading(false);
     }
@@ -82,232 +83,154 @@ export default function PhongVanPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#f8f9fb] pt-28 pb-20">
-        <div className="max-w-4xl mx-auto px-6">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-[#434654] mb-8">
-            <Link href="/cong-cu" className="hover:text-[#1557ff] transition-colors">
-              Công cụ
-            </Link>
-            <span>/</span>
-            <span className="text-[#191c1e] font-medium">Luyện phỏng vấn AI</span>
-          </nav>
-
-          {/* Hero */}
-          <div className="text-center space-y-6 mb-12">
-            <div className="inline-flex items-center gap-2 bg-[#dae2ff] text-[#001848] px-4 py-2 rounded-full">
-              <span className="text-xs font-bold uppercase tracking-widest">AI-Powered</span>
-            </div>
-            <h1
-              className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#191c1e]"
-              style={{ fontFamily: "var(--font-headline)" }}
-            >
-              Luyện phỏng vấn AI
-            </h1>
-            <p className="text-lg text-[#434654] max-w-2xl mx-auto leading-relaxed">
-              Chuẩn bị cho buổi phỏng vấn tiếp theo với AI. Chọn ngành nghề và vị trí,
-              sau đó luyện tập trả lời các câu hỏi phỏng vấn thực tế.
+      <main className="bg-[#f8fbff] text-[#07122f]">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <header className="mb-8">
+            <p className="text-sm font-black uppercase tracking-wider text-[#1557ff]">
+              AI Interview Kit
             </p>
-          </div>
-
-          {/* Setup Form */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 space-y-8">
-            <h2
-              className="text-xl font-extrabold text-[#191c1e]"
+            <h1
+              className="mt-2 text-3xl font-black tracking-normal sm:text-4xl"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Thiết lập buổi luyện tập
-            </h2>
+              10 câu hỏi phỏng vấn thực tế cho vị trí của bạn
+            </h1>
+            <p className="mt-2 max-w-2xl text-base leading-7 text-slate-600">
+              AI sinh câu hỏi sát ngữ cảnh ngành + cấp bậc kèm gợi ý cách trả lời hay. Dùng để chuẩn bị trước phỏng vấn.
+            </p>
+          </header>
 
-            {/* Ngành nghề */}
-            <div className="space-y-3">
-              <label
-                className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Ngành nghề
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {industries.map((ind) => (
-                  <button
-                    key={ind}
-                    type="button"
-                    onClick={() => setIndustry(ind)}
-                    className={`px-5 py-2.5 text-sm font-semibold rounded-2xl cursor-pointer transition-colors ${
-                      industry === ind
-                        ? "bg-[#1557ff] text-white"
-                        : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
-                    }`}
-                  >
-                    {ind}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Vị trí */}
-            <div className="space-y-3">
-              <label
-                className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Vị trí ứng tuyển
-              </label>
-              <input
-                type="text"
-                value={position}
-                onChange={(e) => setPosition(e.target.value)}
-                placeholder="Ví dụ: Frontend Developer, Marketing Manager..."
-                className="w-full bg-[#f3f4f6] rounded-2xl px-5 py-3.5 text-sm text-[#191c1e] placeholder:text-[#434654]/40 outline-none focus:ring-2 focus:ring-[#1557ff]/20 transition-all"
-                list="position-suggestions"
-              />
-              <datalist id="position-suggestions">
-                {positions.map((p) => (
-                  <option key={p} value={p} />
-                ))}
-              </datalist>
-            </div>
-
-            {/* Cấp bậc */}
-            <div className="space-y-3">
-              <label
-                className="text-sm font-extrabold text-[#191c1e] uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Cấp bậc ứng tuyển
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {levels.map((lv) => (
-                  <button
-                    key={lv}
-                    type="button"
-                    onClick={() => setLevel(lv)}
-                    className={`px-5 py-2.5 text-sm font-semibold rounded-2xl cursor-pointer transition-colors ${
-                      level === lv
-                        ? "bg-[#1557ff] text-white"
-                        : "text-[#1557ff] bg-[#f3f4f6] hover:bg-[#1557ff]/10"
-                    }`}
-                  >
-                    {lv}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Error */}
-            {error && (
-              <div className="bg-red-50 text-red-700 rounded-2xl px-5 py-4 text-sm">
-                {error}
-              </div>
-            )}
-
-            {/* CTA */}
-            <div className="text-center pt-4">
-              <button
-                onClick={handleGenerate}
-                disabled={loading}
-                className="kinetic-gradient text-white font-extrabold text-lg px-12 py-5 rounded-2xl shadow-2xl hover:opacity-90 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                {loading ? (
-                  <span className="flex items-center gap-3">
-                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Đang tạo câu hỏi...
-                  </span>
-                ) : (
-                  "Bắt đầu luyện tập"
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Q&A Results */}
-          {questions.length > 0 && (
-            <div className="mt-10 space-y-4">
-              <h2
-                className="text-xl font-extrabold text-[#191c1e] px-2"
-                style={{ fontFamily: "var(--font-headline)" }}
-              >
-                Câu hỏi phỏng vấn ({questions.length})
-              </h2>
-              {questions.map((qa, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white/80 backdrop-blur-xl rounded-[28px] overflow-hidden"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
-                    className="w-full text-left px-8 py-6 flex items-start gap-4"
-                  >
-                    <span className="shrink-0 w-8 h-8 rounded-full bg-[#1557ff]/10 text-[#1557ff] font-bold text-sm flex items-center justify-center mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <span className="flex-1 text-[15px] font-semibold text-[#191c1e] leading-relaxed">
-                      {qa.question}
-                    </span>
-                    <svg
-                      className={`w-5 h-5 text-[#434654] shrink-0 mt-1 transition-transform ${
-                        expandedIdx === idx ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+          <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
+            {/* Sidebar form */}
+            <aside className="space-y-4">
+              <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                <p className="text-xs font-black uppercase tracking-wider text-slate-500">
+                  Cấu hình
+                </p>
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <label className="text-xs font-bold uppercase text-slate-500">Ngành nghề</label>
+                    <select
+                      value={industry}
+                      onChange={(e) => setIndustry(e.target.value)}
+                      className="mt-1.5 h-11 w-full rounded-2xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                      <option value="">— Chọn ngành —</option>
+                      {INDUSTRIES.map((i) => (
+                        <option key={i}>{i}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold uppercase text-slate-500">Vị trí</label>
+                    <input
+                      list="position-list"
+                      value={position}
+                      onChange={(e) => setPosition(e.target.value)}
+                      placeholder="VD: Senior Backend Engineer"
+                      className="mt-1.5 h-11 w-full rounded-2xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+                    />
+                    <datalist id="position-list">
+                      {POSITIONS.map((p) => (
+                        <option key={p} value={p} />
+                      ))}
+                    </datalist>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold uppercase text-slate-500">Cấp bậc</label>
+                    <select
+                      value={level}
+                      onChange={(e) => setLevel(e.target.value)}
+                      className="mt-1.5 h-11 w-full rounded-2xl border border-slate-200 bg-white px-3 text-sm font-bold outline-none focus:border-[#1557ff]"
+                    >
+                      <option value="">— Tuỳ chọn —</option>
+                      {LEVELS.map((l) => (
+                        <option key={l}>{l}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <button
+                    onClick={run}
+                    disabled={loading || !industry || !position}
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1557ff] text-base font-bold text-white shadow-lg shadow-blue-500/25 hover:bg-[#0e3fd5] disabled:opacity-60"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="animate-spin" size={16} /> Đang sinh…
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles size={16} /> Sinh 10 câu hỏi
+                      </>
+                    )}
                   </button>
-                  {expandedIdx === idx && (
-                    <div className="px-8 pb-6 pl-20">
-                      <div className="bg-[#f0f9ff] rounded-2xl px-6 py-5">
-                        <p className="text-xs font-bold text-[#1557ff] uppercase tracking-wide mb-2">
-                          Gợi ý trả lời
-                        </p>
-                        <p className="text-sm text-[#434654] leading-relaxed whitespace-pre-wrap">
-                          {qa.suggested_answer}
-                        </p>
-                      </div>
-                    </div>
-                  )}
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
 
-          {/* Features */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Câu hỏi thực tế",
-                description:
-                  "Câu hỏi được tạo bởi AI dựa trên xu hướng phỏng vấn thực tế tại các công ty hàng đầu.",
-              },
-              {
-                title: "Gợi ý trả lời",
-                description:
-                  "Mỗi câu hỏi đi kèm gợi ý trả lời chi tiết để bạn tham khảo.",
-              },
-              {
-                title: "Luyện tập không giới hạn",
-                description:
-                  "Thực hành bao nhiêu lần tùy thích cho đến khi bạn tự tin hoàn toàn.",
-              },
-            ].map((feature) => (
-              <div
-                key={feature.title}
-                className="bg-white/80 backdrop-blur-xl rounded-[40px] p-8 space-y-4"
-              >
-                <h3
-                  className="text-lg font-extrabold text-[#191c1e]"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-[#434654] leading-relaxed">
-                  {feature.description}
+              <div className="rounded-3xl border border-amber-200 bg-amber-50/40 p-5">
+                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-amber-700">
+                  <Lightbulb size={14} /> Tip
+                </p>
+                <p className="mt-2 text-xs leading-6 text-slate-700">
+                  Sau khi sinh câu hỏi, click từng câu để xem gợi ý cách trả lời. Dùng kết hợp với{" "}
+                  <a href="/cong-cu/jd-match" className="font-black text-[#1557ff] hover:underline">
+                    JD Match
+                  </a>{" "}
+                  để biết câu nào liên quan đến điểm yếu trong CV của bạn.
                 </p>
               </div>
-            ))}
+            </aside>
+
+            {/* Result */}
+            <section>
+              {questions.length === 0 ? (
+                <div className="flex h-full min-h-[400px] flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
+                  <MessageSquareText size={36} className="text-[#1557ff]" />
+                  <p className="mt-4 text-base font-bold text-slate-700">
+                    Chọn ngành + vị trí + cấp bậc, AI sẽ sinh ra 10 câu hỏi tại đây.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {questions.map((qa, i) => {
+                    const expanded = expandedIdx === i;
+                    return (
+                      <div
+                        key={i}
+                        className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:border-blue-300"
+                      >
+                        <button
+                          onClick={() => setExpandedIdx(expanded ? null : i)}
+                          className="flex w-full items-start gap-3 p-5 text-left"
+                        >
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1557ff] text-xs font-black text-white">
+                            {i + 1}
+                          </span>
+                          <span className="flex-1 text-sm font-bold text-slate-800">
+                            {qa.question}
+                          </span>
+                          {expanded ? (
+                            <ChevronUp className="text-slate-400" size={18} />
+                          ) : (
+                            <ChevronDown className="text-slate-400" size={18} />
+                          )}
+                        </button>
+                        {expanded && (
+                          <div className="border-t border-slate-100 bg-slate-50/40 px-5 py-4">
+                            <p className="text-xs font-black uppercase tracking-wider text-emerald-700">
+                              💡 Gợi ý cách trả lời
+                            </p>
+                            <p className="mt-2 whitespace-pre-line text-sm leading-7 text-slate-700">
+                              {qa.suggested_answer}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
           </div>
         </div>
       </main>
