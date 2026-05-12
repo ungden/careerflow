@@ -5,8 +5,18 @@ import { Footer } from "@/components/layout/footer";
 import type { Metadata } from "next";
 import { Mail, MapPin, Globe, Link2, ExternalLink } from "lucide-react";
 import { ContactDialog } from "@/components/candidates/contact-dialog";
+import type { Education, Experience, Language, PersonalInfo, Project, Skill } from "@/lib/types";
 
 type Props = { params: Promise<{ slug: string }> };
+
+type PublishedCV = {
+  personal_info?: Partial<PersonalInfo>;
+  experiences?: Experience[];
+  education?: Education[];
+  skills?: Skill[];
+  languages?: Language[];
+  projects?: Project[];
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -45,12 +55,13 @@ export default async function CandidateProfilePage({ params }: Props) {
     .eq("is_primary", true)
     .single();
 
-  const info = cv?.personal_info || {};
-  const experiences = cv?.experiences || [];
-  const education = cv?.education || [];
-  const skills = cv?.skills || [];
-  const languages = cv?.languages || [];
-  const projects = cv?.projects || [];
+  const publishedCV = cv as PublishedCV | null;
+  const info = publishedCV?.personal_info || {};
+  const experiences = publishedCV?.experiences || [];
+  const education = publishedCV?.education || [];
+  const skills = publishedCV?.skills || [];
+  const languages = publishedCV?.languages || [];
+  const projects = publishedCV?.projects || [];
 
   const initials = (profile.full_name || "?")
     .split(" ")
@@ -143,7 +154,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
                   <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-6">Kinh nghiệm làm việc</h2>
                   <div className="space-y-6">
-                    {experiences.map((exp: any, i: number) => (
+                    {experiences.map((exp, i) => (
                       <div key={i} className="relative pl-6 border-l-2 border-[#e8f0fe]">
                         <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-[#1557ff]" />
                         <div className="flex justify-between items-start">
@@ -162,7 +173,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
                   <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-5">Học vấn</h2>
                   <div className="space-y-4">
-                    {education.map((edu: any, i: number) => (
+                    {education.map((edu, i) => (
                       <div key={i}>
                         <div className="flex justify-between items-start">
                           <h3 className="text-[15px] font-bold text-[#1a1a1a]">{edu.school}</h3>
@@ -179,7 +190,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
                   <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-5">Dự án</h2>
                   <div className="space-y-5">
-                    {projects.map((p: any, i: number) => (
+                    {projects.map((p, i) => (
                       <div key={i}>
                         <h3 className="text-[15px] font-bold text-[#1a1a1a]">{p.name}</h3>
                         {p.description && <p className="text-[13px] text-[#555] mt-1 leading-[1.7] whitespace-pre-line">{p.description}</p>}
@@ -214,7 +225,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
                   <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Kỹ năng</h2>
                   <div className="flex flex-wrap gap-2">
-                    {skills.map((s: any, i: number) => (
+                    {skills.map((s, i) => (
                       <span key={i} className="px-3 py-1.5 bg-[#e8f0fe] text-[#1557ff] rounded-full text-[12px] font-semibold">{s.name}</span>
                     ))}
                   </div>
@@ -225,7 +236,7 @@ export default async function CandidateProfilePage({ params }: Props) {
                 <div className="bg-white rounded-[24px] p-8 shadow-sm">
                   <h2 className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#1557ff] mb-4">Ngoại ngữ</h2>
                   <div className="space-y-2">
-                    {languages.map((l: any, i: number) => (
+                    {languages.map((l, i) => (
                       <div key={i} className="flex justify-between text-[13px]">
                         <span className="font-medium text-[#333]">{l.name}</span>
                         <span className="text-[#999]">{l.proficiency}</span>

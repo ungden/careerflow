@@ -2,6 +2,7 @@
 
 import { isPro as isProTier } from "@/lib/subscription";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useCVEditorStore } from "@/lib/store/cv-editor-store";
@@ -123,9 +124,9 @@ export default function CVEditorPage() {
             <span className="text-2xl font-black tracking-tighter text-blue-800" style={{ fontFamily: "var(--font-headline)" }}>YourCV</span>
             <nav className="hidden md:flex gap-6">
               <span className="text-blue-700 font-bold border-b-2 border-blue-700 pb-1 text-sm tracking-tight" style={{ fontFamily: "var(--font-headline)" }}>Tạo CV</span>
-              <a className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/viec-lam" style={{ fontFamily: "var(--font-headline)" }}>Việc làm</a>
-              <a className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/ung-vien" style={{ fontFamily: "var(--font-headline)" }}>Ứng viên</a>
-              <a className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/cong-cu" style={{ fontFamily: "var(--font-headline)" }}>Tools</a>
+              <Link className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/viec-lam" style={{ fontFamily: "var(--font-headline)" }}>Việc làm</Link>
+              <Link className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/ung-vien" style={{ fontFamily: "var(--font-headline)" }}>Ứng viên</Link>
+              <Link className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-semibold tracking-tight" href="/cong-cu" style={{ fontFamily: "var(--font-headline)" }}>Tools</Link>
             </nav>
           </div>
           <div className="flex items-center gap-4">

@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Inbox } from "lucide-react";
 import { MessageList } from "./message-list";
+import type { Message } from "./message-list";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,8 +24,8 @@ export default async function MessagesPage() {
     .eq("to_user_id", user.id)
     .order("created_at", { ascending: false });
 
-  const validMessages = messages || [];
-  const unreadCount = validMessages.filter((m: any) => !m.is_read).length;
+  const validMessages = (messages || []) as Message[];
+  const unreadCount = validMessages.filter((m) => !m.is_read).length;
 
   return (
     <div className="space-y-8">
@@ -61,7 +62,7 @@ export default async function MessagesPage() {
           </p>
         </div>
       ) : (
-        <MessageList messages={validMessages as any} />
+        <MessageList messages={validMessages} />
       )}
     </div>
   );

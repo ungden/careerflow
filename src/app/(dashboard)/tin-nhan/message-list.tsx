@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Mail, MailOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
-interface Message {
+export interface Message {
   id: string;
   subject: string | null;
   content: string;

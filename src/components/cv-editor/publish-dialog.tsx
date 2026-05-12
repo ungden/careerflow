@@ -58,16 +58,19 @@ export function PublishDialog() {
   useEffect(() => {
     if (slug) return;
     if (cv?.personal_info.full_name) {
-      const generated = cv.personal_info.full_name
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/đ/g, "d")
-        .replace(/Đ/g, "D")
-        .replace(/[^a-z0-9\s-]/g, "")
-        .trim()
-        .replace(/\s+/g, "-");
-      setSlug(generated);
+      const timer = window.setTimeout(() => {
+        const generated = cv.personal_info.full_name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-");
+        setSlug(generated);
+      }, 0);
+      return () => window.clearTimeout(timer);
     }
   }, [cv?.personal_info.full_name, slug]);
 
