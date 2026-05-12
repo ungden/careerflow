@@ -2,17 +2,17 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-[#0b1628] text-slate-300 w-full py-12 px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+    <footer className="w-full border-t border-slate-200 bg-white px-4 py-10 text-slate-500 sm:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 md:grid-cols-2">
         <div className="space-y-4">
-          <div className="text-lg font-bold text-white" style={{ fontFamily: "var(--font-headline)" }}>
-            YourCV
+          <div className="text-2xl font-black text-[#1557ff]">
+            Your<span className="text-[#20b26b]">CV</span>
           </div>
-          <p className="text-sm text-slate-400">
-            &copy; {new Date().getFullYear()} YourCV. The Editorial Architect.
+          <p className="text-sm font-medium text-slate-500">
+            &copy; {new Date().getFullYear()} YourCV. Tạo CV chuyên nghiệp cho người Việt.
           </p>
         </div>
-        <div className="flex flex-wrap gap-8 justify-start md:justify-end">
+        <div className="flex flex-wrap justify-start gap-6 md:justify-end">
           {[
             { href: "/lien-he", label: "Về chúng tôi" },
             { href: "/dieu-khoan", label: "Điều khoản" },
@@ -23,7 +23,7 @@ export function Footer() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm text-slate-400 hover:text-white underline decoration-slate-600 underline-offset-4 opacity-80 hover:opacity-100 transition-all"
+              className="text-sm font-bold text-slate-500 transition hover:text-[#1557ff]"
             >
               {link.label}
             </Link>

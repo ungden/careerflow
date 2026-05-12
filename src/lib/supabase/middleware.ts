@@ -37,11 +37,13 @@ export async function updateSession(request: NextRequest) {
   // Public exceptions are evaluated first so things like /cv/p/[slug] (the
   // public CV share viewer) don't get gated behind auth.
   const publicPrefixes = ["/cv/p/"];
+  const publicPaths = ["/cv/moi"];
   const protectedPaths = ["/dashboard", "/cv", "/ho-so", "/nha-tuyen-dung", "/viec-da-luu", "/tin-nhan"];
   const path = request.nextUrl.pathname;
   const isPublicException = publicPrefixes.some((p) => path.startsWith(p));
+  const isPublicPath = publicPaths.includes(path);
   const isProtected =
-    !isPublicException && protectedPaths.some((p) => path.startsWith(p));
+    !isPublicException && !isPublicPath && protectedPaths.some((p) => path.startsWith(p));
 
   if (isProtected && !user) {
     const url = request.nextUrl.clone();

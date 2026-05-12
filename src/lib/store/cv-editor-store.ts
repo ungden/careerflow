@@ -10,6 +10,7 @@ import type {
   Project,
 } from "@/lib/types";
 import { createClient } from "@/lib/supabase/client";
+import { cloneSampleCVData, emptyCVData, getSampleCvPreset } from "@/lib/cv-samples";
 
 interface CVEditorState {
   cv: CVData | null;
@@ -20,7 +21,7 @@ interface CVEditorState {
 
   // Actions
   loadCV: (id: string) => Promise<void>;
-  initNewCV: (templateId: string) => Promise<string | null>;
+  initNewCV: (templateId: string, sampleId?: string) => Promise<string | null>;
   setActiveSection: (section: string) => void;
   setTemplate: (templateId: string) => void;
 
@@ -68,20 +69,6 @@ const debouncedSave = (saveFn: () => Promise<void>) => {
   saveTimeout = setTimeout(() => saveFn(), 800);
 };
 
-const emptyPersonalInfo: PersonalInfo = {
-  full_name: "",
-  title: "",
-  email: "",
-  phone: "",
-  address: "",
-  date_of_birth: "",
-  summary: "",
-  photo_url: "",
-  website: "",
-  linkedin: "",
-  github: "",
-};
-
 export const useCVEditorStore = create<CVEditorState>((set, get) => ({
   cv: null,
   activeSection: "personal",
@@ -101,26 +88,30 @@ export const useCVEditorStore = create<CVEditorState>((set, get) => ({
     set({ cv: data as CVData, isDirty: false });
   },
 
-  initNewCV: async (templateId: string) => {
+  initNewCV: async (templateId: string, sampleId?: string) => {
     const supabase = createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return null;
 
+    const preset = getSampleCvPreset(sampleId);
+    const seed = cloneSampleCVData(preset?.data ?? emptyCVData);
+    const title = preset ? `${preset.name} - ${seed.personal_info.full_name}` : "CV chưa đặt tên";
+
     const { data, error } = await supabase
       .from("cvs")
       .insert({
         user_id: user.id,
-        title: "CV chưa đặt tên",
+        title,
         template_id: templateId,
-        personal_info: emptyPersonalInfo,
-        experiences: [],
-        education: [],
-        skills: [],
-        languages: [],
-        certifications: [],
-        projects: [],
+        personal_info: seed.personal_info,
+        experiences: seed.experiences,
+        education: seed.education,
+        skills: seed.skills,
+        languages: seed.languages,
+        certifications: seed.certifications,
+        projects: seed.projects,
       })
       .select()
       .single();

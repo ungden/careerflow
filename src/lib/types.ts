@@ -74,6 +74,27 @@ export interface CVData {
   updated_at: string;
 }
 
+export type SampleCVData = Pick<
+  CVData,
+  | "personal_info"
+  | "experiences"
+  | "education"
+  | "skills"
+  | "languages"
+  | "certifications"
+  | "projects"
+>;
+
+export interface SampleCVPreset {
+  id: string;
+  name: string;
+  industry: string;
+  level: string;
+  description: string;
+  recommendedTemplateIds: string[];
+  data: SampleCVData;
+}
+
 export interface Profile {
   id: string;
   email: string;

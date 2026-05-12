@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -12,7 +12,8 @@ const navItems = [
   { href: "/cv/moi", label: "Tạo CV" },
   { href: "/viec-lam", label: "Việc làm" },
   { href: "/ung-vien", label: "Ứng viên" },
-  { href: "/cong-cu", label: "Tools" },
+  { href: "/cong-ty", label: "Nhà tuyển dụng" },
+  { href: "/cong-cu", label: "Công cụ" },
 ];
 
 export function Header() {
@@ -22,11 +23,11 @@ export function Header() {
   const isActive = (href: string) => pathname.startsWith(href.split("/").slice(0, 2).join("/"));
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_3px_rgba(11,22,40,0.08),0_8px_24px_rgba(11,22,40,0.04)]">
-      <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-8">
+    <header className="fixed top-0 w-full z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-black tracking-tighter text-blue-800 font-[var(--font-headline)]" style={{ fontFamily: "var(--font-headline)" }}>
-          YourCV
+        <Link href="/" className="text-3xl font-black tracking-normal text-[#1557ff]">
+          Your<span className="text-[#20b26b]">CV</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -36,12 +37,11 @@ export function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-semibold tracking-tight transition-colors",
+                "text-sm font-semibold transition-colors",
                 isActive(item.href)
                   ? "text-blue-700 font-bold border-b-2 border-blue-700 pb-1"
                   : "text-slate-600 hover:text-blue-600"
               )}
-              style={{ fontFamily: "var(--font-headline)" }}
             >
               {item.label}
             </Link>
@@ -52,23 +52,21 @@ export function Header() {
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="/dang-nhap"
-            className="text-sm font-semibold text-blue-700 px-6 py-2 hover:bg-slate-50 rounded-lg transition-all"
-            style={{ fontFamily: "var(--font-headline)" }}
+            className="rounded-md px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-50 hover:text-[#1557ff]"
           >
             Đăng nhập
           </Link>
           <Link
-            href="/dang-ky"
-            className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg hover:opacity-90 transition-all"
-            style={{ fontFamily: "var(--font-headline)" }}
+            href="/cv/moi"
+            className="inline-flex h-10 items-center rounded-md bg-[#1557ff] px-4 text-sm font-bold text-white shadow-sm shadow-blue-500/25"
           >
-            Bắt đầu ngay
+            Tạo CV miễn phí
           </Link>
         </div>
 
         {/* Mobile Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger className="md:hidden p-2 rounded-lg hover:bg-slate-50 transition-colors">
+          <SheetTrigger className="rounded-md p-2 transition-colors hover:bg-slate-50 md:hidden">
             <Menu className="h-5 w-5 text-slate-700" />
             <span className="sr-only">Menu</span>
           </SheetTrigger>
@@ -81,12 +79,11 @@ export function Header() {
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "px-4 py-3 text-base font-semibold rounded-xl transition-colors",
+                    "px-4 py-3 text-base font-semibold rounded-md transition-colors",
                     isActive(item.href)
                       ? "text-blue-700 bg-blue-50"
                       : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"
                   )}
-                  style={{ fontFamily: "var(--font-headline)" }}
                 >
                   {item.label}
                 </Link>
@@ -100,11 +97,11 @@ export function Header() {
                   Đăng nhập
                 </Link>
                 <Link
-                  href="/dang-ky"
+                  href="/cv/moi"
                   onClick={() => setOpen(false)}
-                  className="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-xl text-center"
+                  className="rounded-md bg-[#1557ff] px-6 py-3 text-center text-sm font-bold text-white"
                 >
-                  Bắt đầu miễn phí
+                  Tạo CV miễn phí
                 </Link>
               </div>
             </div>
